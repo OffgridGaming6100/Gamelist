@@ -39,6 +39,7 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            padding-bottom: 120px; /* Space for mobile floating drawer */
         }
 
         /* Header section */
@@ -67,29 +68,6 @@
         .site-logo:hover {
             transform: scale(1.03);
             filter: drop-shadow(0 0 25px rgba(255, 94, 0, 0.6));
-        }
-
-        .site-title {
-            font-family: 'Teko', sans-serif;
-            font-size: 3rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            color: #fff;
-            text-shadow: 0 0 20px rgba(255, 94, 0, 0.5);
-            line-height: 0.9;
-        }
-
-        .site-title span {
-            color: var(--accent-orange);
-        }
-
-        .tagline {
-            font-size: 0.85rem;
-            font-weight: 700;
-            letter-spacing: 4px;
-            color: var(--accent-orange);
-            text-transform: uppercase;
-            margin-top: 5px;
         }
 
         /* Search Bar */
@@ -517,6 +495,38 @@
         footer span {
             color: var(--accent-orange);
         }
+
+        /* Mobile Viewports Optimization */
+        @media (max-width: 600px) {
+            .container {
+                padding: 10px;
+            }
+
+            .game-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 12px;
+            }
+
+            .card-img {
+                height: 140px;
+            }
+
+            .game-title {
+                font-size: 0.95rem;
+            }
+
+            .cart-widget {
+                left: 10px;
+                right: 10px;
+                bottom: 10px;
+                width: calc(100% - 20px);
+                max-height: 280px;
+            }
+
+            .cart-items {
+                max-height: 120px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -537,7 +547,6 @@
 
     <!-- Main Section -->
     <main class="container">
-        <!-- Game Cards -->
         <div class="game-grid" id="gameGrid">
             
             <!-- Game Card 1 -->
@@ -763,7 +772,7 @@
             countElement.innerText = `(${selectedGames.size})`;
         }
 
-        // Copy List to Clipboard
+        // Copy List to Clipboard with Universal Mobile Fallback
         function copySelectedList() {
             if (selectedGames.size === 0) return;
 
@@ -777,18 +786,53 @@
 
             textToCopy += `\n💾 Total Required Storage: ${totalGB} GB`;
 
-            navigator.clipboard.writeText(textToCopy).then(() => {
-                const btn = document.getElementById('btnCopyDrawer');
-                btn.classList.add('copied');
-                btn.innerHTML = `<i class="fa-solid fa-check"></i> Copied to Clipboard!`;
+            // 1. Try modern Async Clipboard API
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(textToCopy)
+                    .then(showCopySuccess)
+                    .catch(() => fallbackCopyText(textToCopy));
+            } else {
+                // 2. Fallback for iOS/Huawei/Non-HTTPS environments
+                fallbackCopyText(textToCopy);
+            }
+        }
 
-                setTimeout(() => {
-                    btn.classList.remove('copied');
-                    btn.innerHTML = `<i class="fa-regular fa-copy"></i> Copy Selected List`;
-                }, 2000);
-            }).catch(err => {
-                console.error('Copy failed:', err);
-            });
+        function fallbackCopyText(text) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            
+            // Prevent viewport jumps on iOS/Android
+            textArea.style.top = "0";
+            textArea.style.left = "0";
+            textArea.style.position = "fixed";
+            textArea.style.opacity = "0";
+
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+
+            // iOS range selection fix
+            textArea.setSelectionRange(0, 99999);
+
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) showCopySuccess();
+            } catch (err) {
+                alert("Selection copied text manually:\n" + text);
+            }
+
+            document.body.removeChild(textArea);
+        }
+
+        function showCopySuccess() {
+            const btn = document.getElementById('btnCopyDrawer');
+            btn.classList.add('copied');
+            btn.innerHTML = `<i class="fa-solid fa-check"></i> Copied!`;
+
+            setTimeout(() => {
+                btn.classList.remove('copied');
+                btn.innerHTML = `<i class="fa-regular fa-copy"></i> Copy Selected List`;
+            }, 2000);
         }
 
         // Modal triggers
