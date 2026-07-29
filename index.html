@@ -5,24 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Offgrid Gaming | Instant. Offline. Play.</title>
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@600;700&family=Inter:wght@400;500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@600;700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
-            --bg-dark: #0b0d10;
-            --bg-card: #151921;
-            --bg-card-hover: #1c222d;
-            --accent-orange: #ff5e00;
-            --accent-glow: #ff7700;
-            --accent-cyan: #00f0ff;
-            --accent-green: #00ff66;
-            --accent-red: #ff3355;
-            --accent-yellow: #ffcc00;
-            --border-color: #262e3d;
-            --text-main: #f0f2f5;
-            --text-muted: #8d98a7;
+            --bg-dark: #0b0a10;
+            --bg-card: #161220;
+            --bg-card-hover: #1f1a2e;
+            --accent-orange: #ff6a00;
+            --accent-purple: #9d4edd;
+            --accent-purple-glow: #7b2cbf;
+            --accent-purple-light: #c77dff;
+            --accent-green: #00e676;
+            --accent-red: #ff3366;
+            --border-color: #2e2440;
+            --text-main: #f3effa;
+            --text-muted: #9a8cae;
         }
 
         * {
@@ -36,7 +36,7 @@
             background-color: var(--bg-dark);
             color: var(--text-main);
             background-image: 
-                radial-gradient(circle at 50% 0%, rgba(255, 94, 0, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 50% 0%, rgba(157, 78, 221, 0.18) 0%, transparent 60%),
                 linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
                 linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
             background-size: 100% 100%, 40px 40px, 40px 40px;
@@ -50,14 +50,14 @@
             text-align: center;
             padding: 25px 20px 15px;
             border-bottom: 1px solid var(--border-color);
-            background: linear-gradient(180deg, rgba(11,13,16,0.95) 0%, rgba(11,13,16,0.8) 100%);
+            background: linear-gradient(180deg, rgba(11,10,16,0.95) 0%, rgba(11,10,16,0.85) 100%);
         }
 
         .site-logo {
             max-width: 200px;
             height: auto;
             margin-bottom: 10px;
-            filter: drop-shadow(0 0 15px rgba(255, 94, 0, 0.4));
+            filter: drop-shadow(0 0 18px rgba(157, 78, 221, 0.5));
         }
 
         /* --- CONTROL PANEL & RIG ANALYZER --- */
@@ -71,12 +71,11 @@
             gap: 15px;
         }
 
-        /* Centered Rig Analyzer Panel (Logo Matched) */
         .rig-analyzer-panel {
-            background: rgba(21, 25, 33, 0.95);
-            border: 1px solid var(--accent-orange);
-            box-shadow: 0 0 15px rgba(255, 94, 0, 0.2), inset 0 0 15px rgba(255, 94, 0, 0.05);
-            border-radius: 8px;
+            background: rgba(22, 18, 32, 0.95);
+            border: 1px solid var(--accent-purple);
+            box-shadow: 0 0 20px rgba(157, 78, 221, 0.25), inset 0 0 15px rgba(255, 106, 0, 0.05);
+            border-radius: 10px;
             padding: 20px 15px;
             display: flex;
             flex-direction: column;
@@ -88,10 +87,10 @@
 
         .rig-title {
             font-family: 'Teko', sans-serif;
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             letter-spacing: 1.2px;
             color: var(--accent-orange);
-            text-shadow: 0 0 10px rgba(255, 94, 0, 0.4);
+            text-shadow: 0 0 12px rgba(255, 106, 0, 0.4);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -108,23 +107,23 @@
         }
 
         .btn-preset {
-            background: rgba(11, 13, 16, 0.8);
+            background: rgba(11, 10, 16, 0.8);
             border: 1px solid var(--border-color);
             color: var(--text-muted);
             padding: 8px 16px;
-            border-radius: 4px;
+            border-radius: 6px;
             font-size: 0.8rem;
-            font-weight: bold;
+            font-weight: 700;
             cursor: pointer;
             transition: all 0.25s ease;
             text-transform: uppercase;
         }
 
         .btn-preset:hover, .btn-preset.active {
-            color: var(--accent-cyan);
-            border-color: var(--accent-cyan);
-            background: rgba(0, 240, 255, 0.12);
-            box-shadow: 0 0 12px rgba(0, 240, 255, 0.3);
+            color: #fff;
+            border-color: var(--accent-orange);
+            background: linear-gradient(135deg, rgba(157, 78, 221, 0.3) 0%, rgba(255, 106, 0, 0.3) 100%);
+            box-shadow: 0 0 12px rgba(255, 106, 0, 0.35);
         }
 
         .search-box {
@@ -145,8 +144,8 @@
         }
 
         .search-box input:focus {
-            border-color: var(--accent-orange);
-            box-shadow: 0 0 15px rgba(255, 94, 0, 0.3);
+            border-color: var(--accent-purple);
+            box-shadow: 0 0 15px rgba(157, 78, 221, 0.35);
         }
 
         .search-box i {
@@ -174,7 +173,7 @@
         .game-card {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
-            border-radius: 8px;
+            border-radius: 10px;
             overflow: hidden;
             display: flex;
             flex-direction: column;
@@ -185,12 +184,12 @@
         .game-card:hover {
             transform: translateY(-5px);
             border-color: var(--accent-orange);
-            box-shadow: 0 5px 20px rgba(255, 94, 0, 0.25);
+            box-shadow: 0 6px 22px rgba(255, 106, 0, 0.25);
         }
 
         .game-card.selected {
             border: 2px solid var(--accent-orange);
-            box-shadow: 0 0 20px rgba(255, 94, 0, 0.5);
+            box-shadow: 0 0 20px rgba(255, 106, 0, 0.45);
             background: var(--bg-card-hover);
         }
 
@@ -198,25 +197,24 @@
             width: 100%;
             height: 200px;
             object-fit: cover;
-            background-color: #0d0f12;
+            background-color: #0b0a10;
             border-bottom: 1px solid var(--border-color);
         }
 
-        /* --- CENTERED HUD STATUS BADGES --- */
+        /* --- STATUS BADGES --- */
         .hud-status-badge {
             position: absolute;
             top: 10px;
             left: 50%;
             transform: translateX(-50%);
-            font-family: 'Share Tech Mono', monospace;
             font-size: 0.7rem;
             font-weight: 700;
             padding: 4px 10px;
-            border-radius: 4px;
+            border-radius: 6px;
             text-transform: uppercase;
-            letter-spacing: 0.8px;
+            letter-spacing: 0.5px;
             z-index: 10;
-            background: rgba(10, 12, 16, 0.92);
+            background: rgba(11, 10, 16, 0.92);
             backdrop-filter: blur(6px);
             display: inline-flex;
             align-items: center;
@@ -227,19 +225,19 @@
         .hud-status-badge.status-ready {
             color: var(--accent-green);
             border: 1px solid var(--accent-green);
-            box-shadow: 0 0 10px rgba(0, 255, 102, 0.4), inset 0 0 8px rgba(0, 255, 102, 0.15);
+            box-shadow: 0 0 10px rgba(0, 230, 118, 0.35);
         }
 
         .hud-status-badge.status-warning {
             color: var(--accent-red);
             border: 1px solid var(--accent-red);
-            box-shadow: 0 0 10px rgba(255, 51, 85, 0.4), inset 0 0 8px rgba(255, 51, 85, 0.15);
+            box-shadow: 0 0 10px rgba(255, 51, 102, 0.35);
         }
 
         .hud-status-badge.status-vram {
-            color: var(--accent-yellow);
-            border: 1px solid var(--accent-yellow);
-            box-shadow: 0 0 10px rgba(255, 204, 0, 0.4), inset 0 0 8px rgba(255, 204, 0, 0.15);
+            color: var(--accent-orange);
+            border: 1px solid var(--accent-orange);
+            box-shadow: 0 0 10px rgba(255, 106, 0, 0.35);
         }
 
         .card-content {
@@ -277,11 +275,11 @@
         .btn-play {
             width: 100%;
             padding: 10px;
-            background: linear-gradient(135deg, #ff5e00 0%, #ff8800 100%);
+            background: linear-gradient(135deg, var(--accent-purple) 0%, var(--accent-orange) 100%);
             color: #fff;
             font-weight: bold;
             font-size: 0.85rem;
-            border-radius: 4px;
+            border-radius: 6px;
             text-transform: uppercase;
             border: none;
             cursor: pointer;
@@ -289,7 +287,7 @@
         }
 
         .game-card.selected .btn-play {
-            background: #262e3d;
+            background: #231b33;
             color: var(--accent-orange);
             border: 1px solid var(--accent-orange);
         }
@@ -297,12 +295,12 @@
         .btn-reqs {
             width: 100%;
             padding: 8px;
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.04);
             color: var(--text-muted);
             font-size: 0.75rem;
             font-weight: 600;
             border: 1px solid var(--border-color);
-            border-radius: 4px;
+            border-radius: 6px;
             cursor: pointer;
             transition: all 0.2s;
             display: flex;
@@ -313,28 +311,28 @@
         }
 
         .btn-reqs:hover {
-            background: rgba(0, 240, 255, 0.1);
-            color: var(--accent-cyan);
-            border-color: var(--accent-cyan);
+            background: rgba(157, 78, 221, 0.15);
+            color: var(--accent-purple-light);
+            border-color: var(--accent-purple);
         }
 
-        /* --- SIMPLE FLOATING WINDOW MODAL (NO BACKGROUND BLUR / NO FULLSCREEN OVERLAY) --- */
+        /* --- MODERN CLEAN FLOATING WINDOW SYSTEM REQUIREMENTS --- */
         .modal-container {
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%) scale(0.95);
             background: var(--bg-card);
-            border: 2px solid var(--accent-orange);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9), 0 0 20px rgba(255, 94, 0, 0.3);
-            border-radius: 8px;
+            border: 1px solid var(--accent-purple);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9), 0 0 25px rgba(157, 78, 221, 0.25);
+            border-radius: 12px;
             width: 90%;
             max-width: 440px;
-            padding: 20px;
+            padding: 22px;
             z-index: 2000;
             opacity: 0;
             pointer-events: none;
-            transition: all 0.25s ease-in-out;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .modal-container.active {
@@ -347,63 +345,77 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid rgba(255, 94, 0, 0.3);
-            padding-bottom: 10px;
-            margin-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 12px;
+            margin-bottom: 16px;
         }
 
         .modal-title {
-            font-family: 'Teko', sans-serif;
-            font-size: 1.6rem;
-            color: var(--accent-orange);
-            letter-spacing: 1px;
-            text-transform: uppercase;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #fff;
             display: flex;
             align-items: center;
             gap: 8px;
         }
 
-        .btn-close-modal {
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: color 0.2s;
-        }
-
-        .btn-close-modal:hover {
+        .modal-title i {
             color: var(--accent-orange);
         }
 
-        .reqs-list {
-            list-style: none;
-            font-size: 0.85rem;
+        .btn-close-modal {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            width: 28px;
+            height: 28px;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-close-modal:hover {
+            color: #fff;
+            border-color: var(--accent-orange);
+            background: var(--accent-orange);
+        }
+
+        .reqs-grid {
             display: flex;
             flex-direction: column;
             gap: 10px;
-            font-family: 'Share Tech Mono', monospace;
         }
 
-        .reqs-list li {
+        .req-card-row {
             display: flex;
             justify-content: space-between;
-            padding: 8px 12px;
-            background: rgba(11, 13, 16, 0.6);
+            align-items: center;
+            padding: 10px 14px;
+            background: rgba(11, 10, 16, 0.6);
             border: 1px solid var(--border-color);
-            border-radius: 4px;
+            border-radius: 8px;
         }
 
-        .reqs-label {
-            color: var(--accent-cyan);
+        .req-card-label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--accent-purple-light);
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
-        .reqs-value {
+        .req-card-value {
+            font-size: 0.85rem;
             color: #fff;
-            font-weight: bold;
+            font-weight: 700;
+            text-align: right;
         }
 
-        /* --- SCI-FI SIDEBAR / DRAWER --- */
+        /* --- SIDEBAR / DRAWER --- */
         .cart-widget {
             position: fixed;
             bottom: 20px;
@@ -411,9 +423,9 @@
             width: 360px;
             max-width: calc(100vw - 40px);
             background: var(--bg-card);
-            border: 1px solid var(--accent-orange);
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.85), 0 0 15px rgba(255, 94, 0, 0.15);
+            border: 1px solid var(--accent-purple);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.85), 0 0 20px rgba(157, 78, 221, 0.2);
             display: flex;
             flex-direction: column;
             z-index: 1000;
@@ -421,7 +433,7 @@
         }
 
         .cart-header {
-            background: rgba(255, 94, 0, 0.15);
+            background: rgba(157, 78, 221, 0.15);
             padding: 12px 15px;
             font-weight: bold;
             display: flex;
@@ -429,7 +441,7 @@
             align-items: center;
             border-bottom: 1px solid var(--border-color);
             font-size: 0.95rem;
-            color: var(--accent-orange);
+            color: var(--accent-purple-light);
         }
 
         .cart-items {
@@ -458,11 +470,10 @@
         }
 
         .cart-item-title i {
-            color: var(--accent-cyan);
+            color: var(--accent-orange);
             font-size: 0.8rem;
         }
 
-        /* --- ENHANCED STORAGE SECTION WITH SSD ICON --- */
         .ssd-storage-section {
             padding: 12px 15px;
             background: rgba(0, 0, 0, 0.4);
@@ -470,7 +481,6 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            font-family: 'Share Tech Mono', monospace;
         }
 
         .ssd-label-row {
@@ -489,21 +499,21 @@
         }
 
         .ssd-icon {
-            color: var(--accent-cyan);
+            color: var(--accent-orange);
             font-size: 1rem;
             animation: pulse-glow 2s infinite ease-in-out;
         }
 
         @keyframes pulse-glow {
             0%, 100% { opacity: 0.6; }
-            50% { opacity: 1; filter: drop-shadow(0 0 5px var(--accent-cyan)); }
+            50% { opacity: 1; filter: drop-shadow(0 0 5px var(--accent-orange)); }
         }
 
         .ssd-val-highlight {
             color: var(--accent-orange);
             font-weight: bold;
             font-size: 0.95rem;
-            text-shadow: 0 0 8px rgba(255, 94, 0, 0.3);
+            text-shadow: 0 0 8px rgba(255, 106, 0, 0.3);
         }
 
         .cart-footer {
@@ -513,7 +523,7 @@
         }
 
         .btn-copy-drawer {
-            background: var(--accent-orange);
+            background: linear-gradient(135deg, var(--accent-purple) 0%, var(--accent-orange) 100%);
             color: #fff;
             border: none;
             padding: 10px;
@@ -551,7 +561,7 @@
     </header>
 
     <div class="controls">
-        <!-- RIG COMPATIBILITY ANALYZER PANEL (MATCHED TO LOGO PALETTE) -->
+        <!-- RIG ANALYZER PANEL -->
         <div class="rig-analyzer-panel">
             <div class="rig-title">
                 <i class="fa-solid fa-microchip"></i> System Rig Compatibility Profile
@@ -652,7 +662,6 @@
             <div class="empty-msg">No games selected.</div>
         </ul>
 
-        <!-- STORAGE DISPLAY SECTION WITH SSD ICON DETAIL -->
         <div class="ssd-storage-section">
             <div class="ssd-label-row">
                 <div class="ssd-info-group">
@@ -670,19 +679,34 @@
         </div>
     </div>
 
-    <!-- COMPACT FLOATING SYSTEM REQUIREMENTS WINDOW (NO BACKDROP / BLUR) -->
+    <!-- MODERN CLEAN FLOATING WINDOW SYSTEM REQUIREMENTS -->
     <div class="modal-container" id="reqsModal">
         <div class="modal-header">
-            <div class="modal-title"><i class="fa-solid fa-terminal"></i> <span id="modalGameTitle">Game Requirements</span></div>
+            <div class="modal-title"><i class="fa-solid fa-desktop"></i> <span id="modalGameTitle">Game Requirements</span></div>
             <button class="btn-close-modal" id="btnCloseModal"><i class="fa-solid fa-xmark"></i></button>
         </div>
-        <ul class="reqs-list">
-            <li><span class="reqs-label">MINIMUM RAM:</span> <span class="reqs-value" id="modalRam">-</span></li>
-            <li><span class="reqs-label">MINIMUM VRAM:</span> <span class="reqs-value" id="modalVram">-</span></li>
-            <li><span class="reqs-label">CPU:</span> <span class="reqs-value" id="modalCpu">-</span></li>
-            <li><span class="reqs-label">GPU:</span> <span class="reqs-value" id="modalGpu">-</span></li>
-            <li><span class="reqs-label">STORAGE:</span> <span class="reqs-value" id="modalStorage">-</span></li>
-        </ul>
+        <div class="reqs-grid">
+            <div class="req-card-row">
+                <span class="req-card-label"><i class="fa-solid fa-memory"></i> RAM:</span>
+                <span class="req-card-value" id="modalRam">-</span>
+            </div>
+            <div class="req-card-row">
+                <span class="req-card-label"><i class="fa-solid fa-microchip"></i> VRAM:</span>
+                <span class="req-card-value" id="modalVram">-</span>
+            </div>
+            <div class="req-card-row">
+                <span class="req-card-label"><i class="fa-solid fa-server"></i> CPU:</span>
+                <span class="req-card-value" id="modalCpu">-</span>
+            </div>
+            <div class="req-card-row">
+                <span class="req-card-label"><i class="fa-solid fa-display"></i> GPU:</span>
+                <span class="req-card-value" id="modalGpu">-</span>
+            </div>
+            <div class="req-card-row">
+                <span class="req-card-label"><i class="fa-solid fa-hard-drive"></i> STORAGE:</span>
+                <span class="req-card-value" id="modalStorage">-</span>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -730,7 +754,7 @@
             analyzeRigCompatibility();
         });
 
-        // Dynamic System Hardware Check
+        // Hardware Compatibility Check
         function analyzeRigCompatibility() {
             document.querySelectorAll('.game-card').forEach(card => {
                 const reqRam = parseInt(card.dataset.ram, 10);
@@ -787,7 +811,7 @@
             }
         });
 
-        // Close Floating Window Modal Handlers
+        // Close Floating Window Handlers
         btnCloseModal.addEventListener('click', () => reqsModal.classList.remove('active'));
 
         // Update Storage & Selection UI
@@ -816,28 +840,25 @@
             selectedCountEl.innerText = `(${selectedGames.size})`;
         }
 
-        // Cross-Browser Copy Function (Gaming Icons Included in Output)
+        // Facebook DM Optimized Copy Output (No dashes/ascii borders)
         async function copySelectionList() {
             if (selectedGames.size === 0) return;
 
             let totalGB = 0;
-            let textToCopy = "🎮 OFFGRID GAMING - SELECTED PAYLOAD LOADOUT 🎮\n";
-            textToCopy += "═══════════════════════════════════════════\n";
+            let textToCopy = "🎮 OFFGRID GAMING SELECTED PAYLOAD 🎮\n\n";
 
             selectedGames.forEach((game) => {
-                textToCopy += `🕹️ ${game.title} - [${game.size} GB]\n`;
+                textToCopy += `🕹️ ${game.title} (${game.size} GB)\n`;
                 totalGB += game.size;
             });
 
-            textToCopy += "═══════════════════════════════════════════\n";
-            textToCopy += `💾 TOTAL STORAGE REQUIRED: ${totalGB} GB\n`;
-            textToCopy += "⚡ READY FOR OFFLINE DEPLOYMENT ⚡\n";
+            textToCopy += `\n💾 TOTAL STORAGE: ${totalGB} GB\n`;
+            textToCopy += "⚡ READY FOR DEPLOYMENT ⚡";
 
             try {
                 if (navigator.clipboard && window.isSecureContext) {
                     await navigator.clipboard.writeText(textToCopy);
                 } else {
-                    // Fallback for legacy mobile/web browsers
                     const textArea = document.createElement("textarea");
                     textArea.value = textToCopy;
                     textArea.style.position = "fixed";
@@ -850,7 +871,6 @@
                     textArea.remove();
                 }
 
-                // Temporary Success Feedback
                 const originalText = btnCopyDrawer.innerHTML;
                 btnCopyDrawer.innerHTML = `<i class="fa-solid fa-check"></i> Copied to Clipboard!`;
                 btnCopyDrawer.style.background = "var(--accent-green)";
@@ -858,7 +878,7 @@
 
                 setTimeout(() => {
                     btnCopyDrawer.innerHTML = originalText;
-                    btnCopyDrawer.style.background = "var(--accent-orange)";
+                    btnCopyDrawer.style.background = "linear-gradient(135deg, var(--accent-purple) 0%, var(--accent-orange) 100%)";
                     btnCopyDrawer.style.color = "#fff";
                 }, 2000);
 
