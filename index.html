@@ -767,9 +767,9 @@
                 <i class="fa-solid fa-microchip"></i> System Rig Compatibility Profile
             </div>
             <div class="preset-buttons" id="rigPresets">
-                <button class="btn-preset active" data-ram="8" data-vram="4">Budget Rig (8GB RAM / 4GB VRAM)</button>
-                <button class="btn-preset" data-ram="16" data-vram="6">Mid Gaming (16GB RAM / 6GB VRAM)</button>
-                <button class="btn-preset" data-ram="32" data-vram="12">Beast Mode (32GB RAM / 12GB VRAM)</button>
+                <button class="btn-preset active" data-ram="4" data-vram="1">Low Spec / iGPU (4GB RAM / 1GB VRAM)</button>
+                <button class="btn-preset" data-ram="8" data-vram="2">Budget Gaming (8GB RAM / 2GB VRAM)</button>
+                <button class="btn-preset" data-ram="16" data-vram="6">Mid / High Rig (16GB RAM / 6GB VRAM)</button>
             </div>
         </div>
 
@@ -1082,7 +1082,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             const state = {
                 selectedIds: new Set(),
-                activePreset: { ram: 8, vram: 4 },
+                activePreset: { ram: 4, vram: 1 },
                 currentGenre: 'all',
                 searchQuery: '',
                 sortOption: 'name-asc'
@@ -1120,27 +1120,35 @@
 
                     if (!hud || !fps || !tweak) return;
 
-                    let ramOk = state.activePreset.ram >= reqRam;
-                    let vramOk = state.activePreset.vram >= reqVram;
+                    const hasRam = state.activePreset.ram >= reqRam;
+                    const hasVram = state.activePreset.vram >= reqVram;
 
-                    if (ramOk && vramOk) {
+                    if (hasRam && hasVram) {
                         hud.className = 'hud-status-badge status-ready';
                         hud.innerHTML = '<i class="fa-solid fa-check"></i> Compatible';
-                        
-                        let fpsVal = Math.min(144, Math.floor(60 * (state.activePreset.vram / reqVram)));
-                        fps.innerHTML = `<i class="fa-solid fa-gauge-high"></i> ~${fpsVal} FPS`;
-                        tweak.innerHTML = '<i class="fa-solid fa-sliders"></i> High / Ultra Settings';
-                    } else if (ramOk && !vramOk) {
+
+                        let ratio = state.activePreset.vram / reqVram;
+                        let estimatedFps = Math.min(144, Math.floor(60 * ratio));
+
+                        if (estimatedFps >= 120) {
+                            fps.innerHTML = `<i class="fa-solid fa-gauge-high"></i> ~120+ FPS`;
+                            tweak.innerHTML = '<i class="fa-solid fa-sliders"></i> Ultra Preset / Maxed Out';
+                        } else if (estimatedFps >= 60) {
+                            fps.innerHTML = `<i class="fa-solid fa-gauge-high"></i> ~60 FPS`;
+                            tweak.innerHTML = '<i class="fa-solid fa-sliders"></i> High Settings';
+                        } else {
+                            fps.innerHTML = `<i class="fa-solid fa-gauge-high"></i> ~45 FPS`;
+                            tweak.innerHTML = '<i class="fa-solid fa-sliders"></i> Medium Settings';
+                        }
+                    } else if (hasRam && !hasVram) {
                         hud.className = 'hud-status-badge status-vram';
                         hud.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Low VRAM';
-                        
-                        fps.innerHTML = `<i class="fa-solid fa-gauge-high"></i> ~30-45 FPS`;
+                        fps.innerHTML = `<i class="fa-solid fa-gauge-high"></i> ~30 FPS`;
                         tweak.innerHTML = '<i class="fa-solid fa-sliders"></i> Lower Textures & Shadows';
                     } else {
                         hud.className = 'hud-status-badge status-warning';
                         hud.innerHTML = '<i class="fa-solid fa-xmark"></i> Heavy Load';
-                        
-                        fps.innerHTML = `<i class="fa-solid fa-gauge-high"></i> <30 FPS`;
+                        fps.innerHTML = `<i class="fa-solid fa-gauge-high"></i> <25 FPS`;
                         tweak.innerHTML = '<i class="fa-solid fa-sliders"></i> 720p / Low Preset Needed';
                     }
                 });
@@ -1307,7 +1315,7 @@
                 showToast('Cleared all selected games');
             });
 
-            // 4. Rig Preset Selector (ACTIVE EVENT LISTENER)
+            // 4. Rig Preset Selector (FULLY DYNAMIC EVENT HANDLER)
             document.getElementById('rigPresets').addEventListener('click', (e) => {
                 const btn = e.target.closest('.btn-preset');
                 if (!btn) return;
@@ -1319,7 +1327,7 @@
                 state.activePreset.vram = parseFloat(btn.dataset.vram);
 
                 updateRigAnalyzer();
-                showToast(`Rig profile set: ${btn.textContent.trim()}`);
+                showToast(`Rig profile updated: ${btn.textContent.trim()}`);
             });
 
             // 5. Search, Filter Chips & Sort
