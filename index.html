@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Offgrid Gaming | Instant. Offline. Play.</title>
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@600;700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@600;700&family=Inter:wght@400;500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -16,6 +16,9 @@
             --bg-card-hover: #1c222d;
             --accent-orange: #ff5e00;
             --accent-glow: #ff7700;
+            --accent-cyan: #00f0ff;
+            --accent-green: #00ff66;
+            --accent-red: #ff3355;
             --border-color: #262e3d;
             --text-main: #f0f2f5;
             --text-muted: #8d98a7;
@@ -39,41 +42,82 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            padding-bottom: 140px;
+            padding-bottom: 180px;
         }
 
         header {
             text-align: center;
-            padding: 35px 20px 20px;
+            padding: 25px 20px 15px;
             border-bottom: 1px solid var(--border-color);
             background: linear-gradient(180deg, rgba(11,13,16,0.95) 0%, rgba(11,13,16,0.8) 100%);
         }
 
-        .logo-container {
-            display: inline-flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
         .site-logo {
-            max-width: 220px;
+            max-width: 200px;
             height: auto;
             margin-bottom: 10px;
             filter: drop-shadow(0 0 15px rgba(255, 94, 0, 0.35));
-            transition: transform 0.3s ease, filter 0.3s ease;
         }
 
-        .site-logo:hover {
-            transform: scale(1.03);
-            filter: drop-shadow(0 0 25px rgba(255, 94, 0, 0.6));
-        }
-
+        /* --- CONTROL PANEL & RIG ANALYZER --- */
         .controls {
-            max-width: 600px;
-            margin: 25px auto 15px;
+            max-width: 1100px;
+            margin: 20px auto 10px;
             padding: 0 20px;
             width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .rig-analyzer-panel {
+            background: rgba(21, 25, 33, 0.8);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 15px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            backdrop-filter: blur(5px);
+        }
+
+        .rig-title {
+            font-family: 'Teko', sans-serif;
+            font-size: 1.3rem;
+            letter-spacing: 1px;
+            color: var(--accent-cyan);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-transform: uppercase;
+        }
+
+        .preset-buttons {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .btn-preset {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-transform: uppercase;
+        }
+
+        .btn-preset:hover, .btn-preset.active {
+            color: var(--accent-cyan);
+            border-color: var(--accent-cyan);
+            background: rgba(0, 240, 255, 0.1);
+            box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
         }
 
         .search-box {
@@ -83,12 +127,12 @@
 
         .search-box input {
             width: 100%;
-            padding: 14px 16px 14px 45px;
+            padding: 12px 16px 12px 45px;
             background: var(--bg-card);
             border: 1px solid var(--border-color);
             border-radius: 8px;
             color: #fff;
-            font-size: 1rem;
+            font-size: 0.95rem;
             outline: none;
             transition: all 0.3s ease;
         }
@@ -104,13 +148,12 @@
             top: 50%;
             transform: translateY(-50%);
             color: var(--text-muted);
-            font-size: 1.1rem;
         }
 
         .container {
             max-width: 1100px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 10px 20px 20px;
             flex: 1;
             width: 100%;
         }
@@ -146,30 +189,39 @@
 
         .card-img {
             width: 100%;
-            height: 220px;
+            height: 200px;
             object-fit: cover;
             background-color: #0d0f12;
             border-bottom: 1px solid var(--border-color);
         }
 
-        .card-badge {
+        /* HUD Status Overlay Tag */
+        .hud-status-badge {
             position: absolute;
             top: 10px;
-            right: 10px;
-            background: rgba(0, 0, 0, 0.85);
-            color: var(--accent-orange);
-            border: 1px solid var(--accent-orange);
-            padding: 3px 8px;
-            border-radius: 4px;
-            font-size: 0.75rem;
-            font-weight: bold;
-            transition: all 0.3s ease;
+            left: 10px;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.65rem;
+            padding: 3px 6px;
+            border-radius: 3px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            z-index: 2;
+            backdrop-filter: blur(4px);
         }
 
-        .game-card.selected .card-badge {
-            background: var(--accent-orange);
-            color: #fff;
-            box-shadow: 0 0 10px rgba(255, 94, 0, 0.8);
+        .hud-status-badge.status-ready {
+            background: rgba(0, 255, 102, 0.15);
+            color: var(--accent-green);
+            border: 1px solid var(--accent-green);
+            box-shadow: 0 0 8px rgba(0, 255, 102, 0.3);
+        }
+
+        .hud-status-badge.status-warning {
+            background: rgba(255, 51, 85, 0.15);
+            color: var(--accent-red);
+            border: 1px solid var(--accent-red);
+            box-shadow: 0 0 8px rgba(255, 51, 85, 0.3);
         }
 
         .card-content {
@@ -209,12 +261,10 @@
             padding: 10px;
             background: linear-gradient(135deg, #ff5e00 0%, #ff8800 100%);
             color: #fff;
-            text-align: center;
             font-weight: bold;
             font-size: 0.85rem;
             border-radius: 4px;
             text-transform: uppercase;
-            letter-spacing: 1px;
             border: none;
             cursor: pointer;
             transition: all 0.2s;
@@ -226,36 +276,13 @@
             border: 1px solid var(--accent-orange);
         }
 
-        .btn-specs {
-            width: 100%;
-            padding: 8px;
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--text-muted);
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            font-size: 0.8rem;
-            cursor: pointer;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-        }
-
-        .btn-specs:hover {
-            color: #fff;
-            border-color: var(--accent-orange);
-            background: rgba(255, 94, 0, 0.1);
-        }
-
-        /* Cart Widget */
+        /* --- SCI-FI SIDEBAR / DRAWER --- */
         .cart-widget {
             position: fixed;
             bottom: 20px;
             right: 20px;
-            width: 340px;
+            width: 360px;
             max-width: calc(100vw - 40px);
-            max-height: 460px;
             background: var(--bg-card);
             border: 1px solid var(--accent-orange);
             border-radius: 10px;
@@ -281,7 +308,7 @@
             list-style: none;
             padding: 10px;
             overflow-y: auto;
-            max-height: 220px;
+            max-height: 180px;
             flex: 1;
         }
 
@@ -296,59 +323,78 @@
             font-size: 0.85rem;
         }
 
-        .cart-item-title {
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            max-width: 150px;
-        }
-
-        .cart-item-right {
+        /* --- SCI-FI ANIMATED SSD STORAGE BAR --- */
+        .ssd-storage-section {
+            padding: 12px 15px;
+            background: rgba(0, 0, 0, 0.4);
+            border-top: 1px solid var(--border-color);
             display: flex;
-            align-items: center;
-            gap: 8px;
+            flex-direction: column;
+            gap: 6px;
+            font-family: 'Share Tech Mono', monospace;
         }
 
-        .cart-item-size {
-            color: var(--accent-orange);
+        .ssd-label-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .ssd-val-highlight {
+            color: var(--accent-cyan);
             font-weight: bold;
         }
 
-        .btn-item-remove {
-            background: transparent;
-            border: none;
-            color: var(--text-muted);
-            cursor: pointer;
-            padding: 2px 6px;
-            border-radius: 4px;
-            transition: all 0.2s;
-            font-size: 0.9rem;
+        .ssd-track {
+            height: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            border-radius: 3px;
+            overflow: hidden;
+            position: relative;
         }
 
-        .btn-item-remove:hover {
-            color: #ff4d4d;
-            background: rgba(255, 77, 77, 0.1);
+        .ssd-bar-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--accent-cyan) 0%, var(--accent-orange) 100%);
+            background-size: 30px 30px;
+            background-image: linear-gradient(
+                135deg, 
+                rgba(255, 255, 255, 0.25) 25%, 
+                transparent 25%, 
+                transparent 50%, 
+                rgba(255, 255, 255, 0.25) 50%, 
+                rgba(255, 255, 255, 0.25) 75%, 
+                transparent 75%, 
+                transparent
+            );
+            animation: moveStripes 1.5s linear infinite;
+            transition: width 0.4s ease, background-color 0.4s ease;
+            box-shadow: 0 0 10px var(--accent-cyan);
+        }
+
+        .ssd-bar-fill.overload {
+            background: linear-gradient(90deg, #ff3355 0%, #ff0000 100%);
+            box-shadow: 0 0 12px rgba(255, 51, 85, 0.8);
+            animation: moveStripes 0.8s linear infinite, pulseGlow 1s ease-in-out infinite alternate;
+        }
+
+        @keyframes moveStripes {
+            0% { background-position: 0 0; }
+            100% { background-position: 30px 0; }
+        }
+
+        @keyframes pulseGlow {
+            0% { opacity: 0.8; }
+            100% { opacity: 1; }
         }
 
         .cart-footer {
             padding: 12px 15px;
             background: var(--bg-dark);
             border-top: 1px solid var(--border-color);
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .cart-total-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-weight: bold;
-        }
-
-        .cart-total-size {
-            font-size: 1.1rem;
-            color: var(--accent-orange);
         }
 
         .btn-copy-drawer {
@@ -360,30 +406,18 @@
             font-weight: bold;
             font-size: 0.85rem;
             cursor: pointer;
+            width: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
-            transition: all 0.2s;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            width: 100%;
-        }
-
-        .btn-copy-drawer:hover:not(:disabled) {
-            background: var(--accent-glow);
-            box-shadow: 0 0 12px rgba(255, 94, 0, 0.5);
         }
 
         .btn-copy-drawer:disabled {
             opacity: 0.4;
             cursor: not-allowed;
             background: var(--border-color);
-            color: var(--text-muted);
-        }
-
-        .btn-copy-drawer.copied {
-            background: #28a745;
         }
 
         .empty-msg {
@@ -392,184 +426,54 @@
             text-align: center;
             padding: 20px 0;
         }
-
-        /* Modal Overlay */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(4px);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .modal-overlay.active {
-            display: flex;
-        }
-
-        .modal-card {
-            background: var(--bg-card);
-            border: 1px solid var(--accent-orange);
-            border-radius: 10px;
-            width: 100%;
-            max-width: 480px;
-            padding: 24px;
-            box-shadow: 0 10px 30px rgba(255, 94, 0, 0.2);
-            position: relative;
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 12px;
-            margin-bottom: 15px;
-        }
-
-        .modal-header h3 {
-            color: #fff;
-            font-size: 1.2rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .modal-header h3 i {
-            color: var(--accent-orange);
-        }
-
-        .modal-close {
-            color: var(--text-muted);
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: color 0.2s;
-            background: transparent;
-            border: none;
-        }
-
-        .modal-close:hover {
-            color: #ff4d4d;
-        }
-
-        .specs-list {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            font-size: 0.9rem;
-        }
-
-        .specs-list li {
-            background: rgba(255, 255, 255, 0.03);
-            padding: 10px;
-            border-radius: 6px;
-            border-left: 3px solid var(--accent-orange);
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-        }
-
-        .specs-label {
-            color: var(--text-muted);
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            font-weight: bold;
-        }
-
-        .specs-value {
-            color: #fff;
-            font-weight: 500;
-        }
-
-        footer {
-            text-align: center;
-            padding: 25px;
-            border-top: 1px solid var(--border-color);
-            color: var(--text-muted);
-            font-size: 0.85rem;
-            margin-top: 40px;
-        }
-
-        footer span {
-            color: var(--accent-orange);
-        }
-
-        @media (max-width: 600px) {
-            .container {
-                padding: 10px;
-            }
-
-            .game-grid {
-                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-                gap: 12px;
-            }
-
-            .card-img {
-                height: 140px;
-            }
-
-            .game-title {
-                font-size: 0.95rem;
-            }
-
-            .cart-widget {
-                left: 10px;
-                right: 10px;
-                bottom: 10px;
-                width: calc(100% - 20px);
-                max-height: 280px;
-            }
-
-            .cart-items {
-                max-height: 120px;
-            }
-        }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="logo-container">
-            <img src="logo.png" alt="Offgrid Gaming Logo" class="site-logo">
-        </div>
+        <img src="logo.png" alt="Offgrid Gaming Logo" class="site-logo">
     </header>
 
     <div class="controls">
+        <!-- RIG COMPATIBILITY ANALYZER PANEL -->
+        <div class="rig-analyzer-panel">
+            <div class="rig-title">
+                <i class="fa-solid fa-microchip"></i> System Rig Compatibility Profile
+            </div>
+            <div class="preset-buttons" id="rigPresets">
+                <button class="btn-preset active" data-ram="8" data-vram="4">Budget Rig (8GB RAM / 4GB VRAM)</button>
+                <button class="btn-preset" data-ram="16" data-vram="6">Mid Gaming (16GB RAM / 6GB VRAM)</button>
+                <button class="btn-preset" data-ram="32" data-vram="12">Beast Mode (32GB RAM / 12GB VRAM)</button>
+            </div>
+        </div>
+
         <div class="search-box">
-            <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
-            <input type="text" id="searchInput" placeholder="Search games..." aria-label="Search games">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="searchInput" placeholder="Search games...">
         </div>
     </div>
 
     <main class="container">
         <div class="game-grid" id="gameGrid">
-            <!-- Game cards injected or pre-rendered -->
-            <div class="game-card" data-id="1" data-title="Cyberpunk 2077" data-size="70">
-                <span class="card-badge"><i class="fa-solid fa-wifi-slash"></i> OFFLINE</span>
+            <!-- Game Card 1 -->
+            <div class="game-card" data-id="1" data-title="Cyberpunk 2077" data-size="70" data-ram="12" data-vram="6">
+                <div class="hud-status-badge status-ready" id="hud-1">&lt;CALCULATING&gt;</div>
                 <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1091500/header.jpg" alt="Cyberpunk 2077" class="card-img" loading="lazy">
                 <div class="card-content">
                     <div class="game-title">Cyberpunk 2077</div>
                     <div class="game-meta">
-                        <span>Action / RPG</span>
+                        <span>RPG</span>
                         <span>70 GB</span>
                     </div>
                     <div class="card-actions">
                         <button class="btn-play" data-action="toggle" data-id="1"><i class="fa-solid fa-plus"></i> Select Game</button>
-                        <button class="btn-specs" data-action="specs" data-id="1"><i class="fa-solid fa-microchip"></i> Min PC Specs</button>
                     </div>
                 </div>
             </div>
 
-            <div class="game-card" data-id="2" data-title="Grand Theft Auto V" data-size="100">
-                <span class="card-badge"><i class="fa-solid fa-wifi-slash"></i> OFFLINE</span>
+            <!-- Game Card 2 -->
+            <div class="game-card" data-id="2" data-title="Grand Theft Auto V" data-size="100" data-ram="4" data-vram="2">
+                <div class="hud-status-badge status-ready" id="hud-2">&lt;CALCULATING&gt;</div>
                 <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/271590/header.jpg" alt="GTA V" class="card-img" loading="lazy">
                 <div class="card-content">
                     <div class="game-title">Grand Theft Auto V</div>
@@ -579,29 +483,29 @@
                     </div>
                     <div class="card-actions">
                         <button class="btn-play" data-action="toggle" data-id="2"><i class="fa-solid fa-plus"></i> Select Game</button>
-                        <button class="btn-specs" data-action="specs" data-id="2"><i class="fa-solid fa-microchip"></i> Min PC Specs</button>
                     </div>
                 </div>
             </div>
 
-            <div class="game-card" data-id="3" data-title="Elden Ring" data-size="50">
-                <span class="card-badge"><i class="fa-solid fa-wifi-slash"></i> OFFLINE</span>
+            <!-- Game Card 3 -->
+            <div class="game-card" data-id="3" data-title="Elden Ring" data-size="50" data-ram="12" data-vram="3">
+                <div class="hud-status-badge status-ready" id="hud-3">&lt;CALCULATING&gt;</div>
                 <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1245620/header.jpg" alt="Elden Ring" class="card-img" loading="lazy">
                 <div class="card-content">
                     <div class="game-title">Elden Ring</div>
                     <div class="game-meta">
-                        <span>RPG</span>
+                        <span>Souls-like</span>
                         <span>50 GB</span>
                     </div>
                     <div class="card-actions">
                         <button class="btn-play" data-action="toggle" data-id="3"><i class="fa-solid fa-plus"></i> Select Game</button>
-                        <button class="btn-specs" data-action="specs" data-id="3"><i class="fa-solid fa-microchip"></i> Min PC Specs</button>
                     </div>
                 </div>
             </div>
 
-            <div class="game-card" data-id="4" data-title="Forza Horizon 5" data-size="110">
-                <span class="card-badge"><i class="fa-solid fa-wifi-slash"></i> OFFLINE</span>
+            <!-- Game Card 4 -->
+            <div class="game-card" data-id="4" data-title="Forza Horizon 5" data-size="110" data-ram="8" data-vram="4">
+                <div class="hud-status-badge status-ready" id="hud-4">&lt;CALCULATING&gt;</div>
                 <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1551360/header.jpg" alt="Forza Horizon 5" class="card-img" loading="lazy">
                 <div class="card-content">
                     <div class="game-title">Forza Horizon 5</div>
@@ -611,256 +515,161 @@
                     </div>
                     <div class="card-actions">
                         <button class="btn-play" data-action="toggle" data-id="4"><i class="fa-solid fa-plus"></i> Select Game</button>
-                        <button class="btn-specs" data-action="specs" data-id="4"><i class="fa-solid fa-microchip"></i> Min PC Specs</button>
                     </div>
                 </div>
             </div>
         </div>
     </main>
 
-    <!-- Floating Drawer -->
+    <!-- Floating Drawer / Sidebar -->
     <div class="cart-widget">
         <div class="cart-header">
-            <span><i class="fa-solid fa-calculator"></i> Selected Games</span>
+            <span><i class="fa-solid fa-hard-drive"></i> Selected Payload</span>
             <span id="selectedCount" style="color: var(--accent-orange);">(0)</span>
         </div>
+        
         <ul class="cart-items" id="cartItems">
-            <div class="empty-msg">No games selected yet.</div>
+            <div class="empty-msg">No games selected.</div>
         </ul>
-        <div class="cart-footer">
-            <div class="cart-total-row">
-                <span>Total Storage:</span>
-                <span class="cart-total-size" id="totalSize">0 GB</span>
+
+        <!-- SCI-FI ANIMATED SSD METER -->
+        <div class="ssd-storage-section">
+            <div class="ssd-label-row">
+                <span>DRIVE TARGET: <span class="ssd-val-highlight">512 GB SSD</span></span>
+                <span id="ssdPctText">0%</span>
             </div>
+            <div class="ssd-track">
+                <div class="ssd-bar-fill" id="ssdBarFill"></div>
+            </div>
+            <div class="ssd-label-row">
+                <span>USED: <span id="totalSize" class="ssd-val-highlight">0 GB</span></span>
+                <span id="freeSpaceText">512 GB FREE</span>
+            </div>
+        </div>
+
+        <div class="cart-footer">
             <button class="btn-copy-drawer" id="btnCopyDrawer" disabled>
-                <i class="fa-regular fa-copy"></i> Copy Selected List
+                <i class="fa-regular fa-copy"></i> Copy Selection List
             </button>
         </div>
     </div>
 
-    <!-- Modal Window -->
-    <div class="modal-overlay" id="specsModal">
-        <div class="modal-card">
-            <div class="modal-header">
-                <h3 id="modalGameTitle"><i class="fa-solid fa-desktop"></i> Game Title</h3>
-                <button class="modal-close" id="btnCloseModal" aria-label="Close modal"><i class="fa-solid fa-xmark"></i></button>
-            </div>
-            <ul class="specs-list" id="modalSpecsContent"></ul>
-        </div>
-    </div>
-
-    <footer>
-        <p>&copy; 2026 <span>OFFGRID GAMING</span>. All games optimized for instant offline play.</p>
-    </footer>
-
     <script>
         const selectedGames = new Map();
+        const MAX_DRIVE_CAPACITY = 512; // Drive size target in GB
+        let currentRig = { ram: 8, vram: 4 };
 
-        const gameSpecsData = {
-            "1": {
-                title: "Cyberpunk 2077 - Minimum Specs",
-                os: "64-bit Windows 10",
-                cpu: "Intel Core i7-6700 or AMD Ryzen 5 1600",
-                ram: "12 GB RAM",
-                gpu: "NVIDIA GeForce GTX 1060 6GB / AMD Radeon RX 580 8GB",
-                directx: "Version 12"
-            },
-            "2": {
-                title: "Grand Theft Auto V - Minimum Specs",
-                os: "Windows 10 / 11 64-Bit",
-                cpu: "Intel Core 2 Quad Q6600 2.40GHz / AMD Phenom 9850",
-                ram: "4 GB RAM",
-                gpu: "NVIDIA 9800 GT 1GB / AMD HD 4870 1GB",
-                directx: "Version 10 / 11"
-            },
-            "3": {
-                title: "Elden Ring - Minimum Specs",
-                os: "Windows 10",
-                cpu: "Intel Core i5-8400 / AMD Ryzen 3 3300X",
-                ram: "12 GB RAM",
-                gpu: "NVIDIA GeForce GTX 1060 3GB / AMD Radeon RX 580 4GB",
-                directx: "Version 12"
-            },
-            "4": {
-                title: "Forza Horizon 5 - Minimum Specs",
-                os: "Windows 10 (v18362.0 or higher)",
-                cpu: "Intel Core i5-4460 / AMD Ryzen 3 1200",
-                ram: "8 GB RAM",
-                gpu: "NVIDIA GeForce GTX 970 / AMD Radeon RX 470",
-                directx: "Version 12"
-            }
-        };
-
-        // DOM Elements
-        const searchInput = document.getElementById('searchInput');
+        // DOM Handles
         const gameGrid = document.getElementById('gameGrid');
         const cartItems = document.getElementById('cartItems');
         const totalSizeEl = document.getElementById('totalSize');
         const selectedCountEl = document.getElementById('selectedCount');
         const btnCopyDrawer = document.getElementById('btnCopyDrawer');
-        const specsModal = document.getElementById('specsModal');
-        const btnCloseModal = document.getElementById('btnCloseModal');
+        const ssdBarFill = document.getElementById('ssdBarFill');
+        const ssdPctText = document.getElementById('ssdPctText');
+        const freeSpaceText = document.getElementById('freeSpaceText');
 
-        // Event Listener: Search Filter
-        searchInput.addEventListener('input', (e) => {
-            const query = e.target.value.toLowerCase();
-            document.querySelectorAll('.game-card').forEach(card => {
-                const title = card.getAttribute('data-title').toLowerCase();
-                card.style.display = title.includes(query) ? 'flex' : 'none';
-            });
-        });
-
-        // Event Delegation for Grid Actions
-        gameGrid.addEventListener('click', (e) => {
-            const btn = e.target.closest('button');
+        // Rig Analyzer Preset Selection
+        document.getElementById('rigPresets').addEventListener('click', (e) => {
+            const btn = e.target.closest('.btn-preset');
             if (!btn) return;
 
-            const action = btn.dataset.action;
-            const id = btn.dataset.id;
+            document.querySelectorAll('.btn-preset').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
 
-            if (action === 'toggle') toggleGameSelection(id);
-            if (action === 'specs') openSpecs(id);
+            currentRig.ram = parseInt(btn.dataset.ram, 10);
+            currentRig.vram = parseInt(btn.dataset.vram, 10);
+
+            analyzeRigCompatibility();
         });
 
-        function toggleGameSelection(id) {
-            const card = document.querySelector(`.game-card[data-id="${id}"]`);
-            if (!card) return;
+        // Dynamic System Hardware Check
+        function analyzeRigCompatibility() {
+            document.querySelectorAll('.game-card').forEach(card => {
+                const reqRam = parseInt(card.dataset.ram, 10);
+                const reqVram = parseInt(card.dataset.vram, 10);
+                const hud = card.querySelector('.hud-status-badge');
 
+                if (currentRig.ram >= reqRam && currentRig.vram >= reqVram) {
+                    hud.className = "hud-status-badge status-ready";
+                    hud.innerHTML = `<i class="fa-solid fa-check"></i> DEPLOYMENT READY`;
+                } else if (currentRig.vram < reqVram) {
+                    hud.className = "hud-status-badge status-warning";
+                    hud.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> HIGH VRAM REQ`;
+                } else {
+                    hud.className = "hud-status-badge status-warning";
+                    hud.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> LOW RAM WARN`;
+                }
+            });
+        }
+
+        // Selection Handler
+        gameGrid.addEventListener('click', (e) => {
+            const btn = e.target.closest('button');
+            if (!btn || btn.dataset.action !== 'toggle') return;
+            const id = btn.dataset.id;
+            
+            const card = document.querySelector(`.game-card[data-id="${id}"]`);
             const title = card.getAttribute('data-title');
             const size = parseFloat(card.getAttribute('data-size'));
-            const badge = card.querySelector('.card-badge');
 
             if (selectedGames.has(id)) {
                 selectedGames.delete(id);
                 card.classList.remove('selected');
-                card.querySelector('.btn-play').innerHTML = `<i class="fa-solid fa-plus"></i> Select Game`;
-                badge.innerHTML = `<i class="fa-solid fa-wifi-slash"></i> OFFLINE`;
+                btn.innerHTML = `<i class="fa-solid fa-plus"></i> Select Game`;
             } else {
                 selectedGames.set(id, { title, size });
                 card.classList.add('selected');
-                card.querySelector('.btn-play').innerHTML = `<i class="fa-solid fa-check"></i> Selected`;
-                badge.innerHTML = `<i class="fa-solid fa-circle-check"></i> SELECTED`;
+                btn.innerHTML = `<i class="fa-solid fa-check"></i> Selected`;
             }
 
-            updateDrawerUI();
-        }
+            updateUI();
+        });
 
-        function updateDrawerUI() {
+        // Update SSD & Selection UI
+        function updateUI() {
             cartItems.innerHTML = '';
             let totalGB = 0;
 
             if (selectedGames.size === 0) {
-                cartItems.innerHTML = '<div class="empty-msg">No games selected yet.</div>';
+                cartItems.innerHTML = '<div class="empty-msg">No games selected.</div>';
                 btnCopyDrawer.disabled = true;
             } else {
                 btnCopyDrawer.disabled = false;
-                selectedGames.forEach((game, id) => {
+                selectedGames.forEach((game) => {
                     totalGB += game.size;
-
                     const li = document.createElement('li');
                     li.className = 'cart-item';
                     li.innerHTML = `
-                        <span class="cart-item-title">${game.title}</span>
-                        <div class="cart-item-right">
-                            <span class="cart-item-size">${game.size} GB</span>
-                            <button class="btn-item-remove" data-id="${id}" title="Remove Game">
-                                <i class="fa-solid fa-xmark"></i>
-                            </button>
-                        </div>
+                        <span>${game.title}</span>
+                        <span style="color: var(--accent-orange); font-weight: bold;">${game.size} GB</span>
                     `;
                     cartItems.appendChild(li);
                 });
             }
 
+            // SSD Meter Calculations
             totalSizeEl.innerText = `${totalGB} GB`;
             selectedCountEl.innerText = `(${selectedGames.size})`;
-        }
 
-        // Cart Item Removal via Event Delegation
-        cartItems.addEventListener('click', (e) => {
-            const removeBtn = e.target.closest('.btn-item-remove');
-            if (removeBtn) {
-                const id = removeBtn.dataset.id;
-                toggleGameSelection(id);
-            }
-        });
+            const pct = Math.min(100, Math.round((totalGB / MAX_DRIVE_CAPACITY) * 100));
+            ssdBarFill.style.width = `${pct}%`;
+            ssdPctText.innerText = `${pct}%`;
 
-        // Copy Functionality
-        btnCopyDrawer.addEventListener('click', () => {
-            if (selectedGames.size === 0) return;
-
-            let textToCopy = "🎮 Selected Games & Storage Breakdown:\n\n";
-            let totalGB = 0;
-
-            selectedGames.forEach((game) => {
-                textToCopy += `• ${game.title} — ${game.size} GB\n`;
-                totalGB += game.size;
-            });
-
-            textToCopy += `\n💾 Total Required Storage: ${totalGB} GB`;
-
-            if (navigator.clipboard && window.isSecureContext) {
-                navigator.clipboard.writeText(textToCopy)
-                    .then(showCopySuccess)
-                    .catch(() => fallbackCopyText(textToCopy));
+            const freeSpace = MAX_DRIVE_CAPACITY - totalGB;
+            if (freeSpace < 0) {
+                freeSpaceText.innerText = `OVERFLOW ${Math.abs(freeSpace)} GB`;
+                freeSpaceText.style.color = "var(--accent-red)";
+                ssdBarFill.classList.add('overload');
             } else {
-                fallbackCopyText(textToCopy);
+                freeSpaceText.innerText = `${freeSpace} GB FREE`;
+                freeSpaceText.style.color = "var(--text-muted)";
+                ssdBarFill.classList.remove('overload');
             }
-        });
-
-        function fallbackCopyText(text) {
-            const textArea = document.createElement("textarea");
-            textArea.value = text;
-            textArea.style.position = "fixed";
-            textArea.style.opacity = "0";
-
-            document.body.appendChild(textArea);
-            textArea.focus();
-            textArea.select();
-            textArea.setSelectionRange(0, 99999);
-
-            try {
-                if (document.execCommand('copy')) showCopySuccess();
-            } catch (err) {
-                alert("Text copied manually:\n" + text);
-            }
-            document.body.removeChild(textArea);
         }
 
-        function showCopySuccess() {
-            btnCopyDrawer.classList.add('copied');
-            btnCopyDrawer.innerHTML = `<i class="fa-solid fa-check"></i> Copied!`;
-
-            setTimeout(() => {
-                btnCopyDrawer.classList.remove('copied');
-                btnCopyDrawer.innerHTML = `<i class="fa-regular fa-copy"></i> Copy Selected List`;
-            }, 2000);
-        }
-
-        // Modal Functionality
-        function openSpecs(id) {
-            const specs = gameSpecsData[id];
-            if (!specs) return;
-
-            document.getElementById('modalGameTitle').innerHTML = `<i class="fa-solid fa-desktop"></i> ${specs.title}`;
-            document.getElementById('modalSpecsContent').innerHTML = `
-                <li><span class="specs-label">OS</span><span class="specs-value">${specs.os}</span></li>
-                <li><span class="specs-label">Processor</span><span class="specs-value">${specs.cpu}</span></li>
-                <li><span class="specs-label">Memory</span><span class="specs-value">${specs.ram}</span></li>
-                <li><span class="specs-label">Graphics</span><span class="specs-value">${specs.gpu}</span></li>
-                <li><span class="specs-label">DirectX</span><span class="specs-value">${specs.directx}</span></li>
-            `;
-            specsModal.classList.add('active');
-        }
-
-        function closeSpecs() {
-            specsModal.classList.remove('active');
-        }
-
-        btnCloseModal.addEventListener('click', closeSpecs);
-        specsModal.addEventListener('click', (e) => {
-            if (e.target === specsModal) closeSpecs();
-        });
+        // Initialize Analyzer on Load
+        analyzeRigCompatibility();
     </script>
 </body>
 </html>
