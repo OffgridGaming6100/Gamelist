@@ -43,7 +43,7 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            padding-bottom: 180px;
+            padding-bottom: 240px;
         }
 
         header {
@@ -126,9 +126,18 @@
             box-shadow: 0 0 12px rgba(255, 106, 0, 0.35);
         }
 
+        /* FILTER & SORT ROW */
+        .filter-sort-bar {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
         .search-box {
             position: relative;
-            width: 100%;
+            flex: 1;
+            min-width: 240px;
         }
 
         .search-box input {
@@ -154,6 +163,48 @@
             top: 50%;
             transform: translateY(-50%);
             color: var(--text-muted);
+        }
+
+        .sort-dropdown {
+            padding: 12px 16px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-main);
+            font-size: 0.85rem;
+            outline: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .sort-dropdown:focus {
+            border-color: var(--accent-purple);
+        }
+
+        .genre-chips {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding-bottom: 4px;
+        }
+
+        .chip {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+        }
+
+        .chip:hover, .chip.active {
+            background: rgba(157, 78, 221, 0.2);
+            color: var(--accent-purple-light);
+            border-color: var(--accent-purple);
         }
 
         .container {
@@ -420,7 +471,7 @@
             position: fixed;
             bottom: 20px;
             right: 20px;
-            width: 360px;
+            width: 380px;
             max-width: calc(100vw - 40px);
             background: var(--bg-card);
             border: 1px solid var(--accent-purple);
@@ -444,11 +495,35 @@
             color: var(--accent-purple-light);
         }
 
+        .cart-header-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-clear-all {
+            background: rgba(255, 51, 102, 0.15);
+            border: 1px solid var(--accent-red);
+            color: var(--accent-red);
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-transform: uppercase;
+        }
+
+        .btn-clear-all:hover {
+            background: var(--accent-red);
+            color: #fff;
+        }
+
         .cart-items {
             list-style: none;
             padding: 10px;
             overflow-y: auto;
-            max-height: 180px;
+            max-height: 160px;
             flex: 1;
         }
 
@@ -496,22 +571,52 @@
             color: var(--accent-red);
         }
 
+        /* DYNAMIC DRIVE CAPACITY SECTION */
         .ssd-storage-section {
             padding: 12px 15px;
             background: rgba(0, 0, 0, 0.4);
             border-top: 1px solid var(--border-color);
             display: flex;
-            align-items: center;
-            justify-content: space-between;
+            flex-direction: column;
+            gap: 8px;
         }
 
         .ssd-label-row {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            width: 100%;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: var(--text-muted);
+        }
+
+        .target-drive-select {
+            background: rgba(11, 10, 16, 0.8);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            outline: none;
+        }
+
+        .capacity-bar-bg {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .capacity-bar-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--accent-purple) 0%, var(--accent-orange) 100%);
+            transition: width 0.3s ease, background 0.3s ease;
+        }
+
+        .capacity-bar-fill.overload {
+            background: var(--accent-red);
+            box-shadow: 0 0 10px var(--accent-red);
         }
 
         .ssd-info-group {
@@ -522,7 +627,7 @@
 
         .ssd-icon {
             color: var(--accent-orange);
-            font-size: 1rem;
+            font-size: 0.9rem;
             animation: pulse-glow 2s infinite ease-in-out;
         }
 
@@ -534,8 +639,7 @@
         .ssd-val-highlight {
             color: var(--accent-orange);
             font-weight: bold;
-            font-size: 0.95rem;
-            text-shadow: 0 0 8px rgba(255, 106, 0, 0.3);
+            font-size: 0.85rem;
         }
 
         .cart-footer {
@@ -574,9 +678,50 @@
             text-align: center;
             padding: 20px 0;
         }
+
+        /* TOAST NOTIFICATION */
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 3000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            pointer-events: none;
+        }
+
+        .toast {
+            background: rgba(22, 18, 32, 0.95);
+            border: 1px solid var(--accent-purple);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+            border-radius: 8px;
+            padding: 10px 16px;
+            color: #fff;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            animation: slideIn 0.3s ease, fadeOut 0.3s 2.2s ease forwards;
+        }
+
+        .toast i {
+            color: var(--accent-orange);
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes fadeOut {
+            to { opacity: 0; transform: translateY(-10px); }
+        }
     </style>
 </head>
 <body>
+
+    <div class="toast-container" id="toastContainer"></div>
 
     <header>
         <img src="logo.png" alt="Offgrid Gaming Logo" class="site-logo">
@@ -595,16 +740,32 @@
             </div>
         </div>
 
-        <div class="search-box">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" id="searchInput" placeholder="Search games...">
+        <!-- SEARCH, SORT, & FILTER CHIPS -->
+        <div class="filter-sort-bar">
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="searchInput" placeholder="Search games...">
+            </div>
+            <select class="sort-dropdown" id="sortSelect">
+                <option value="name-asc">Sort: A to Z</option>
+                <option value="size-asc">Sort: Size (Smallest)</option>
+                <option value="size-desc">Sort: Size (Largest)</option>
+            </select>
+        </div>
+
+        <div class="genre-chips" id="genreChips">
+            <button class="chip active" data-genre="all">All Games</button>
+            <button class="chip" data-genre="RPG">RPG</button>
+            <button class="chip" data-genre="Open World">Open World</button>
+            <button class="chip" data-genre="Souls-like">Souls-like</button>
+            <button class="chip" data-genre="Racing">Racing</button>
         </div>
     </div>
 
     <main class="container">
         <div class="game-grid" id="gameGrid">
             <!-- Game Card 1 -->
-            <div class="game-card" data-id="1" data-title="Cyberpunk 2077" data-size="70" data-ram="12" data-vram="6" data-cpu="Intel Core i7-6700 / AMD Ryzen 5 1600" data-gpu="GTX 1060 6GB / RX 580 8GB">
+            <div class="game-card" data-id="1" data-title="Cyberpunk 2077" data-genre="RPG" data-size="70" data-ram="12" data-vram="6" data-cpu="Intel Core i7-6700 / AMD Ryzen 5 1600" data-gpu="GTX 1060 6GB / RX 580 8GB">
                 <div class="hud-status-badge status-ready" id="hud-1">&lt;CALCULATING&gt;</div>
                 <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1091500/header.jpg" alt="Cyberpunk 2077" class="card-img" loading="lazy">
                 <div class="card-content">
@@ -621,7 +782,7 @@
             </div>
 
             <!-- Game Card 2 -->
-            <div class="game-card" data-id="2" data-title="Grand Theft Auto V" data-size="100" data-ram="4" data-vram="2" data-cpu="Intel Core i5 3470 / AMD FX-8350" data-gpu="NVIDIA GTX 660 / AMD HD 7870">
+            <div class="game-card" data-id="2" data-title="Grand Theft Auto V" data-genre="Open World" data-size="100" data-ram="4" data-vram="2" data-cpu="Intel Core i5 3470 / AMD FX-8350" data-gpu="NVIDIA GTX 660 / AMD HD 7870">
                 <div class="hud-status-badge status-ready" id="hud-2">&lt;CALCULATING&gt;</div>
                 <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/271590/header.jpg" alt="GTA V" class="card-img" loading="lazy">
                 <div class="card-content">
@@ -638,7 +799,7 @@
             </div>
 
             <!-- Game Card 3 -->
-            <div class="game-card" data-id="3" data-title="Elden Ring" data-size="50" data-ram="12" data-vram="3" data-cpu="Intel Core i5-8400 / AMD Ryzen 3 3300X" data-gpu="NVIDIA GTX 1060 3GB / AMD RX 580 4GB">
+            <div class="game-card" data-id="3" data-title="Elden Ring" data-genre="Souls-like" data-size="50" data-ram="12" data-vram="3" data-cpu="Intel Core i5-8400 / AMD Ryzen 3 3300X" data-gpu="NVIDIA GTX 1060 3GB / AMD RX 580 4GB">
                 <div class="hud-status-badge status-ready" id="hud-3">&lt;CALCULATING&gt;</div>
                 <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1245620/header.jpg" alt="Elden Ring" class="card-img" loading="lazy">
                 <div class="card-content">
@@ -655,7 +816,7 @@
             </div>
 
             <!-- Game Card 4 -->
-            <div class="game-card" data-id="4" data-title="Forza Horizon 5" data-size="110" data-ram="8" data-vram="4" data-cpu="Intel Core i5-4460 / AMD Ryzen 3 1200" data-gpu="NVIDIA GTX 970 / AMD RX 470">
+            <div class="game-card" data-id="4" data-title="Forza Horizon 5" data-genre="Racing" data-size="110" data-ram="8" data-vram="4" data-cpu="Intel Core i5-4460 / AMD Ryzen 3 1200" data-gpu="NVIDIA GTX 970 / AMD RX 470">
                 <div class="hud-status-badge status-ready" id="hud-4">&lt;CALCULATING&gt;</div>
                 <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1551360/header.jpg" alt="Forza Horizon 5" class="card-img" loading="lazy">
                 <div class="card-content">
@@ -676,21 +837,34 @@
     <!-- Floating Drawer / Sidebar -->
     <div class="cart-widget">
         <div class="cart-header">
-            <span><i class="fa-solid fa-gamepad"></i> Selected Payload</span>
-            <span id="selectedCount" style="color: var(--accent-orange);">(0)</span>
+            <span><i class="fa-solid fa-gamepad"></i> Selected Payload <span id="selectedCount" style="color: var(--accent-orange);">(0)</span></span>
+            <div class="cart-header-actions">
+                <button class="btn-clear-all" id="btnClearAll" style="display: none;">Clear All</button>
+            </div>
         </div>
         
         <ul class="cart-items" id="cartItems">
             <div class="empty-msg">No games selected.</div>
         </ul>
 
+        <!-- CAPACITY BAR SECTION -->
         <div class="ssd-storage-section">
             <div class="ssd-label-row">
                 <div class="ssd-info-group">
                     <i class="fa-solid fa-hard-drive ssd-icon"></i>
-                    <span>PAYLOAD DRIVE SIZE:</span>
+                    <span>TARGET DRIVE:</span>
+                    <select class="target-drive-select" id="targetDriveSelect">
+                        <option value="128">128 GB</option>
+                        <option value="256" selected>256 GB</option>
+                        <option value="512">512 GB</option>
+                        <option value="1024">1 TB</option>
+                        <option value="2048">2 TB</option>
+                    </select>
                 </div>
-                <span id="totalSize" class="ssd-val-highlight">0 GB</span>
+                <span id="totalSize" class="ssd-val-highlight">0 / 256 GB</span>
+            </div>
+            <div class="capacity-bar-bg">
+                <div class="capacity-bar-fill" id="capacityBarFill"></div>
             </div>
         </div>
 
@@ -730,6 +904,7 @@
     <script>
         const selectedGames = new Map();
         let currentRig = { ram: 8, vram: 4 };
+        let activeGenre = 'all';
 
         // DOM Handles
         const gameGrid = document.getElementById('gameGrid');
@@ -738,6 +913,12 @@
         const selectedCountEl = document.getElementById('selectedCount');
         const btnCopyDrawer = document.getElementById('btnCopyDrawer');
         const searchInput = document.getElementById('searchInput');
+        const sortSelect = document.getElementById('sortSelect');
+        const genreChips = document.getElementById('genreChips');
+        const targetDriveSelect = document.getElementById('targetDriveSelect');
+        const capacityBarFill = document.getElementById('capacityBarFill');
+        const btnClearAll = document.getElementById('btnClearAll');
+        const toastContainer = document.getElementById('toastContainer');
 
         // Modal Handles
         const reqsModal = document.getElementById('reqsModal');
@@ -748,13 +929,59 @@
         const modalCpu = document.getElementById('modalCpu');
         const modalGpu = document.getElementById('modalGpu');
 
-        // Search Filter
-        searchInput.addEventListener('input', (e) => {
-            const query = e.target.value.toLowerCase().trim();
-            document.querySelectorAll('.game-card').forEach(card => {
+        // Toast Notification Helper
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.innerHTML = `<i class="fa-solid fa-circle-info"></i> ${message}`;
+            toastContainer.appendChild(toast);
+            setTimeout(() => toast.remove(), 2500);
+        }
+
+        // Filtering & Sorting Combined Logic
+        function filterAndSortGames() {
+            const query = searchInput.value.toLowerCase().trim();
+            const cards = Array.from(document.querySelectorAll('.game-card'));
+
+            cards.forEach(card => {
                 const title = card.getAttribute('data-title').toLowerCase();
-                card.style.display = title.includes(query) ? 'flex' : 'none';
+                const genre = card.getAttribute('data-genre');
+
+                const matchesSearch = title.includes(query);
+                const matchesGenre = activeGenre === 'all' || genre === activeGenre;
+
+                card.style.display = (matchesSearch && matchesGenre) ? 'flex' : 'none';
             });
+
+            // Sorting
+            const sortVal = sortSelect.value;
+            cards.sort((a, b) => {
+                const titleA = a.getAttribute('data-title');
+                const titleB = b.getAttribute('data-title');
+                const sizeA = parseFloat(a.getAttribute('data-size'));
+                const sizeB = parseFloat(b.getAttribute('data-size'));
+
+                if (sortVal === 'name-asc') return titleA.localeCompare(titleB);
+                if (sortVal === 'size-asc') return sizeA - sizeB;
+                if (sortVal === 'size-desc') return sizeB - sizeA;
+            });
+
+            cards.forEach(card => gameGrid.appendChild(card));
+        }
+
+        searchInput.addEventListener('input', filterAndSortGames);
+        sortSelect.addEventListener('change', filterAndSortGames);
+
+        // Genre Chip Filter
+        genreChips.addEventListener('click', (e) => {
+            const chip = e.target.closest('.chip');
+            if (!chip) return;
+
+            document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+            chip.classList.add('active');
+
+            activeGenre = chip.dataset.genre;
+            filterAndSortGames();
         });
 
         // Rig Analyzer Preset Selection
@@ -803,7 +1030,6 @@
             if (action === 'toggle') {
                 toggleGameSelection(id);
             } else if (action === 'reqs') {
-                // Open Floating System Reqs Window
                 modalGameTitle.innerText = card.getAttribute('data-title');
                 modalRam.innerText = `${card.getAttribute('data-ram')} GB`;
                 modalVram.innerText = `${card.getAttribute('data-vram')} GB`;
@@ -827,14 +1053,28 @@
                 selectedGames.delete(id);
                 card.classList.remove('selected');
                 if (btn) btn.innerHTML = `<i class="fa-solid fa-plus"></i> Select Game`;
+                showToast(`Removed <strong>${title}</strong>`);
             } else {
                 selectedGames.set(id, { title, size });
                 card.classList.add('selected');
                 if (btn) btn.innerHTML = `<i class="fa-solid fa-check"></i> Selected`;
+                showToast(`Added <strong>${title}</strong>`);
             }
 
             updateUI();
         }
+
+        // Clear All Games
+        btnClearAll.addEventListener('click', () => {
+            selectedGames.clear();
+            document.querySelectorAll('.game-card').forEach(card => {
+                card.classList.remove('selected');
+                const btn = card.querySelector('.btn-play');
+                if (btn) btn.innerHTML = `<i class="fa-solid fa-plus"></i> Select Game`;
+            });
+            updateUI();
+            showToast('Cleared all selected games.');
+        });
 
         // Drawer Item Removal Click Handler
         cartItems.addEventListener('click', (e) => {
@@ -847,7 +1087,6 @@
         // Close Floating Window Handlers
         btnCloseModal.addEventListener('click', () => reqsModal.classList.remove('active'));
 
-        // CLOSE FLOATING WINDOW WHEN TAPPING/CLICKING OUTSIDE OF IT
         document.addEventListener('pointerdown', (e) => {
             if (reqsModal.classList.contains('active')) {
                 const clickedInside = reqsModal.contains(e.target);
@@ -859,16 +1098,21 @@
             }
         });
 
+        targetDriveSelect.addEventListener('change', updateUI);
+
         // Update Storage & Selection UI
         function updateUI() {
             cartItems.innerHTML = '';
             let totalGB = 0;
+            const driveLimitGB = parseFloat(targetDriveSelect.value);
 
             if (selectedGames.size === 0) {
                 cartItems.innerHTML = '<div class="empty-msg">No games selected.</div>';
                 btnCopyDrawer.disabled = true;
+                btnClearAll.style.display = 'none';
             } else {
                 btnCopyDrawer.disabled = false;
+                btnClearAll.style.display = 'inline-block';
                 selectedGames.forEach((game, id) => {
                     totalGB += game.size;
                     const li = document.createElement('li');
@@ -886,11 +1130,21 @@
                 });
             }
 
-            totalSizeEl.innerText = `${totalGB} GB`;
+            totalSizeEl.innerText = `${totalGB} / ${driveLimitGB} GB`;
             selectedCountEl.innerText = `(${selectedGames.size})`;
+
+            // Update Capacity Bar Fill
+            let fillPercent = (totalGB / driveLimitGB) * 100;
+            capacityBarFill.style.width = `${Math.min(fillPercent, 100)}%`;
+
+            if (fillPercent > 100) {
+                capacityBarFill.classList.add('overload');
+            } else {
+                capacityBarFill.classList.remove('overload');
+            }
         }
 
-        // Facebook DM Optimized Copy Output
+        // Copy List
         async function copySelectionList() {
             if (selectedGames.size === 0) return;
 
@@ -902,7 +1156,7 @@
                 totalGB += game.size;
             });
 
-            textToCopy += `\n💾 TOTAL STORAGE: ${totalGB} GB\n`;
+            textToCopy += `\n💾 TOTAL STORAGE: ${totalGB} GB / ${targetDriveSelect.value} GB Target Drive\n`;
             textToCopy += "⚡ READY FOR DEPLOYMENT ⚡";
 
             try {
