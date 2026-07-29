@@ -62,7 +62,6 @@
             filter: drop-shadow(0 0 18px rgba(157, 78, 221, 0.5));
         }
 
-        /* --- CONTROL PANEL & RIG ANALYZER --- */
         .controls {
             max-width: 1100px;
             margin: 20px auto 10px;
@@ -128,7 +127,6 @@
             box-shadow: 0 0 12px rgba(255, 106, 0, 0.35);
         }
 
-        /* FILTER & SORT ROW */
         .filter-sort-bar {
             display: flex;
             gap: 12px;
@@ -177,10 +175,6 @@
             outline: none;
             cursor: pointer;
             transition: all 0.2s;
-        }
-
-        .sort-dropdown:focus {
-            border-color: var(--accent-purple);
         }
 
         .genre-chips {
@@ -246,12 +240,6 @@
             background: var(--bg-card-hover);
         }
 
-        .game-card.tetris-highlight {
-            transform: translateY(-8px) scale(1.02);
-            border-color: var(--accent-purple-light) !important;
-            box-shadow: 0 0 25px rgba(199, 125, 255, 0.8) !important;
-        }
-
         .card-img-wrapper {
             position: relative;
             width: 100%;
@@ -267,7 +255,6 @@
             border-bottom: 1px solid var(--border-color);
         }
 
-        /* --- STATUS BADGES & PERFORMANCE OVERLAY --- */
         .hud-status-badge {
             position: absolute;
             top: 8px;
@@ -349,7 +336,6 @@
             justify-content: space-between;
         }
 
-        /* Dynamic Setting Tweak Tooltip */
         .setting-tweak-hint {
             font-size: 0.7rem;
             color: var(--accent-yellow);
@@ -414,7 +400,7 @@
             border-color: var(--accent-purple);
         }
 
-        /* --- FLOATING WINDOW SYSTEM REQUIREMENTS --- */
+        /* MODAL */
         .modal-container {
             position: fixed;
             top: 50%;
@@ -513,7 +499,7 @@
             text-align: right;
         }
 
-        /* --- SIDEBAR / DRAWER --- */
+        /* DRAWER & CART */
         .cart-widget {
             position: fixed;
             bottom: 20px;
@@ -540,12 +526,6 @@
             border-bottom: 1px solid var(--border-color);
             font-size: 0.95rem;
             color: var(--accent-purple-light);
-        }
-
-        .cart-header-actions {
-            display: flex;
-            align-items: center;
-            gap: 10px;
         }
 
         .btn-clear-all {
@@ -599,12 +579,6 @@
             font-size: 0.8rem;
         }
 
-        .cart-item-right {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
         .btn-remove-item {
             background: none;
             border: none;
@@ -618,7 +592,6 @@
             color: var(--accent-red);
         }
 
-        /* --- STORAGE TETRIS & ADVICE SECTION --- */
         .hdd-storage-section {
             padding: 12px 15px;
             background: rgba(0, 0, 0, 0.4);
@@ -646,7 +619,6 @@
             outline: none;
         }
 
-        /* SEGMENTED TETRIS STORAGE BAR */
         .tetris-bar-bg {
             width: 100%;
             height: 14px;
@@ -660,23 +632,11 @@
 
         .tetris-block {
             height: 100%;
-            transition: width 0.3s ease, filter 0.2s ease;
+            transition: width 0.3s ease;
             position: relative;
-            cursor: pointer;
             border-right: 1px solid rgba(11, 10, 16, 0.5);
         }
 
-        .tetris-block:hover {
-            filter: brightness(1.4);
-            z-index: 5;
-        }
-
-        .tetris-overflow {
-            background: var(--accent-red) !important;
-            box-shadow: 0 0 10px var(--accent-red);
-        }
-
-        /* DYNAMIC STORAGE ADVICE */
         .storage-advice-box {
             font-size: 0.75rem;
             color: var(--accent-purple-light);
@@ -703,12 +663,6 @@
         .hdd-icon {
             color: var(--accent-orange);
             font-size: 0.9rem;
-            animation: pulse-glow 2s infinite ease-in-out;
-        }
-
-        @keyframes pulse-glow {
-            0%, 100% { opacity: 0.6; }
-            50% { opacity: 1; filter: drop-shadow(0 0 5px var(--accent-orange)); }
         }
 
         .hdd-val-highlight {
@@ -754,7 +708,6 @@
             padding: 20px 0;
         }
 
-        /* TOAST NOTIFICATION */
         .toast-container {
             position: fixed;
             top: 20px;
@@ -803,7 +756,6 @@
     </header>
 
     <div class="controls">
-        <!-- RIG ANALYZER PANEL -->
         <div class="rig-analyzer-panel">
             <div class="rig-title">
                 <i class="fa-solid fa-microchip"></i> System Rig Compatibility Profile
@@ -815,7 +767,6 @@
             </div>
         </div>
 
-        <!-- SEARCH, SORT, & FILTER CHIPS -->
         <div class="filter-sort-bar">
             <div class="search-box">
                 <i class="fa-solid fa-magnifying-glass"></i>
@@ -840,7 +791,7 @@
 
     <main class="container">
         <div class="game-grid" id="gameGrid">
-            <!-- Game Card 1 -->
+            <!-- Game Cards -->
             <div class="game-card" data-id="1" data-title="Battle Realms Complete" data-genre="Strategy" data-size="0.773" data-ram="2" data-vram="0.5" data-cpu="1.8 GHz Processor" data-gpu="DirectX 9 Compatible GPU">
                 <div class="hud-status-badge status-ready" id="hud-1">&lt;CALCULATING&gt;</div>
                 <div class="card-img-wrapper">
@@ -849,10 +800,7 @@
                 </div>
                 <div class="card-content">
                     <div class="game-title">Battle Realms Complete</div>
-                    <div class="game-meta">
-                        <span>Strategy</span>
-                        <span>773 MB</span>
-                    </div>
+                    <div class="game-meta"><span>Strategy</span><span>773 MB</span></div>
                     <div class="setting-tweak-hint" id="tweak-1"><i class="fa-solid fa-sliders"></i> Ready for launch</div>
                     <div class="card-actions">
                         <button class="btn-play" data-action="toggle" data-id="1"><i class="fa-solid fa-plus"></i> Select Game</button>
@@ -861,7 +809,6 @@
                 </div>
             </div>
 
-            <!-- Game Card 2 -->
             <div class="game-card" data-id="2" data-title="Command & Conquer - Remastered Collection" data-genre="Strategy" data-size="25.20" data-ram="8" data-vram="2" data-cpu="Intel Core i3-3220 / AMD FX-4300" data-gpu="NVIDIA GTX 660 / AMD Radeon HD 7850">
                 <div class="hud-status-badge status-ready" id="hud-2">&lt;CALCULATING&gt;</div>
                 <div class="card-img-wrapper">
@@ -870,10 +817,7 @@
                 </div>
                 <div class="card-content">
                     <div class="game-title">Command & Conquer - Remastered Collection</div>
-                    <div class="game-meta">
-                        <span>Strategy</span>
-                        <span>25.20 GB</span>
-                    </div>
+                    <div class="game-meta"><span>Strategy</span><span>25.20 GB</span></div>
                     <div class="setting-tweak-hint" id="tweak-2"><i class="fa-solid fa-sliders"></i> Ready for launch</div>
                     <div class="card-actions">
                         <button class="btn-play" data-action="toggle" data-id="2"><i class="fa-solid fa-plus"></i> Select Game</button>
@@ -882,7 +826,6 @@
                 </div>
             </div>
 
-            <!-- Game Card 3 -->
             <div class="game-card" data-id="3" data-title="Command and Conquer - Generals" data-genre="Strategy" data-size="2.74" data-ram="2" data-vram="0.5" data-cpu="Intel Pentium III / AMD Athlon" data-gpu="DirectX 8.1 Compatible GPU">
                 <div class="hud-status-badge status-ready" id="hud-3">&lt;CALCULATING&gt;</div>
                 <div class="card-img-wrapper">
@@ -891,10 +834,7 @@
                 </div>
                 <div class="card-content">
                     <div class="game-title">Command and Conquer - Generals</div>
-                    <div class="game-meta">
-                        <span>Strategy</span>
-                        <span>2.74 GB</span>
-                    </div>
+                    <div class="game-meta"><span>Strategy</span><span>2.74 GB</span></div>
                     <div class="setting-tweak-hint" id="tweak-3"><i class="fa-solid fa-sliders"></i> Ready for launch</div>
                     <div class="card-actions">
                         <button class="btn-play" data-action="toggle" data-id="3"><i class="fa-solid fa-plus"></i> Select Game</button>
@@ -903,7 +843,6 @@
                 </div>
             </div>
 
-            <!-- Game Card 4 -->
             <div class="game-card" data-id="4" data-title="Devil May Cry 3 Special Edition" data-genre="Action" data-size="4.55" data-ram="2" data-vram="0.5" data-cpu="Intel Pentium III / AMD Athlon" data-gpu="DirectX 9.0c Compatible GPU">
                 <div class="hud-status-badge status-ready" id="hud-4">&lt;CALCULATING&gt;</div>
                 <div class="card-img-wrapper">
@@ -912,10 +851,7 @@
                 </div>
                 <div class="card-content">
                     <div class="game-title">Devil May Cry 3 Special Edition</div>
-                    <div class="game-meta">
-                        <span>Action</span>
-                        <span>4.55 GB</span>
-                    </div>
+                    <div class="game-meta"><span>Action</span><span>4.55 GB</span></div>
                     <div class="setting-tweak-hint" id="tweak-4"><i class="fa-solid fa-sliders"></i> Ready for launch</div>
                     <div class="card-actions">
                         <button class="btn-play" data-action="toggle" data-id="4"><i class="fa-solid fa-plus"></i> Select Game</button>
@@ -924,7 +860,6 @@
                 </div>
             </div>
 
-            <!-- Game Card 5 -->
             <div class="game-card" data-id="5" data-title="Diablo II Complete Edition" data-genre="RPG" data-size="1.88" data-ram="2" data-vram="0.25" data-cpu="1 GHz Processor" data-gpu="DirectX Compatible GPU">
                 <div class="hud-status-badge status-ready" id="hud-5">&lt;CALCULATING&gt;</div>
                 <div class="card-img-wrapper">
@@ -933,10 +868,7 @@
                 </div>
                 <div class="card-content">
                     <div class="game-title">Diablo II Complete Edition</div>
-                    <div class="game-meta">
-                        <span>RPG</span>
-                        <span>1.88 GB</span>
-                    </div>
+                    <div class="game-meta"><span>RPG</span><span>1.88 GB</span></div>
                     <div class="setting-tweak-hint" id="tweak-5"><i class="fa-solid fa-sliders"></i> Ready for launch</div>
                     <div class="card-actions">
                         <button class="btn-play" data-action="toggle" data-id="5"><i class="fa-solid fa-plus"></i> Select Game</button>
@@ -945,7 +877,6 @@
                 </div>
             </div>
 
-            <!-- Game Card 6 -->
             <div class="game-card" data-id="6" data-title="MGS V - THE PHANTOM PAIN" data-genre="Action" data-size="23.01" data-ram="4" data-vram="2" data-cpu="Intel Core i5-4460 / AMD FX-8320" data-gpu="NVIDIA GTX 650 / AMD Radeon R7 260x">
                 <div class="hud-status-badge status-ready" id="hud-6">&lt;CALCULATING&gt;</div>
                 <div class="card-img-wrapper">
@@ -954,10 +885,7 @@
                 </div>
                 <div class="card-content">
                     <div class="game-title">MGS V - THE PHANTOM PAIN</div>
-                    <div class="game-meta">
-                        <span>Action</span>
-                        <span>23.01 GB</span>
-                    </div>
+                    <div class="game-meta"><span>Action</span><span>23.01 GB</span></div>
                     <div class="setting-tweak-hint" id="tweak-6"><i class="fa-solid fa-sliders"></i> Ready for launch</div>
                     <div class="card-actions">
                         <button class="btn-play" data-action="toggle" data-id="6"><i class="fa-solid fa-plus"></i> Select Game</button>
@@ -966,7 +894,6 @@
                 </div>
             </div>
 
-            <!-- Game Card 7 -->
             <div class="game-card" data-id="7" data-title="NBA 2K26" data-genre="Sports" data-size="73.52" data-ram="8" data-vram="4" data-cpu="Intel Core i5-6600 / AMD Ryzen 5 1600" data-gpu="NVIDIA GTX 1060 6GB / AMD RX 580">
                 <div class="hud-status-badge status-ready" id="hud-7">&lt;CALCULATING&gt;</div>
                 <div class="card-img-wrapper">
@@ -975,10 +902,7 @@
                 </div>
                 <div class="card-content">
                     <div class="game-title">NBA 2K26</div>
-                    <div class="game-meta">
-                        <span>Sports</span>
-                        <span>73.52 GB</span>
-                    </div>
+                    <div class="game-meta"><span>Sports</span><span>73.52 GB</span></div>
                     <div class="setting-tweak-hint" id="tweak-7"><i class="fa-solid fa-sliders"></i> Ready for launch</div>
                     <div class="card-actions">
                         <button class="btn-play" data-action="toggle" data-id="7"><i class="fa-solid fa-plus"></i> Select Game</button>
@@ -987,7 +911,6 @@
                 </div>
             </div>
 
-            <!-- Game Card 8 -->
             <div class="game-card" data-id="8" data-title="Playnite" data-genre="Software" data-size="0.738" data-ram="2" data-vram="0.25" data-cpu="Dual Core CPU" data-gpu="Integrated Graphics">
                 <div class="hud-status-badge status-ready" id="hud-8">&lt;CALCULATING&gt;</div>
                 <div class="card-img-wrapper">
@@ -996,10 +919,7 @@
                 </div>
                 <div class="card-content">
                     <div class="game-title">Playnite</div>
-                    <div class="game-meta">
-                        <span>Software</span>
-                        <span>738 MB</span>
-                    </div>
+                    <div class="game-meta"><span>Software</span><span>738 MB</span></div>
                     <div class="setting-tweak-hint" id="tweak-8"><i class="fa-solid fa-sliders"></i> Ready for launch</div>
                     <div class="card-actions">
                         <button class="btn-play" data-action="toggle" data-id="8"><i class="fa-solid fa-plus"></i> Select Game</button>
@@ -1008,7 +928,6 @@
                 </div>
             </div>
 
-            <!-- Game Card 9 -->
             <div class="game-card" data-id="9" data-title="Red Alert 2" data-genre="Strategy" data-size="1.76" data-ram="2" data-vram="0.25" data-cpu="Intel Pentium II 266 MHz" data-gpu="2MB Graphics Card">
                 <div class="hud-status-badge status-ready" id="hud-9">&lt;CALCULATING&gt;</div>
                 <div class="card-img-wrapper">
@@ -1017,10 +936,7 @@
                 </div>
                 <div class="card-content">
                     <div class="game-title">Red Alert 2</div>
-                    <div class="game-meta">
-                        <span>Strategy</span>
-                        <span>1.76 GB</span>
-                    </div>
+                    <div class="game-meta"><span>Strategy</span><span>1.76 GB</span></div>
                     <div class="setting-tweak-hint" id="tweak-9"><i class="fa-solid fa-sliders"></i> Ready for launch</div>
                     <div class="card-actions">
                         <button class="btn-play" data-action="toggle" data-id="9"><i class="fa-solid fa-plus"></i> Select Game</button>
@@ -1029,7 +945,6 @@
                 </div>
             </div>
 
-            <!-- Game Card 10 -->
             <div class="game-card" data-id="10" data-title="Sniper - Ghost Warrior Contracts" data-genre="Action" data-size="16.58" data-ram="8" data-vram="2" data-cpu="Intel Core i5-4460 / AMD FX-6350" data-gpu="NVIDIA GTX 760 / AMD Radeon HD 7870">
                 <div class="hud-status-badge status-ready" id="hud-10">&lt;CALCULATING&gt;</div>
                 <div class="card-img-wrapper">
@@ -1038,10 +953,7 @@
                 </div>
                 <div class="card-content">
                     <div class="game-title">Sniper - Ghost Warrior Contracts</div>
-                    <div class="game-meta">
-                        <span>Action</span>
-                        <span>16.58 GB</span>
-                    </div>
+                    <div class="game-meta"><span>Action</span><span>16.58 GB</span></div>
                     <div class="setting-tweak-hint" id="tweak-10"><i class="fa-solid fa-sliders"></i> Ready for launch</div>
                     <div class="card-actions">
                         <button class="btn-play" data-action="toggle" data-id="10"><i class="fa-solid fa-plus"></i> Select Game</button>
@@ -1050,7 +962,6 @@
                 </div>
             </div>
 
-            <!-- Game Card 11 -->
             <div class="game-card" data-id="11" data-title="Sniper Ghost Warrior" data-genre="Action" data-size="4.60" data-ram="2" data-vram="0.5" data-cpu="Intel Pentium 4 3.2 GHz / AMD Athlon 64 3500+" data-gpu="NVIDIA 6800 / ATI X1650">
                 <div class="hud-status-badge status-ready" id="hud-11">&lt;CALCULATING&gt;</div>
                 <div class="card-img-wrapper">
@@ -1059,10 +970,7 @@
                 </div>
                 <div class="card-content">
                     <div class="game-title">Sniper Ghost Warrior</div>
-                    <div class="game-meta">
-                        <span>Action</span>
-                        <span>4.60 GB</span>
-                    </div>
+                    <div class="game-meta"><span>Action</span><span>4.60 GB</span></div>
                     <div class="setting-tweak-hint" id="tweak-11"><i class="fa-solid fa-sliders"></i> Ready for launch</div>
                     <div class="card-actions">
                         <button class="btn-play" data-action="toggle" data-id="11"><i class="fa-solid fa-plus"></i> Select Game</button>
@@ -1071,7 +979,6 @@
                 </div>
             </div>
 
-            <!-- Game Card 12 -->
             <div class="game-card" data-id="12" data-title="Warcraft III" data-genre="Strategy" data-size="1.98" data-ram="2" data-vram="0.25" data-cpu="1 GHz Processor" data-gpu="DirectX Compatible GPU">
                 <div class="hud-status-badge status-ready" id="hud-12">&lt;CALCULATING&gt;</div>
                 <div class="card-img-wrapper">
@@ -1080,10 +987,7 @@
                 </div>
                 <div class="card-content">
                     <div class="game-title">Warcraft III</div>
-                    <div class="game-meta">
-                        <span>Strategy</span>
-                        <span>1.98 GB</span>
-                    </div>
+                    <div class="game-meta"><span>Strategy</span><span>1.98 GB</span></div>
                     <div class="setting-tweak-hint" id="tweak-12"><i class="fa-solid fa-sliders"></i> Ready for launch</div>
                     <div class="card-actions">
                         <button class="btn-play" data-action="toggle" data-id="12"><i class="fa-solid fa-plus"></i> Select Game</button>
@@ -1097,9 +1001,7 @@
     <!-- SYSTEM REQUIREMENTS MODAL -->
     <div class="modal-container" id="reqsModal">
         <div class="modal-header">
-            <div class="modal-title" id="modalGameTitle">
-                <i class="fa-solid fa-microchip"></i> System Requirements
-            </div>
+            <div class="modal-title" id="modalGameTitle"><i class="fa-solid fa-microchip"></i> System Requirements</div>
             <button class="btn-close-modal" id="btnCloseModal">&times;</button>
         </div>
         <div class="reqs-grid">
@@ -1122,13 +1024,11 @@
         </div>
     </div>
 
-    <!-- CART WIDGET / DRAWER -->
+    <!-- CART WIDGET -->
     <div class="cart-widget">
         <div class="cart-header">
             <span><i class="fa-solid fa-gamepad"></i> Selected Games</span>
-            <div class="cart-header-actions">
-                <button class="btn-clear-all" id="btnClearAll">Clear</button>
-            </div>
+            <button class="btn-clear-all" id="btnClearAll">Clear</button>
         </div>
         <ul class="cart-items" id="cartItems">
             <li class="empty-msg">No games selected yet</li>
@@ -1137,7 +1037,7 @@
             <div class="hdd-label-row">
                 <div class="hdd-info-group">
                     <i class="fa-solid fa-hard-drive hdd-icon"></i>
-                    <span>Storage Used: <span class="hdd-val-highlight" id="totalSize">0 MB</span></span>
+                    <span>Storage Used: <span class="hdd-val-highlight" id="totalSize">0 GB</span></span>
                 </div>
                 <select class="target-drive-select" id="driveSelect">
                     <option value="64">64 GB Drive</option>
@@ -1159,5 +1059,292 @@
         </div>
     </div>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const state = {
+                selectedIds: new Set(),
+                activePreset: { ram: 8, vram: 4 },
+                currentGenre: 'all',
+                searchQuery: '',
+                sortOption: 'name-asc'
+            };
+
+            const colors = ['#ff6a00', '#9d4edd', '#00e676', '#00b4d8', '#ffd166', '#ff3366', '#c77dff'];
+
+            function showToast(message) {
+                const container = document.getElementById('toastContainer');
+                const toast = document.createElement('div');
+                toast.className = 'toast';
+                toast.innerHTML = `<i class="fa-solid fa-circle-check"></i> ${message}`;
+                container.appendChild(toast);
+                setTimeout(() => toast.remove(), 2500);
+            }
+
+            function updateRigAnalyzer() {
+                document.querySelectorAll('.game-card').forEach(card => {
+                    const id = card.dataset.id;
+                    const reqRam = parseFloat(card.dataset.ram) || 2;
+                    const reqVram = parseFloat(card.dataset.vram) || 0.5;
+
+                    const hud = document.getElementById(`hud-${id}`);
+                    const fps = document.getElementById(`fps-${id}`);
+                    const tweak = document.getElementById(`tweak-${id}`);
+
+                    let ramOk = state.activePreset.ram >= reqRam;
+                    let vramOk = state.activePreset.vram >= reqVram;
+
+                    if (ramOk && vramOk) {
+                        hud.className = 'hud-status-badge status-ready';
+                        hud.innerHTML = '<i class="fa-solid fa-check"></i> Compatible';
+                        
+                        let fpsVal = Math.min(144, Math.floor(60 * (state.activePreset.vram / reqVram)));
+                        fps.innerHTML = `<i class="fa-solid fa-gauge-high"></i> ~${fpsVal} FPS`;
+                        tweak.innerHTML = '<i class="fa-solid fa-sliders"></i> High / Ultra Settings';
+                    } else if (ramOk && !vramOk) {
+                        hud.className = 'hud-status-badge status-vram';
+                        hud.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Low VRAM';
+                        
+                        fps.innerHTML = `<i class="fa-solid fa-gauge-high"></i> ~30-45 FPS`;
+                        tweak.innerHTML = '<i class="fa-solid fa-sliders"></i> Lower Textures & Shadows';
+                    } else {
+                        hud.className = 'hud-status-badge status-warning';
+                        hud.innerHTML = '<i class="fa-solid fa-xmark"></i> Heavy Load';
+                        
+                        fps.innerHTML = `<i class="fa-solid fa-gauge-high"></i> <30 FPS`;
+                        tweak.innerHTML = '<i class="fa-solid fa-sliders"></i> 720p / Low Preset Needed';
+                    }
+                });
+            }
+
+            function updateCartUI() {
+                const cartItemsList = document.getElementById('cartItems');
+                const totalSizeEl = document.getElementById('totalSize');
+                const btnCopy = document.getElementById('btnCopyList');
+                const tetrisBar = document.getElementById('tetrisBar');
+                const storageAdvice = document.getElementById('storageAdvice');
+                const targetDriveGB = parseFloat(document.getElementById('driveSelect').value);
+
+                cartItemsList.innerHTML = '';
+                tetrisBar.innerHTML = '';
+
+                if (state.selectedIds.size === 0) {
+                    cartItemsList.innerHTML = '<li class="empty-msg">No games selected yet</li>';
+                    totalSizeEl.textContent = '0 GB';
+                    btnCopy.disabled = true;
+                    storageAdvice.innerHTML = '<i class="fa-solid fa-lightbulb"></i> Select games to calculate optimal drive allocation.';
+                    return;
+                }
+
+                btnCopy.disabled = false;
+                let totalGB = 0;
+                let itemsHTML = '';
+
+                state.selectedIds.forEach((id, index) => {
+                    const card = document.querySelector(`.game-card[data-id="${id}"]`);
+                    if (!card) return;
+
+                    const title = card.dataset.title;
+                    const size = parseFloat(card.dataset.size);
+                    totalGB += size;
+
+                    itemsHTML += `
+                        <li class="cart-item">
+                            <span class="cart-item-title"><i class="fa-solid fa-gamepad"></i> ${title}</span>
+                            <div class="cart-item-right">
+                                <span>${size >= 1 ? size.toFixed(2) + ' GB' : Math.round(size * 1024) + ' MB'}</span>
+                                <button class="btn-remove-item" data-id="${id}"><i class="fa-solid fa-xmark"></i></button>
+                            </div>
+                        </li>
+                    `;
+
+                    const block = document.createElement('div');
+                    block.className = 'tetris-block';
+                    const pct = (size / targetDriveGB) * 100;
+                    block.style.width = `${pct}%`;
+                    block.style.backgroundColor = colors[index % colors.length];
+                    block.title = `${title}: ${size} GB`;
+                    tetrisBar.appendChild(block);
+                });
+
+                cartItemsList.innerHTML = itemsHTML;
+
+                let displayTotal = totalGB >= 1 ? `${totalGB.toFixed(2)} GB` : `${Math.round(totalGB * 1024)} MB`;
+                totalSizeEl.textContent = displayTotal;
+
+                const freeGB = targetDriveGB - totalGB;
+                if (freeGB < 0) {
+                    storageAdvice.innerHTML = `<i class="fa-solid fa-circle-exclamation" style="color: var(--accent-red)"></i> <strong>Over Capacity!</strong> Exceeds drive by Math.abs(freeGB).toFixed(1) GB.`;
+                } else {
+                    storageAdvice.innerHTML = `<i class="fa-solid fa-hard-drive"></i> <strong>${freeGB.toFixed(1)} GB Free</strong> remaining on ${targetDriveGB} GB Drive.`;
+                }
+            }
+
+            function filterAndSortGames() {
+                const cards = Array.from(document.querySelectorAll('.game-card'));
+
+                cards.forEach(card => {
+                    const title = card.dataset.title.toLowerCase();
+                    const genre = card.dataset.genre;
+
+                    const matchesSearch = title.includes(state.searchQuery.toLowerCase());
+                    const matchesGenre = state.currentGenre === 'all' || genre === state.currentGenre;
+
+                    if (matchesSearch && matchesGenre) {
+                        card.style.display = 'flex';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+
+                const grid = document.getElementById('gameGrid');
+                cards.sort((a, b) => {
+                    if (state.sortOption === 'name-asc') {
+                        return a.dataset.title.localeCompare(b.dataset.title);
+                    } else if (state.sortOption === 'size-asc') {
+                        return parseFloat(a.dataset.size) - parseFloat(b.dataset.size);
+                    } else if (state.sortOption === 'size-desc') {
+                        return parseFloat(b.dataset.size) - parseFloat(a.dataset.size);
+                    }
+                });
+
+                cards.forEach(card => grid.appendChild(card));
+            }
+
+            /* --- EVENT LISTENERS --- */
+
+            // 1. Grid Click Handler (Select Game & System Reqs Buttons)
+            document.getElementById('gameGrid').addEventListener('click', (e) => {
+                const btn = e.target.closest('button');
+                if (!btn) return;
+
+                const action = btn.dataset.action;
+                const id = btn.dataset.id;
+                const card = document.querySelector(`.game-card[data-id="${id}"]`);
+
+                if (action === 'toggle') {
+                    if (state.selectedIds.has(id)) {
+                        state.selectedIds.delete(id);
+                        card.classList.remove('selected');
+                        btn.innerHTML = '<i class="fa-solid fa-plus"></i> Select Game';
+                        showToast(`Removed ${card.dataset.title}`);
+                    } else {
+                        state.selectedIds.add(id);
+                        card.classList.add('selected');
+                        btn.innerHTML = '<i class="fa-solid fa-check"></i> Selected';
+                        showToast(`Added ${card.dataset.title}`);
+                    }
+                    updateCartUI();
+                } else if (action === 'reqs') {
+                    document.getElementById('modalGameTitle').innerHTML = `<i class="fa-solid fa-microchip"></i> ${card.dataset.title}`;
+                    document.getElementById('modalCpu').textContent = card.dataset.cpu || 'Dual Core CPU';
+                    document.getElementById('modalRam').textContent = `${card.dataset.ram} GB`;
+                    document.getElementById('modalGpu').textContent = card.dataset.gpu || 'DirectX Compatible';
+                    document.getElementById('modalVram').textContent = `${card.dataset.vram} GB`;
+
+                    document.getElementById('reqsModal').classList.add('active');
+                }
+            });
+
+            // 2. Modal Close
+            document.getElementById('btnCloseModal').addEventListener('click', () => {
+                document.getElementById('reqsModal').classList.remove('active');
+            });
+
+            // 3. Cart Removes & Clear All
+            document.getElementById('cartItems').addEventListener('click', (e) => {
+                const removeBtn = e.target.closest('.btn-remove-item');
+                if (removeBtn) {
+                    const id = removeBtn.dataset.id;
+                    state.selectedIds.delete(id);
+
+                    const card = document.querySelector(`.game-card[data-id="${id}"]`);
+                    if (card) {
+                        card.classList.remove('selected');
+                        const toggleBtn = card.querySelector('[data-action="toggle"]');
+                        if (toggleBtn) toggleBtn.innerHTML = '<i class="fa-solid fa-plus"></i> Select Game';
+                    }
+                    updateCartUI();
+                }
+            });
+
+            document.getElementById('btnClearAll').addEventListener('click', () => {
+                state.selectedIds.clear();
+                document.querySelectorAll('.game-card').forEach(card => {
+                    card.classList.remove('selected');
+                    const btn = card.querySelector('[data-action="toggle"]');
+                    if (btn) btn.innerHTML = '<i class="fa-solid fa-plus"></i> Select Game';
+                });
+                updateCartUI();
+                showToast('Cleared all selected games');
+            });
+
+            // 4. Rig Preset Selector
+            document.getElementById('rigPresets').addEventListener('click', (e) => {
+                const btn = e.target.closest('.btn-preset');
+                if (!btn) return;
+
+                document.querySelectorAll('.btn-preset').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                state.activePreset.ram = parseFloat(btn.dataset.ram);
+                state.activePreset.vram = parseFloat(btn.dataset.vram);
+
+                updateRigAnalyzer();
+            });
+
+            // 5. Search, Filter Chips & Sort
+            document.getElementById('searchInput').addEventListener('input', (e) => {
+                state.searchQuery = e.target.value;
+                filterAndSortGames();
+            });
+
+            document.getElementById('sortSelect').addEventListener('change', (e) => {
+                state.sortOption = e.target.value;
+                filterAndSortGames();
+            });
+
+            document.getElementById('genreChips').addEventListener('click', (e) => {
+                const chip = e.target.closest('.chip');
+                if (!chip) return;
+
+                document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+                chip.classList.add('active');
+
+                state.currentGenre = chip.dataset.genre;
+                filterAndSortGames();
+            });
+
+            // 6. Drive Select Change
+            document.getElementById('driveSelect').addEventListener('change', () => {
+                updateCartUI();
+            });
+
+            // 7. Copy Selected List to Clipboard
+            document.getElementById('btnCopyList').addEventListener('click', () => {
+                let text = "Selected Games List:\n";
+                let totalGB = 0;
+
+                state.selectedIds.forEach(id => {
+                    const card = document.querySelector(`.game-card[data-id="${id}"]`);
+                    if (card) {
+                        const title = card.dataset.title;
+                        const size = parseFloat(card.dataset.size);
+                        totalGB += size;
+                        text += `- ${title} (${size >= 1 ? size.toFixed(2) + ' GB' : Math.round(size * 1024) + ' MB'})\n`;
+                    }
+                });
+
+                text += `\nTotal Estimated Storage: ${totalGB.toFixed(2)} GB`;
+
+                navigator.clipboard.writeText(text).then(() => {
+                    showToast('Game list copied to clipboard!');
+                });
+            });
+
+            // Initial Calculations
+            updateRigAnalyzer();
+            updateCartUI();
+        });
+    </script>
 </body>
 </html>
