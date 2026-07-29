@@ -406,6 +406,105 @@
             border-color: var(--accent-purple);
         }
 
+        /* MODAL */
+        .modal-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.95);
+            background: var(--bg-card);
+            border: 1px solid var(--accent-purple);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9), 0 0 25px rgba(157, 78, 221, 0.25);
+            border-radius: 12px;
+            width: 90%;
+            max-width: 440px;
+            padding: 22px;
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .modal-container.active {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 12px;
+            margin-bottom: 16px;
+        }
+
+        .modal-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .modal-title i {
+            color: var(--accent-orange);
+        }
+
+        .btn-close-modal {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            width: 28px;
+            height: 28px;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-close-modal:hover {
+            color: #fff;
+            border-color: var(--accent-orange);
+            background: var(--accent-orange);
+        }
+
+        .reqs-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .req-card-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 14px;
+            background: rgba(11, 10, 16, 0.6);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+        }
+
+        .req-card-label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--accent-purple-light);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .req-card-value {
+            font-size: 0.85rem;
+            color: #fff;
+            font-weight: 700;
+            text-align: right;
+        }
+
         /* DRAWER & CART */
         .cart-widget {
             position: fixed;
@@ -486,6 +585,104 @@
             font-size: 0.8rem;
         }
 
+        .cart-item-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-remove-item {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: color 0.2s ease;
+        }
+
+        .btn-remove-item:hover {
+            color: var(--accent-red);
+        }
+
+        .hdd-storage-section {
+            padding: 12px 15px;
+            background: rgba(0, 0, 0, 0.4);
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .hdd-label-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .target-drive-select {
+            background: rgba(11, 10, 16, 0.8);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            outline: none;
+        }
+
+        .tetris-bar-bg {
+            width: 100%;
+            height: 14px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 6px;
+            overflow: hidden;
+            display: flex;
+            position: relative;
+            border: 1px solid var(--border-color);
+        }
+
+        .tetris-block {
+            height: 100%;
+            transition: width 0.3s ease;
+            position: relative;
+            border-right: 1px solid rgba(11, 10, 16, 0.5);
+        }
+
+        .storage-advice-box {
+            font-size: 0.75rem;
+            color: var(--accent-purple-light);
+            background: rgba(157, 78, 221, 0.1);
+            border: 1px rgba(157, 78, 221, 0.3) solid;
+            padding: 6px 10px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            line-height: 1.2;
+        }
+
+        .storage-advice-box i {
+            color: var(--accent-yellow);
+        }
+
+        .hdd-info-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .hdd-icon {
+            color: var(--accent-orange);
+            font-size: 0.9rem;
+        }
+
+        .hdd-val-highlight {
+            color: var(--accent-orange);
+            font-weight: bold;
+            font-size: 0.85rem;
+        }
+
         .cart-footer {
             padding: 12px 15px;
             background: var(--bg-dark);
@@ -516,6 +713,13 @@
             background: var(--border-color);
         }
 
+        .empty-msg {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            text-align: center;
+            padding: 20px 0;
+        }
+
         .toast-container {
             position: fixed;
             top: 20px;
@@ -539,6 +743,10 @@
             align-items: center;
             gap: 8px;
             animation: slideIn 0.3s ease, fadeOut 0.3s 2.2s ease forwards;
+        }
+
+        .toast i {
+            color: var(--accent-orange);
         }
 
         @keyframes slideIn {
@@ -688,71 +896,67 @@
         </div>
     </main>
 
-    <!-- Drawer Widget -->
+    <!-- CART WIDGET -->
     <div class="cart-widget">
         <div class="cart-header">
-            <span><i class="fa-solid fa-gamepad"></i> Selected Games</span>
-            <button class="btn-clear-all" id="btnClearAll">Clear</button>
+            <span>Selected Games</span>
+            <button class="btn-clear-all" onclick="clearAllSelected()">Clear All</button>
         </div>
-        <ul class="cart-items" id="cartItems">
-            <!-- Items rendered via JS -->
+        <ul class="cart-items" id="cartItemsList">
+            <li class="empty-msg">No games selected yet</li>
         </ul>
+        <div class="hdd-storage-section">
+            <div class="hdd-label-row">
+                <div class="hdd-info-group">
+                    <i class="fa-solid fa-hard-drive hdd-icon"></i>
+                    <span>Storage: <span class="hdd-val-highlight" id="totalSizeDisplay">0.00 GB</span></span>
+                </div>
+                <select class="target-drive-select" id="driveSelect">
+                    <option value="64">64 GB Drive</option>
+                    <option value="128">128 GB Drive</option>
+                    <option value="256" selected>256 GB Drive</option>
+                    <option value="512">512 GB Drive</option>
+                    <option value="1024">1 TB Drive</option>
+                </select>
+            </div>
+            <div class="tetris-bar-bg" id="tetrisBar"></div>
+            <div class="storage-advice-box" id="storageAdvice">
+                <i class="fa-solid fa-lightbulb"></i>
+                <span>Select games to build your custom drive pack.</span>
+            </div>
+        </div>
         <div class="cart-footer">
-            <button class="btn-copy-drawer" id="btnCopySelected" onclick="copySelectedGames()">
+            <button class="btn-copy-drawer" id="btnCopyList" onclick="copySelectedList()" disabled>
                 <i class="fa-solid fa-copy"></i> Copy Selected List
             </button>
         </div>
     </div>
 
     <script>
-        // Sample JavaScript for handling list dynamic updates and FB DM friendly formatting
-        function copySelectedGames() {
-            // Get selected game elements or data
+        // Sample helper to simulate list copying with universal gaming icons for FB DM compatibility
+        function copySelectedList() {
             const selectedCards = document.querySelectorAll('.game-card.selected');
-            
-            if (selectedCards.length === 0) {
-                showToast("No games selected!");
-                return;
-            }
+            if (selectedCards.length === 0) return;
 
-            // Universal gaming icons & simple formatting that won't break in FB Messenger (Mobile & PC)
-            let formattedText = "🎮 MY OFFGRID GAMING LIST 🕹️\n";
-            formattedText += "-----------------------------------\n";
+            let text = "🎮 *OFFGRID GAMING SELECTION LIST* 🎮\n\n";
+            let totalGB = 0;
 
             selectedCards.forEach((card, index) => {
                 const title = card.getAttribute('data-title');
-                const size = card.getAttribute('data-display');
-                const genre = card.getAttribute('data-genre');
-                formattedText += `${index + 1}. 🕹️ ${title}\n   💾 Size: ${size} | Genre: ${genre}\n\n`;
+                const display = card.getAttribute('data-display');
+                text += `🕹️ ${index + 1}. ${title} (${display})\n`;
             });
 
-            formattedText += "-----------------------------------\n";
-            formattedText += "⚡ Ready for Offline Play!";
+            const totalSizeStr = document.getElementById('totalSizeDisplay').innerText;
+            text += `\n📋 *Total Storage Needed:* ${totalSizeStr}\n`;
+            text += "-----------------------------------";
 
-            // Copy to clipboard
-            navigator.clipboard.writeText(formattedText).then(() => {
-                showToast("List copied! Ready to paste on Facebook DM.");
+            navigator.clipboard.writeText(text).then(() => {
+                alert("List copied to clipboard! Ready to send via Facebook DM.");
             }).catch(err => {
-                showToast("Failed to copy list.");
+                console.error("Failed to copy list: ", err);
             });
         }
-
-        function showToast(message) {
-            const container = document.getElementById('toastContainer');
-            const toast = document.createElement('div');
-            toast.className = 'toast';
-            toast.innerHTML = `<i class="fa-solid fa-circle-check"></i> ${message}`;
-            container.appendChild(toast);
-            setTimeout(() => toast.remove(), 2500);
-        }
-
-        // Example click handler to toggle selection
-        document.querySelectorAll('.btn-play').forEach(button => {
-            button.addEventListener('click', (e) => {
-                const card = e.target.closest('.game-card');
-                card.classList.toggle('selected');
-            });
-        });
     </script>
 </body>
 </html>
