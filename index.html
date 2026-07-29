@@ -19,6 +19,7 @@
             --border-color: #262e3d;
             --text-main: #f0f2f5;
             --text-muted: #8d98a7;
+            --whatsapp-green: #25d366;
         }
 
         * {
@@ -39,12 +40,13 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            overflow-x: hidden;
         }
 
         /* Header section */
         header {
             text-align: center;
-            padding: 35px 20px 20px;
+            padding: 25px 15px 15px;
             border-bottom: 1px solid var(--border-color);
             background: linear-gradient(180deg, rgba(11,13,16,0.95) 0%, rgba(11,13,16,0.8) 100%);
         }
@@ -54,26 +56,22 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            width: 100%;
         }
 
         .site-logo {
-            max-width: 220px;
+            max-width: 180px;
             height: auto;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             filter: drop-shadow(0 0 15px rgba(255, 94, 0, 0.35));
             transition: transform 0.3s ease, filter 0.3s ease;
         }
 
-        .site-logo:hover {
-            transform: scale(1.03);
-            filter: drop-shadow(0 0 25px rgba(255, 94, 0, 0.6));
-        }
-
         .site-title {
             font-family: 'Teko', sans-serif;
-            font-size: 3rem;
+            font-size: 2.5rem;
             text-transform: uppercase;
-            letter-spacing: 3px;
+            letter-spacing: 2px;
             color: #fff;
             text-shadow: 0 0 20px rgba(255, 94, 0, 0.5);
             line-height: 0.9;
@@ -84,20 +82,23 @@
         }
 
         .tagline {
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             font-weight: 700;
-            letter-spacing: 4px;
+            letter-spacing: 3px;
             color: var(--accent-orange);
             text-transform: uppercase;
             margin-top: 5px;
         }
 
-        /* Controls: Search Bar Only */
+        /* Controls: Search & Category Filters */
         .controls {
             max-width: 800px;
-            margin: 25px auto 15px;
-            padding: 0 20px;
+            margin: 20px auto 10px;
+            padding: 0 15px;
             width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
         }
 
         .search-box {
@@ -107,7 +108,7 @@
 
         .search-box input {
             width: 100%;
-            padding: 14px 16px 14px 45px;
+            padding: 12px 16px 12px 45px;
             background: var(--bg-card);
             border: 1px solid var(--border-color);
             border-radius: 8px;
@@ -131,19 +132,56 @@
             font-size: 1.1rem;
         }
 
+        .filter-container {
+            display: flex;
+            justify-content: flex-start;
+            gap: 8px;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            padding-bottom: 5px;
+            scrollbar-width: none; /* Firefox */
+        }
+
+        .filter-container::-webkit-scrollbar {
+            display: none; /* Chrome/Safari */
+        }
+
+        .filter-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            padding: 8px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.8rem;
+            white-space: nowrap;
+            flex-shrink: 0;
+            transition: all 0.2s ease;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--accent-orange);
+            color: #fff;
+            border-color: var(--accent-orange);
+            box-shadow: 0 0 10px rgba(255, 94, 0, 0.4);
+        }
+
         /* Container Layout */
         .container {
             max-width: 1100px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 15px;
             flex: 1;
             width: 100%;
+            /* Extra padding at the bottom so content isn't permanently hidden behind the collapsible drawer */
+            padding-bottom: 110px; 
         }
 
         .game-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 15px;
         }
 
         /* Game Cards */
@@ -158,12 +196,6 @@
             position: relative;
         }
 
-        .game-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent-orange);
-            box-shadow: 0 5px 20px rgba(255, 94, 0, 0.25);
-        }
-
         .game-card.selected {
             border: 2px solid var(--accent-orange);
             box-shadow: 0 0 15px rgba(255, 94, 0, 0.4);
@@ -172,7 +204,7 @@
         .card-img-wrapper {
             position: relative;
             width: 100%;
-            height: 220px;
+            height: 180px;
         }
 
         .card-img {
@@ -218,26 +250,26 @@
         }
 
         .card-content {
-            padding: 15px;
+            padding: 12px;
             display: flex;
             flex-direction: column;
             flex: 1;
         }
 
         .game-title {
-            font-size: 1.05rem;
+            font-size: 1rem;
             font-weight: 700;
             color: #fff;
-            margin-bottom: 5px;
+            margin-bottom: 4px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
 
         .game-meta {
-            font-size: 0.8rem;
+            font-size: 0.78rem;
             color: var(--text-muted);
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             display: flex;
             justify-content: space-between;
         }
@@ -245,7 +277,7 @@
         .card-actions {
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 6px;
             margin-top: auto;
         }
 
@@ -256,13 +288,12 @@
             color: #fff;
             text-align: center;
             font-weight: bold;
-            font-size: 0.85rem;
+            font-size: 0.82rem;
             border-radius: 4px;
             text-transform: uppercase;
             letter-spacing: 1px;
             border: none;
             cursor: pointer;
-            transition: all 0.2s;
         }
 
         .game-card.selected .btn-play {
@@ -278,28 +309,23 @@
             color: var(--text-muted);
             border: 1px solid var(--border-color);
             border-radius: 4px;
-            font-size: 0.8rem;
+            font-size: 0.78rem;
             cursor: pointer;
-            transition: all 0.2s;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 6px;
         }
 
-        .btn-specs:hover {
-            color: #fff;
-            border-color: var(--accent-orange);
-            background: rgba(255, 94, 0, 0.1);
-        }
-
         /* Floating Bottom Drawer */
         .cart-widget {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 340px;
-            max-height: 450px;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: calc(100% - 20px);
+            max-width: 480px;
+            max-height: 480px;
             background: var(--bg-card);
             border: 1px solid var(--accent-orange);
             border-radius: 10px;
@@ -311,15 +337,6 @@
             transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        @media (max-width: 480px) {
-            .cart-widget {
-                right: 10px;
-                left: 10px;
-                width: calc(100% - 20px);
-                bottom: 10px;
-            }
-        }
-
         .cart-header {
             background: rgba(255, 94, 0, 0.15);
             padding: 12px 15px;
@@ -328,20 +345,16 @@
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid var(--border-color);
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             cursor: pointer;
             user-select: none;
         }
 
-        .cart-header:hover {
-            background: rgba(255, 94, 0, 0.25);
-        }
-
         .cart-items {
             list-style: none;
-            padding: 10px;
+            padding: 8px;
             overflow-y: auto;
-            max-height: 200px;
+            max-height: 180px;
             flex: 1;
         }
 
@@ -349,18 +362,18 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 8px 10px;
+            padding: 8px;
             background: rgba(255, 255, 255, 0.03);
             border-radius: 6px;
-            margin-bottom: 6px;
-            font-size: 0.85rem;
+            margin-bottom: 5px;
+            font-size: 0.82rem;
         }
 
         .cart-item-title {
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            max-width: 150px;
+            max-width: 180px;
         }
 
         .cart-item-right {
@@ -379,9 +392,8 @@
             border: none;
             color: var(--text-muted);
             cursor: pointer;
-            padding: 2px 6px;
+            padding: 4px 8px;
             border-radius: 4px;
-            transition: all 0.2s;
             font-size: 0.9rem;
         }
 
@@ -391,7 +403,7 @@
         }
 
         .cart-footer {
-            padding: 12px 15px;
+            padding: 10px 15px;
             background: var(--bg-dark);
             border-top: 1px solid var(--border-color);
             display: flex;
@@ -404,74 +416,78 @@
             justify-content: space-between;
             align-items: center;
             font-weight: bold;
-            margin-bottom: 4px;
+            font-size: 0.9rem;
         }
 
         .cart-total-size {
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             color: var(--accent-orange);
         }
 
-        .btn-copy-drawer {
-            background: var(--accent-orange);
-            color: #fff;
+        .btn-copy-drawer, .btn-whatsapp {
             border: none;
             padding: 10px;
             border-radius: 6px;
             font-weight: bold;
-            font-size: 0.85rem;
+            font-size: 0.82rem;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
-            transition: all 0.2s;
             text-transform: uppercase;
             letter-spacing: 0.5px;
             width: 100%;
         }
 
-        .btn-copy-drawer:hover:not(:disabled) {
-            background: var(--accent-glow);
-            box-shadow: 0 0 12px rgba(255, 94, 0, 0.5);
+        .btn-copy-drawer {
+            background: var(--accent-orange);
+            color: #fff;
         }
 
-        .btn-copy-drawer:disabled {
+        .btn-copy-drawer:disabled, .btn-whatsapp:disabled {
             opacity: 0.4;
             cursor: not-allowed;
             background: var(--border-color);
             color: var(--text-muted);
         }
 
+        .btn-whatsapp {
+            background: var(--whatsapp-green);
+            color: #fff;
+        }
+
         .empty-msg {
             color: var(--text-muted);
-            font-size: 0.85rem;
+            font-size: 0.82rem;
             text-align: center;
-            padding: 20px 0;
+            padding: 15px 0;
         }
 
         /* Toast Notification Banner */
         .toast {
             position: fixed;
-            top: 20px;
-            right: 20px;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-150%);
+            width: calc(100% - 30px);
+            max-width: 400px;
             background: var(--bg-card);
             border-left: 4px solid var(--accent-orange);
             color: #fff;
-            padding: 12px 20px;
+            padding: 12px 16px;
             border-radius: 6px;
             box-shadow: 0 5px 20px rgba(0,0,0,0.5);
             display: flex;
             align-items: center;
             gap: 10px;
             z-index: 3000;
-            transform: translateX(120%);
             transition: transform 0.3s ease;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
         }
 
         .toast.show {
-            transform: translateX(0);
+            transform: translateX(-50%) translateY(0);
         }
 
         /* Modal Overlay */
@@ -487,7 +503,7 @@
             z-index: 2000;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            padding: 15px;
         }
 
         .modal-overlay.active {
@@ -499,10 +515,12 @@
             border: 1px solid var(--accent-orange);
             border-radius: 10px;
             width: 100%;
-            max-width: 480px;
-            padding: 24px;
+            max-width: 440px;
+            padding: 20px;
             box-shadow: 0 10px 30px rgba(255, 94, 0, 0.2);
             position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
         }
 
         .modal-header {
@@ -510,13 +528,13 @@
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid var(--border-color);
-            padding-bottom: 12px;
-            margin-bottom: 15px;
+            padding-bottom: 10px;
+            margin-bottom: 12px;
         }
 
         .modal-header h3 {
             color: #fff;
-            font-size: 1.2rem;
+            font-size: 1.05rem;
             display: flex;
             align-items: center;
             gap: 8px;
@@ -530,24 +548,20 @@
             color: var(--text-muted);
             font-size: 1.2rem;
             cursor: pointer;
-            transition: color 0.2s;
-        }
-
-        .modal-close:hover {
-            color: #ff4d4d;
+            padding: 5px;
         }
 
         .specs-list {
             list-style: none;
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            font-size: 0.9rem;
+            gap: 8px;
+            font-size: 0.85rem;
         }
 
         .specs-list li {
             background: rgba(255, 255, 255, 0.03);
-            padding: 10px;
+            padding: 8px 10px;
             border-radius: 6px;
             border-left: 3px solid var(--accent-orange);
             display: flex;
@@ -557,7 +571,7 @@
 
         .specs-label {
             color: var(--text-muted);
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             text-transform: uppercase;
             letter-spacing: 0.5px;
             font-weight: bold;
@@ -571,11 +585,12 @@
         /* Footer */
         footer {
             text-align: center;
-            padding: 25px;
+            padding: 20px 15px;
             border-top: 1px solid var(--border-color);
             color: var(--text-muted);
-            font-size: 0.85rem;
-            margin-top: 40px;
+            font-size: 0.78rem;
+            margin-top: 20px;
+            margin-bottom: 60px; /* Space for drawer */
         }
 
         footer span {
@@ -593,11 +608,17 @@
         </div>
     </header>
 
-    <!-- Controls: Search Bar Only -->
+    <!-- Controls: Search Bar & Filters -->
     <div class="controls">
         <div class="search-box">
             <i class="fa-solid fa-magnifying-glass"></i>
             <input type="text" id="searchInput" placeholder="Search games..." onkeyup="filterGames()">
+        </div>
+        <div class="filter-container">
+            <button class="filter-btn active" onclick="filterCategory('all', event)">All Games</button>
+            <button class="filter-btn" onclick="filterCategory('Action', event)">Action / RPG</button>
+            <button class="filter-btn" onclick="filterCategory('Open World', event)">Open World</button>
+            <button class="filter-btn" onclick="filterCategory('Racing', event)">Racing</button>
         </div>
     </div>
 
@@ -607,7 +628,7 @@
         <div class="game-grid" id="gameGrid">
             
             <!-- Game Card 1 -->
-            <div class="game-card" data-id="1" data-title="Cyberpunk 2077" data-size="70">
+            <div class="game-card" data-id="1" data-title="Cyberpunk 2077" data-size="70" data-genre="Action RPG">
                 <span class="card-badge"><i class="fa-solid fa-wifi-slash"></i> OFFLINE</span>
                 <div class="card-img-wrapper">
                     <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1091500/header.jpg" alt="Cyberpunk 2077" class="card-img">
@@ -627,7 +648,7 @@
             </div>
 
             <!-- Game Card 2 -->
-            <div class="game-card" data-id="2" data-title="Grand Theft Auto V" data-size="100">
+            <div class="game-card" data-id="2" data-title="Grand Theft Auto V" data-size="100" data-genre="Open World">
                 <span class="card-badge"><i class="fa-solid fa-wifi-slash"></i> OFFLINE</span>
                 <div class="card-img-wrapper">
                     <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/271590/header.jpg" alt="GTA V" class="card-img">
@@ -647,7 +668,7 @@
             </div>
 
             <!-- Game Card 3 -->
-            <div class="game-card" data-id="3" data-title="Elden Ring" data-size="50">
+            <div class="game-card" data-id="3" data-title="Elden Ring" data-size="50" data-genre="Action RPG">
                 <span class="card-badge"><i class="fa-solid fa-wifi-slash"></i> OFFLINE</span>
                 <div class="card-img-wrapper">
                     <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1245620/header.jpg" alt="Elden Ring" class="card-img">
@@ -667,7 +688,7 @@
             </div>
 
             <!-- Game Card 4 -->
-            <div class="game-card" data-id="4" data-title="Forza Horizon 5" data-size="110">
+            <div class="game-card" data-id="4" data-title="Forza Horizon 5" data-size="110" data-genre="Racing">
                 <span class="card-badge"><i class="fa-solid fa-wifi-slash"></i> OFFLINE</span>
                 <div class="card-img-wrapper">
                     <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1551360/header.jpg" alt="Forza Horizon 5" class="card-img">
@@ -693,7 +714,7 @@
     <div class="cart-widget" id="cartWidget">
         <div class="cart-header" onclick="toggleCartDrawer()">
             <span><i class="fa-solid fa-calculator"></i> Selected Games <span id="selectedCount" style="color: var(--accent-orange);">(0)</span></span>
-            <i class="fa-solid fa-chevron-down" id="drawerToggleIcon"></i>
+            <i class="fa-solid fa-chevron-up" id="drawerToggleIcon"></i>
         </div>
         <ul class="cart-items" id="cartItems">
             <div class="empty-msg">No games selected yet.</div>
@@ -705,6 +726,9 @@
             </div>
             <button class="btn-copy-drawer" id="btnCopyDrawer" onclick="copySelectedList()" disabled>
                 <i class="fa-regular fa-copy"></i> Copy Selected List
+            </button>
+            <button class="btn-whatsapp" id="btnWhatsApp" onclick="sendViaWhatsApp()" disabled>
+                <i class="fa-brands fa-whatsapp"></i> Order via WhatsApp
             </button>
         </div>
     </div>
@@ -731,7 +755,8 @@
 
     <script>
         let selectedGames = new Map();
-        let isDrawerCollapsed = false;
+        let activeCategory = 'all';
+        let isDrawerCollapsed = true; // Starts collapsed on mobile to save screen space
 
         // Game Database
         const gameSpecsData = {
@@ -769,19 +794,42 @@
             }
         };
 
-        // Search Bar Filter
+        // Initialize mobile state on load
+        window.addEventListener('DOMContentLoaded', () => {
+            const cartWidget = document.getElementById('cartWidget');
+            const icon = document.getElementById('drawerToggleIcon');
+            // Start collapsed initially on mobile views for cleaner load
+            cartWidget.style.transform = 'translateY(calc(100% - 46px))';
+            icon.className = 'fa-solid fa-chevron-up';
+        });
+
+        // Combined Filter (Search + Category)
         function filterGames() {
             const query = document.getElementById('searchInput').value.toLowerCase();
             const cards = document.querySelectorAll('.game-card');
 
             cards.forEach(card => {
                 const title = card.getAttribute('data-title').toLowerCase();
-                if (title.includes(query)) {
+                const genre = card.getAttribute('data-genre') || '';
+                
+                const matchesSearch = title.includes(query);
+                const matchesCategory = activeCategory === 'all' || genre.includes(activeCategory);
+
+                if (matchesSearch && matchesCategory) {
                     card.style.display = 'flex';
                 } else {
                     card.style.display = 'none';
                 }
             });
+        }
+
+        function filterCategory(category, event) {
+            activeCategory = category;
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            if (event && event.target) {
+                event.target.classList.add('active');
+            }
+            filterGames();
         }
 
         // Toggle Selection Handler
@@ -802,6 +850,11 @@
                 card.classList.add('selected');
                 card.querySelector('.btn-play').innerHTML = `<i class="fa-solid fa-check"></i> Selected`;
                 showToast(`Added ${title} (${size} GB)`);
+                
+                // Automatically pop open drawer when user selects a game for the first time
+                if (isDrawerCollapsed && selectedGames.size === 1) {
+                    toggleCartDrawer();
+                }
             }
 
             updateDrawerUI();
@@ -820,6 +873,7 @@
             const drawerTotal = document.getElementById('totalSize');
             const countElement = document.getElementById('selectedCount');
             const btnCopy = document.getElementById('btnCopyDrawer');
+            const btnWhatsApp = document.getElementById('btnWhatsApp');
 
             drawerList.innerHTML = '';
             let totalGB = 0;
@@ -827,8 +881,10 @@
             if (selectedGames.size === 0) {
                 drawerList.innerHTML = '<div class="empty-msg">No games selected yet.</div>';
                 btnCopy.disabled = true;
+                btnWhatsApp.disabled = true;
             } else {
                 btnCopy.disabled = false;
+                btnWhatsApp.disabled = false;
                 selectedGames.forEach((game, id) => {
                     totalGB += game.size;
 
@@ -866,111 +922,55 @@
             }
         }
 
-        // Reliable Copy Function for Desktop & Mobile
+        // Copy List to Clipboard
         function copySelectedList() {
             if (selectedGames.size === 0) return;
-
-            let textToCopy = "🎮 Selected Games & Storage Breakdown:\n\n";
-            let totalGB = 0;
-
-            selectedGames.forEach((game) => {
-                textToCopy += `• ${game.title} — ${game.size} GB\n`;
-                totalGB += game.size;
+            let text = "OFFGRID GAMING - Selected Games:\n";
+            let total = 0;
+            selectedGames.forEach(game => {
+                text += `- ${game.title} (${game.size} GB)\n`;
+                total += game.size;
             });
+            text += `Total Storage: ${total} GB`;
 
-            textToCopy += `\n💾 Total Required Storage: ${totalGB} GB`;
-
-            const btn = document.getElementById('btnCopyDrawer');
-
-            const handleSuccess = () => {
-                btn.innerHTML = `<i class="fa-solid fa-check"></i> Copied to Clipboard!`;
-                showToast("List copied to clipboard!");
-
-                setTimeout(() => {
-                    btn.innerHTML = `<i class="fa-regular fa-copy"></i> Copy Selected List`;
-                }, 2000);
-            };
-
-            if (navigator.clipboard && window.isSecureContext) {
-                navigator.clipboard.writeText(textToCopy)
-                    .then(handleSuccess)
-                    .catch(() => fallbackCopyTextToClipboard(textToCopy, handleSuccess));
-            } else {
-                fallbackCopyTextToClipboard(textToCopy, handleSuccess);
-            }
+            navigator.clipboard.writeText(text).then(() => {
+                showToast("Copied list to clipboard!");
+            }).catch(err => {
+                showToast("Failed to copy list.");
+            });
         }
 
-        // Fallback method using temporary text area (Works on Mobile Safari & Android)
-        function fallbackCopyTextToClipboard(text, onSuccess) {
-            const textArea = document.createElement("textarea");
-            textArea.value = text;
-            
-            textArea.style.position = "fixed";
-            textArea.style.top = "0";
-            textArea.style.left = "0";
-            textArea.style.width = "2em";
-            textArea.style.height = "2em";
-            textArea.style.padding = "0";
-            textArea.style.border = "none";
-            textArea.style.outline = "none";
-            textArea.style.boxShadow = "none";
-            textArea.style.background = "transparent";
+        // Send via WhatsApp
+        function sendViaWhatsApp() {
+            if (selectedGames.size === 0) return;
+            let text = "Hello, I would like to order/copy the following offline games:\n";
+            let total = 0;
+            selectedGames.forEach(game => {
+                text += `• ${game.title} (${game.size} GB)\n`;
+                total += game.size;
+            });
+            text += `Total Storage Required: ${total} GB`;
 
-            document.body.appendChild(textArea);
-            
-            if (navigator.userAgent.match(/ipad|iphone/i)) {
-                const range = document.createRange();
-                range.selectNodeContents(textArea);
-                const selection = window.getSelection();
-                selection.removeAllRanges();
-                selection.addRange(range);
-                textArea.setSelectionRange(0, 999999);
-            } else {
-                textArea.focus();
-                textArea.select();
-            }
-
-            try {
-                const successful = document.execCommand('copy');
-                if (successful) {
-                    onSuccess();
-                } else {
-                    showToast("Failed to copy list.");
-                }
-            } catch (err) {
-                console.error('Fallback copy failed', err);
-                showToast("Copy not supported on this device.");
-            }
-
-            document.body.removeChild(textArea);
+            const encodedUrl = `https://wa.me/?text=${encodeURIComponent(text)}`;
+            window.open(encodedUrl, '_blank');
         }
 
-        // Toast Notification Trigger
-        function showToast(msg) {
-            const toast = document.getElementById('toast');
-            document.getElementById('toastMsg').innerText = msg;
-            toast.classList.add('show');
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 2500);
-        }
-
-        // Modal triggers
+        // Open/Close Specs Modal
         function openSpecs(id) {
-            const specs = gameSpecsData[id];
-            if (!specs) return;
+            const data = gameSpecsData[id];
+            if (!data) return;
 
-            document.getElementById('modalGameTitle').innerHTML = `<i class="fa-solid fa-desktop"></i> ${specs.title}`;
+            document.getElementById('modalGameTitle').innerHTML = `<i class="fa-solid fa-desktop"></i> ${data.title}`;
             
-            const specsContent = `
-                <li><span class="specs-label">OS</span><span class="specs-value">${specs.os}</span></li>
-                <li><span class="specs-label">Processor</span><span class="specs-value">${specs.cpu}</span></li>
-                <li><span class="specs-label">Memory</span><span class="specs-value">${specs.ram}</span></li>
-                <li><span class="specs-label">Graphics</span><span class="specs-value">${specs.gpu}</span></li>
-                <li><span class="specs-label">DirectX</span><span class="specs-value">${specs.directx}</span></li>
+            const content = document.getElementById('modalSpecsContent');
+            content.innerHTML = `
+                <li><span class="specs-label">Operating System</span><span class="specs-value">${data.os}</span></li>
+                <li><span class="specs-label">Processor (CPU)</span><span class="specs-value">${data.cpu}</span></li>
+                <li><span class="specs-label">Memory (RAM)</span><span class="specs-value">${data.ram}</span></li>
+                <li><span class="specs-label">Graphics (GPU)</span><span class="specs-value">${data.gpu}</span></li>
+                <li><span class="specs-label">DirectX</span><span class="specs-value">${data.directx}</span></li>
             `;
 
-            document.getElementById('modalSpecsContent').innerHTML = specsContent;
             document.getElementById('specsModal').classList.add('active');
         }
 
@@ -982,6 +982,21 @@
             if (event.target.id === 'specsModal') {
                 closeSpecs();
             }
+        }
+
+        // Toast Popup Helper
+        let toastTimeout;
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const msgSpan = document.getElementById('toastMsg');
+            
+            msgSpan.innerText = message;
+            toast.classList.add('show');
+
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
         }
     </script>
 </body>
