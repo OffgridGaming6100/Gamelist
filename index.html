@@ -467,11 +467,33 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
 
         .cart-item-title i {
             color: var(--accent-orange);
             font-size: 0.8rem;
+        }
+
+        .cart-item-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-remove-item {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: color 0.2s ease;
+        }
+
+        .btn-remove-item:hover {
+            color: var(--accent-red);
         }
 
         .ssd-storage-section {
@@ -679,7 +701,7 @@
         </div>
     </div>
 
-    <!-- MODERN CLEAN FLOATING WINDOW SYSTEM REQUIREMENTS -->
+    <!-- MODERN CLEAN FLOATING WINDOW SYSTEM REQUIREMENTS (NO STORAGE ROW) -->
     <div class="modal-container" id="reqsModal">
         <div class="modal-header">
             <div class="modal-title"><i class="fa-solid fa-desktop"></i> <span id="modalGameTitle">Game Requirements</span></div>
@@ -701,10 +723,6 @@
             <div class="req-card-row">
                 <span class="req-card-label"><i class="fa-solid fa-display"></i> GPU:</span>
                 <span class="req-card-value" id="modalGpu">-</span>
-            </div>
-            <div class="req-card-row">
-                <span class="req-card-label"><i class="fa-solid fa-hard-drive"></i> STORAGE:</span>
-                <span class="req-card-value" id="modalStorage">-</span>
             </div>
         </div>
     </div>
@@ -729,7 +747,6 @@
         const modalVram = document.getElementById('modalVram');
         const modalCpu = document.getElementById('modalCpu');
         const modalGpu = document.getElementById('modalGpu');
-        const modalStorage = document.getElementById('modalStorage');
 
         // Search Filter
         searchInput.addEventListener('input', (e) => {
@@ -784,20 +801,7 @@
             const card = document.querySelector(`.game-card[data-id="${id}"]`);
 
             if (action === 'toggle') {
-                const title = card.getAttribute('data-title');
-                const size = parseFloat(card.getAttribute('data-size'));
-
-                if (selectedGames.has(id)) {
-                    selectedGames.delete(id);
-                    card.classList.remove('selected');
-                    btn.innerHTML = `<i class="fa-solid fa-plus"></i> Select Game`;
-                } else {
-                    selectedGames.set(id, { title, size });
-                    card.classList.add('selected');
-                    btn.innerHTML = `<i class="fa-solid fa-check"></i> Selected`;
-                }
-
-                updateUI();
+                toggleGameSelection(id);
             } else if (action === 'reqs') {
                 // Open Floating System Reqs Window
                 modalGameTitle.innerText = card.getAttribute('data-title');
@@ -805,14 +809,55 @@
                 modalVram.innerText = `${card.getAttribute('data-vram')} GB`;
                 modalCpu.innerText = card.getAttribute('data-cpu') || 'N/A';
                 modalGpu.innerText = card.getAttribute('data-gpu') || 'N/A';
-                modalStorage.innerText = `${card.getAttribute('data-size')} GB`;
                 
                 reqsModal.classList.add('active');
             }
         });
 
+        // Toggle Selection Logic
+        function toggleGameSelection(id) {
+            const card = document.querySelector(`.game-card[data-id="${id}"]`);
+            if (!card) return;
+
+            const btn = card.querySelector('.btn-play');
+            const title = card.getAttribute('data-title');
+            const size = parseFloat(card.getAttribute('data-size'));
+
+            if (selectedGames.has(id)) {
+                selectedGames.delete(id);
+                card.classList.remove('selected');
+                if (btn) btn.innerHTML = `<i class="fa-solid fa-plus"></i> Select Game`;
+            } else {
+                selectedGames.set(id, { title, size });
+                card.classList.add('selected');
+                if (btn) btn.innerHTML = `<i class="fa-solid fa-check"></i> Selected`;
+            }
+
+            updateUI();
+        }
+
+        // Drawer Item Removal Click Handler
+        cartItems.addEventListener('click', (e) => {
+            const removeBtn = e.target.closest('.btn-remove-item');
+            if (!removeBtn) return;
+            const id = removeBtn.dataset.id;
+            toggleGameSelection(id);
+        });
+
         // Close Floating Window Handlers
         btnCloseModal.addEventListener('click', () => reqsModal.classList.remove('active'));
+
+        // CLOSE FLOATING WINDOW WHEN TAPPING/CLICKING OUTSIDE OF IT
+        document.addEventListener('pointerdown', (e) => {
+            if (reqsModal.classList.contains('active')) {
+                const clickedInside = reqsModal.contains(e.target);
+                const isReqsBtn = e.target.closest('[data-action="reqs"]');
+                
+                if (!clickedInside && !isReqsBtn) {
+                    reqsModal.classList.remove('active');
+                }
+            }
+        });
 
         // Update Storage & Selection UI
         function updateUI() {
@@ -824,13 +869,18 @@
                 btnCopyDrawer.disabled = true;
             } else {
                 btnCopyDrawer.disabled = false;
-                selectedGames.forEach((game) => {
+                selectedGames.forEach((game, id) => {
                     totalGB += game.size;
                     const li = document.createElement('li');
                     li.className = 'cart-item';
                     li.innerHTML = `
                         <span class="cart-item-title"><i class="fa-solid fa-gamepad"></i> ${game.title}</span>
-                        <span style="color: var(--accent-orange); font-weight: bold;">${game.size} GB</span>
+                        <div class="cart-item-right">
+                            <span style="color: var(--accent-orange); font-weight: bold;">${game.size} GB</span>
+                            <button class="btn-remove-item" data-id="${id}" title="Remove Game">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </div>
                     `;
                     cartItems.appendChild(li);
                 });
@@ -840,7 +890,7 @@
             selectedCountEl.innerText = `(${selectedGames.size})`;
         }
 
-        // Facebook DM Optimized Copy Output (No dashes/ascii borders)
+        // Facebook DM Optimized Copy Output
         async function copySelectionList() {
             if (selectedGames.size === 0) return;
 
