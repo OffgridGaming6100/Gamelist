@@ -77,7 +77,7 @@
             margin-top: 5px;
         }
 
-        /* Search Bar Only */
+        /* Search Bar */
         .controls {
             max-width: 600px;
             margin: 30px auto 20px;
@@ -116,13 +116,129 @@
             font-size: 1.1rem;
         }
 
-        /* Game Grid Container */
+        /* Container Layout */
         .container {
             max-width: 1100px;
             margin: 0 auto;
             padding: 20px;
             flex: 1;
             width: 100%;
+        }
+
+        .calculator-banner {
+            background: var(--bg-card);
+            border: 1px solid var(--accent-orange);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+        }
+
+        .calc-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 12px;
+            margin-bottom: 15px;
+        }
+
+        .calc-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .calc-title i {
+            color: var(--accent-orange);
+        }
+
+        .calc-total {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: var(--accent-orange);
+        }
+
+        .calc-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            max-height: 180px;
+            overflow-y: auto;
+            margin-bottom: 15px;
+        }
+
+        .calc-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+
+        .calc-item-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-remove-calc {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .btn-remove-calc:hover {
+            color: #ff4d4d;
+        }
+
+        .calc-actions-bar {
+            display: flex;
+            justify-content: flex-end;
+            pt-2;
+            border-top: 1px solid var(--border-color);
+            padding-top: 12px;
+        }
+
+        .btn-copy-calc {
+            background: var(--accent-orange);
+            color: #fff;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 0.85rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-copy-calc:hover:not(:disabled) {
+            background: var(--accent-glow);
+            box-shadow: 0 0 12px rgba(255, 94, 0, 0.5);
+        }
+
+        .btn-copy-calc:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            background: var(--border-color);
+            color: var(--text-muted);
+        }
+
+        .btn-copy-calc.copied {
+            background: #28a745;
         }
 
         .game-grid {
@@ -251,17 +367,17 @@
             background: rgba(255, 94, 0, 0.1);
         }
 
-        /* Floating Bottom-Right Drawer */
+        /* Floating Bottom Drawer */
         .cart-widget {
             position: fixed;
             bottom: 20px;
             right: 20px;
-            width: 320px;
-            max-height: 420px;
+            width: 340px;
+            max-height: 460px;
             background: var(--bg-card);
             border: 1px solid var(--accent-orange);
             border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.85);
             display: flex;
             flex-direction: column;
             z-index: 1000;
@@ -283,7 +399,7 @@
             list-style: none;
             padding: 10px;
             overflow-y: auto;
-            max-height: 250px;
+            max-height: 220px;
             flex: 1;
         }
 
@@ -302,30 +418,46 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            max-width: 170px;
+            max-width: 150px;
+        }
+
+        .cart-item-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .cart-item-size {
             color: var(--accent-orange);
             font-weight: bold;
-            margin-left: 8px;
         }
 
-        .cart-item-remove {
+        .btn-item-remove {
+            background: transparent;
+            border: none;
             color: var(--text-muted);
             cursor: pointer;
-            margin-left: 10px;
-            transition: color 0.2s;
+            padding: 2px 6px;
+            border-radius: 4px;
+            transition: all 0.2s;
+            font-size: 0.9rem;
         }
 
-        .cart-item-remove:hover {
+        .btn-item-remove:hover {
             color: #ff4d4d;
+            background: rgba(255, 77, 77, 0.1);
         }
 
         .cart-footer {
             padding: 12px 15px;
             background: var(--bg-dark);
             border-top: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .cart-total-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -341,10 +473,10 @@
             color: var(--text-muted);
             font-size: 0.85rem;
             text-align: center;
-            padding: 15px 0;
+            padding: 20px 0;
         }
 
-        /* Modal Overlay for PC Requirements */
+        /* Modal Overlay */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -373,12 +505,6 @@
             padding: 24px;
             box-shadow: 0 10px 30px rgba(255, 94, 0, 0.2);
             position: relative;
-            animation: fadeIn 0.2s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
         }
 
         .modal-header {
@@ -468,7 +594,7 @@
         <div class="tagline">Instant. Offline. Play.</div>
     </header>
 
-    <!-- Search Bar Section -->
+    <!-- Search Bar -->
     <div class="controls">
         <div class="search-box">
             <i class="fa-solid fa-magnifying-glass"></i>
@@ -476,8 +602,26 @@
         </div>
     </div>
 
-    <!-- Games Grid -->
+    <!-- Main Section -->
     <main class="container">
+
+        <!-- Real-time Total Storage Calculator -->
+        <div class="calculator-banner">
+            <div class="calc-header">
+                <span class="calc-title"><i class="fa-solid fa-calculator"></i> Real-time Total Storage Calculator</span>
+                <span class="calc-total" id="calcTotalDisplay">0 GB</span>
+            </div>
+            <ul class="calc-list" id="calcList">
+                <div class="empty-msg">Select games below to start calculating storage.</div>
+            </ul>
+            <div class="calc-actions-bar">
+                <button class="btn-copy-calc" id="btnCopyCalc" onclick="copyCalculatorData()" disabled>
+                    <i class="fa-regular fa-copy"></i> Copy Selected List
+                </button>
+            </div>
+        </div>
+
+        <!-- Game Cards -->
         <div class="game-grid" id="gameGrid">
             
             <!-- Game Card 1 -->
@@ -551,7 +695,7 @@
         </div>
     </main>
 
-    <!-- Lower Right Selected List Widget -->
+    <!-- Floating Drawer Widget -->
     <div class="cart-widget">
         <div class="cart-header">
             <span><i class="fa-solid fa-list-check"></i> Selected Games</span>
@@ -561,8 +705,10 @@
             <div class="empty-msg">No games selected yet.</div>
         </ul>
         <div class="cart-footer">
-            <span>Total Size:</span>
-            <span class="cart-total-size" id="totalSize">0 GB</span>
+            <div class="cart-total-row">
+                <span>Total Storage:</span>
+                <span class="cart-total-size" id="totalSize">0 GB</span>
+            </div>
         </div>
     </div>
 
@@ -574,7 +720,7 @@
                 <i class="fa-solid fa-xmark modal-close" onclick="closeSpecs()"></i>
             </div>
             <ul class="specs-list" id="modalSpecsContent">
-                <!-- Requirements inserted by JS -->
+                <!-- Requirements dynamically filled via JS (Storage line removed) -->
             </ul>
         </div>
     </div>
@@ -584,10 +730,9 @@
     </footer>
 
     <script>
-        // Track selected games
         let selectedGames = new Map();
 
-        // Game Database with System Requirements
+        // Game Database (Storage size removed from specs)
         const gameSpecsData = {
             "1": {
                 title: "Cyberpunk 2077 - Minimum Specs",
@@ -595,8 +740,7 @@
                 cpu: "Intel Core i7-6700 or AMD Ryzen 5 1600",
                 ram: "12 GB RAM",
                 gpu: "NVIDIA GeForce GTX 1060 6GB / AMD Radeon RX 580 8GB",
-                directx: "Version 12",
-                storage: "70 GB SSD"
+                directx: "Version 12"
             },
             "2": {
                 title: "Grand Theft Auto V - Minimum Specs",
@@ -604,8 +748,7 @@
                 cpu: "Intel Core 2 Quad Q6600 2.40GHz / AMD Phenom 9850",
                 ram: "4 GB RAM",
                 gpu: "NVIDIA 9800 GT 1GB / AMD HD 4870 1GB",
-                directx: "Version 10 / 11",
-                storage: "100 GB available space"
+                directx: "Version 10 / 11"
             },
             "3": {
                 title: "Elden Ring - Minimum Specs",
@@ -613,8 +756,7 @@
                 cpu: "Intel Core i5-8400 / AMD Ryzen 3 3300X",
                 ram: "12 GB RAM",
                 gpu: "NVIDIA GeForce GTX 1060 3GB / AMD Radeon RX 580 4GB",
-                directx: "Version 12",
-                storage: "60 GB available space"
+                directx: "Version 12"
             },
             "4": {
                 title: "Forza Horizon 5 - Minimum Specs",
@@ -622,12 +764,11 @@
                 cpu: "Intel Core i5-4460 / AMD Ryzen 3 1200",
                 ram: "8 GB RAM",
                 gpu: "NVIDIA GeForce GTX 970 / AMD Radeon RX 470",
-                directx: "Version 12",
-                storage: "110 GB available space"
+                directx: "Version 12"
             }
         };
 
-        // Search Filter Logic
+        // Filter games
         function filterGames() {
             const query = document.getElementById('searchInput').value.toLowerCase();
             const cards = document.querySelectorAll('.game-card');
@@ -654,49 +795,102 @@
                 card.querySelector('.btn-play').innerHTML = `<i class="fa-solid fa-check"></i> Selected`;
             }
 
-            updateListUI();
+            updateUI();
         }
 
-        // Remove item from selection
+        // Remove from calculator list
         function removeFromList(id) {
             if (selectedGames.has(id)) {
                 toggleGameSelection(id);
             }
         }
 
-        // Update Bottom-Right List & Total Size
-        function updateListUI() {
-            const listContainer = document.getElementById('cartItems');
-            const totalSizeElement = document.getElementById('totalSize');
+        // Update UI components
+        function updateUI() {
+            const calcList = document.getElementById('calcList');
+            const drawerList = document.getElementById('cartItems');
+            const totalDisplay = document.getElementById('calcTotalDisplay');
+            const drawerTotal = document.getElementById('totalSize');
             const countElement = document.getElementById('selectedCount');
+            const btnCopyCalc = document.getElementById('btnCopyCalc');
 
-            listContainer.innerHTML = '';
+            calcList.innerHTML = '';
+            drawerList.innerHTML = '';
             let totalGB = 0;
 
             if (selectedGames.size === 0) {
-                listContainer.innerHTML = '<div class="empty-msg">No games selected yet.</div>';
+                calcList.innerHTML = '<div class="empty-msg">Select games below to start calculating storage.</div>';
+                drawerList.innerHTML = '<div class="empty-msg">No games selected yet.</div>';
+                btnCopyCalc.disabled = true;
             } else {
+                btnCopyCalc.disabled = false;
                 selectedGames.forEach((game, id) => {
                     totalGB += game.size;
 
-                    const li = document.createElement('li');
-                    li.className = 'cart-item';
-                    li.innerHTML = `
-                        <span class="cart-item-title" title="${game.title}">${game.title}</span>
-                        <div>
-                            <span class="cart-item-size">${game.size} GB</span>
-                            <i class="fa-solid fa-xmark cart-item-remove" onclick="event.stopPropagation(); removeFromList('${id}')" title="Remove"></i>
+                    // Calculator Item
+                    const calcItem = document.createElement('li');
+                    calcItem.className = 'calc-item';
+                    calcItem.innerHTML = `
+                        <span>${game.title}</span>
+                        <div class="calc-item-actions">
+                            <span style="color: var(--accent-orange); font-weight: bold;">${game.size} GB</span>
+                            <button class="btn-remove-calc" onclick="removeFromList('${id}')" title="Remove Game">
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
                         </div>
                     `;
-                    listContainer.appendChild(li);
+                    calcList.appendChild(calcItem);
+
+                    // Floating Drawer Item
+                    const drawerItem = document.createElement('li');
+                    drawerItem.className = 'cart-item';
+                    drawerItem.innerHTML = `
+                        <span class="cart-item-title">${game.title}</span>
+                        <div class="cart-item-right">
+                            <span class="cart-item-size">${game.size} GB</span>
+                            <button class="btn-item-remove" onclick="removeFromList('${id}')" title="Remove Game">
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
+                        </div>
+                    `;
+                    drawerList.appendChild(drawerItem);
                 });
             }
 
-            totalSizeElement.innerText = `${totalGB} GB`;
+            totalDisplay.innerText = `${totalGB} GB`;
+            drawerTotal.innerText = `${totalGB} GB`;
             countElement.innerText = `(${selectedGames.size})`;
         }
 
-        // Open PC Specs Modal
+        // Copy Real-time Storage Calculator Data
+        function copyCalculatorData() {
+            if (selectedGames.size === 0) return;
+
+            let textToCopy = "🎮 Selected Games & Storage Breakdown:\n\n";
+            let totalGB = 0;
+
+            selectedGames.forEach((game) => {
+                textToCopy += `• ${game.title} — ${game.size} GB\n`;
+                totalGB += game.size;
+            });
+
+            textToCopy += `\n💾 Maximum Total Required Storage: ${totalGB} GB`;
+
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                const btn = document.getElementById('btnCopyCalc');
+                btn.classList.add('copied');
+                btn.innerHTML = `<i class="fa-solid fa-check"></i> Copied to Clipboard!`;
+
+                setTimeout(() => {
+                    btn.classList.remove('copied');
+                    btn.innerHTML = `<i class="fa-regular fa-copy"></i> Copy Selected List`;
+                }, 2000);
+            }).catch(err => {
+                console.error('Copy failed:', err);
+            });
+        }
+
+        // Modal triggers
         function openSpecs(id) {
             const specs = gameSpecsData[id];
             if (!specs) return;
@@ -709,23 +903,11 @@
                 <li><span class="specs-label">Memory</span><span class="specs-value">${specs.ram}</span></li>
                 <li><span class="specs-label">Graphics</span><span class="specs-value">${specs.gpu}</span></li>
                 <li><span class="specs-label">DirectX</span><span class="specs-value">${specs.directx}</span></li>
-                <li><span class="specs-label">Storage</span><span class="specs-value">${specs.storage}</span></li>
             `;
 
             document.getElementById('modalSpecsContent').innerHTML = specsContent;
             document.getElementById('specsModal').classList.add('active');
         }
 
-        // Close Specs Modal
         function closeSpecs() {
             document.getElementById('specsModal').classList.remove('active');
-        }
-
-        function closeSpecsOnOuterClick(event) {
-            if (event.target.id === 'specsModal') {
-                closeSpecs();
-            }
-        }
-    </script>
-</body>
-</html>
