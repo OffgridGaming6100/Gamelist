@@ -571,8 +571,8 @@
             color: var(--accent-red);
         }
 
-        /* DYNAMIC DRIVE CAPACITY SECTION */
-        .ssd-storage-section {
+        /* DYNAMIC HDD CAPACITY SECTION */
+        .hdd-storage-section {
             padding: 12px 15px;
             background: rgba(0, 0, 0, 0.4);
             border-top: 1px solid var(--border-color);
@@ -581,7 +581,7 @@
             gap: 8px;
         }
 
-        .ssd-label-row {
+        .hdd-label-row {
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -619,13 +619,13 @@
             box-shadow: 0 0 10px var(--accent-red);
         }
 
-        .ssd-info-group {
+        .hdd-info-group {
             display: flex;
             align-items: center;
             gap: 8px;
         }
 
-        .ssd-icon {
+        .hdd-icon {
             color: var(--accent-orange);
             font-size: 0.9rem;
             animation: pulse-glow 2s infinite ease-in-out;
@@ -636,7 +636,7 @@
             50% { opacity: 1; filter: drop-shadow(0 0 5px var(--accent-orange)); }
         }
 
-        .ssd-val-highlight {
+        .hdd-val-highlight {
             color: var(--accent-orange);
             font-weight: bold;
             font-size: 0.85rem;
@@ -847,21 +847,21 @@
             <div class="empty-msg">No games selected.</div>
         </ul>
 
-        <!-- CAPACITY BAR SECTION -->
-        <div class="ssd-storage-section">
-            <div class="ssd-label-row">
-                <div class="ssd-info-group">
-                    <i class="fa-solid fa-hard-drive ssd-icon"></i>
-                    <span>TARGET DRIVE:</span>
+        <!-- ACCURATE HDD FORMATTED CAPACITY SECTION -->
+        <div class="hdd-storage-section">
+            <div class="hdd-label-row">
+                <div class="hdd-info-group">
+                    <i class="fa-solid fa-hard-drive hdd-icon"></i>
+                    <span>TARGET HDD:</span>
                     <select class="target-drive-select" id="targetDriveSelect">
-                        <option value="128">128 GB</option>
-                        <option value="256" selected>256 GB</option>
-                        <option value="512">512 GB</option>
-                        <option value="1024">1 TB</option>
-                        <option value="2048">2 TB</option>
+                        <option value="232" data-label="250 GB HDD">250 GB (~232 GB Formatted)</option>
+                        <option value="320" data-label="320 GB HDD">320 GB (~298 GB Formatted)</option>
+                        <option value="465" data-label="500 GB HDD">500 GB (~465 GB Formatted)</option>
+                        <option value="931" data-label="1 TB HDD" selected>1 TB (~931 GB Formatted)</option>
+                        <option value="1862" data-label="2 TB HDD">2 TB (~1862 GB Formatted)</option>
                     </select>
                 </div>
-                <span id="totalSize" class="ssd-val-highlight">0 / 256 GB</span>
+                <span id="totalSize" class="hdd-val-highlight">0 / 931 GB</span>
             </div>
             <div class="capacity-bar-bg">
                 <div class="capacity-bar-fill" id="capacityBarFill"></div>
@@ -875,7 +875,7 @@
         </div>
     </div>
 
-    <!-- MODERN CLEAN FLOATING WINDOW SYSTEM REQUIREMENTS (NO STORAGE ROW) -->
+    <!-- MODERN CLEAN FLOATING WINDOW SYSTEM REQUIREMENTS -->
     <div class="modal-container" id="reqsModal">
         <div class="modal-header">
             <div class="modal-title"><i class="fa-solid fa-desktop"></i> <span id="modalGameTitle">Game Requirements</span></div>
@@ -1156,7 +1156,10 @@
                 totalGB += game.size;
             });
 
-            textToCopy += `\n💾 TOTAL STORAGE: ${totalGB} GB / ${targetDriveSelect.value} GB Target Drive\n`;
+            const selectedOption = targetDriveSelect.options[targetDriveSelect.selectedIndex];
+            const driveLabel = selectedOption.getAttribute('data-label') || `${targetDriveSelect.value} GB HDD`;
+
+            textToCopy += `\n💾 TOTAL STORAGE: ${totalGB} GB / ${targetDriveSelect.value} GB (${driveLabel} Usable Capacity)\n`;
             textToCopy += "⚡ READY FOR DEPLOYMENT ⚡";
 
             try {
