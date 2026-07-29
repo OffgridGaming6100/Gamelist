@@ -281,16 +281,22 @@
             box-shadow: 0 0 10px rgba(0, 230, 118, 0.35);
         }
 
-        .hud-status-badge.status-warning {
-            color: var(--accent-red);
-            border: 1px solid var(--accent-red);
-            box-shadow: 0 0 10px rgba(255, 51, 102, 0.35);
+        .hud-status-badge.status-playable {
+            color: var(--accent-blue);
+            border: 1px solid var(--accent-blue);
+            box-shadow: 0 0 10px rgba(0, 180, 216, 0.35);
         }
 
         .hud-status-badge.status-vram {
             color: var(--accent-orange);
             border: 1px solid var(--accent-orange);
             box-shadow: 0 0 10px rgba(255, 106, 0, 0.35);
+        }
+
+        .hud-status-badge.status-warning {
+            color: var(--accent-red);
+            border: 1px solid var(--accent-red);
+            box-shadow: 0 0 10px rgba(255, 51, 102, 0.35);
         }
 
         .fps-badge {
@@ -791,7 +797,6 @@
             <button class="chip" data-genre="Strategy">Strategy</button>
             <button class="chip" data-genre="RPG">RPG</button>
             <button class="chip" data-genre="Sports">Sports</button>
-            <button class="chip" data-genre="Utility">Utility</button>
         </div>
     </div>
 
@@ -920,24 +925,6 @@
                     <div class="card-actions">
                         <button class="btn-play" data-action="toggle" data-id="7"><i class="fa-solid fa-plus"></i> Select Game</button>
                         <button class="btn-reqs" data-action="reqs" data-id="7"><i class="fa-solid fa-sliders"></i> System Reqs</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Playnite -->
-            <div class="game-card" data-id="8" data-title="Playnite" data-genre="Utility" data-size="0.721" data-unit="MB" data-display="738 MB" data-ram="2" data-vram="0.25" data-cpu="Dual Core CPU" data-gpu="Integrated Graphics">
-                <div class="hud-status-badge status-ready" id="hud-8">&lt;CALCULATING&gt;</div>
-                <div class="card-img-wrapper">
-                    <img src="https://playnite.link/applogo.png" alt="Playnite" class="card-img" loading="lazy">
-                    <div class="fps-badge" id="fps-8"><i class="fa-solid fa-gauge-high"></i> -- FPS</div>
-                </div>
-                <div class="card-content">
-                    <div class="game-title">Playnite</div>
-                    <div class="game-meta"><span>Utility</span><span>738 MB</span></div>
-                    <div class="setting-tweak-hint" id="tweak-8"><i class="fa-solid fa-sliders"></i> Ready for launch</div>
-                    <div class="card-actions">
-                        <button class="btn-play" data-action="toggle" data-id="8"><i class="fa-solid fa-plus"></i> Select Game</button>
-                        <button class="btn-reqs" data-action="reqs" data-id="8"><i class="fa-solid fa-sliders"></i> System Reqs</button>
                     </div>
                 </div>
             </div>
@@ -1123,33 +1110,32 @@
                     const hasRam = state.activePreset.ram >= reqRam;
                     const hasVram = state.activePreset.vram >= reqVram;
 
+                    // Compute precise ratio for realistic rating
+                    const ramRatio = state.activePreset.ram / reqRam;
+                    const vramRatio = state.activePreset.vram / reqVram;
+
                     if (hasRam && hasVram) {
-                        hud.className = 'hud-status-badge status-ready';
-                        hud.innerHTML = '<i class="fa-solid fa-check"></i> Compatible';
-
-                        let ratio = state.activePreset.vram / reqVram;
-                        let estimatedFps = Math.min(144, Math.floor(60 * ratio));
-
-                        if (estimatedFps >= 120) {
-                            fps.innerHTML = `<i class="fa-solid fa-gauge-high"></i> ~120+ FPS`;
+                        if (ramRatio >= 2.0 && vramRatio >= 2.0) {
+                            hud.className = 'hud-status-badge status-ready';
+                            hud.innerHTML = '<i class="fa-solid fa-circle-check"></i> Optimal (1080p+)';
+                            fps.innerHTML = `<i class="fa-solid fa-gauge-high"></i> 100+ FPS`;
                             tweak.innerHTML = '<i class="fa-solid fa-sliders"></i> Ultra Preset / Maxed Out';
-                        } else if (estimatedFps >= 60) {
-                            fps.innerHTML = `<i class="fa-solid fa-gauge-high"></i> ~60 FPS`;
-                            tweak.innerHTML = '<i class="fa-solid fa-sliders"></i> High Settings';
                         } else {
-                            fps.innerHTML = `<i class="fa-solid fa-gauge-high"></i> ~45 FPS`;
-                            tweak.innerHTML = '<i class="fa-solid fa-sliders"></i> Medium Settings';
+                            hud.className = 'hud-status-badge status-playable';
+                            hud.innerHTML = '<i class="fa-solid fa-check"></i> Playable (720p/1080p)';
+                            fps.innerHTML = `<i class="fa-solid fa-gauge-high"></i> ~60 FPS`;
+                            tweak.innerHTML = '<i class="fa-solid fa-sliders"></i> High / Medium Settings';
                         }
                     } else if (hasRam && !hasVram) {
                         hud.className = 'hud-status-badge status-vram';
-                        hud.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Low VRAM';
-                        fps.innerHTML = `<i class="fa-solid fa-gauge-high"></i> ~30 FPS`;
-                        tweak.innerHTML = '<i class="fa-solid fa-sliders"></i> Lower Textures & Shadows';
+                        hud.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> VRAM Limited';
+                        fps.innerHTML = `<i class="fa-solid fa-gauge-high"></i> ~35-45 FPS`;
+                        tweak.innerHTML = '<i class="fa-solid fa-sliders"></i> Lower Textures & Shadow Maps';
                     } else {
                         hud.className = 'hud-status-badge status-warning';
-                        hud.innerHTML = '<i class="fa-solid fa-xmark"></i> Heavy Load';
-                        fps.innerHTML = `<i class="fa-solid fa-gauge-high"></i> <25 FPS`;
-                        tweak.innerHTML = '<i class="fa-solid fa-sliders"></i> 720p / Low Preset Needed';
+                        hud.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> System Bottleneck';
+                        fps.innerHTML = `<i class="fa-solid fa-gauge-high"></i> <30 FPS`;
+                        tweak.innerHTML = '<i class="fa-solid fa-sliders"></i> 720p / Low Preset & Upscaling Needed';
                     }
                 });
             }
@@ -1315,7 +1301,7 @@
                 showToast('Cleared all selected games');
             });
 
-            // 4. Rig Preset Selector (FULLY DYNAMIC EVENT HANDLER)
+            // 4. Rig Preset Selector
             document.getElementById('rigPresets').addEventListener('click', (e) => {
                 const btn = e.target.closest('.btn-preset');
                 if (!btn) return;
