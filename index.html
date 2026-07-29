@@ -311,6 +311,15 @@
             transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
+        @media (max-width: 480px) {
+            .cart-widget {
+                right: 10px;
+                left: 10px;
+                width: calc(100% - 20px);
+                bottom: 10px;
+            }
+        }
+
         .cart-header {
             background: rgba(255, 94, 0, 0.15);
             padding: 12px 15px;
@@ -857,7 +866,7 @@
             }
         }
 
-        // Copy List to Clipboard
+        // Reliable Copy Function for Desktop & Mobile
         function copySelectedList() {
             if (selectedGames.size === 0) return;
 
@@ -871,16 +880,69 @@
 
             textToCopy += `\n💾 Total Required Storage: ${totalGB} GB`;
 
-            navigator.clipboard.writeText(textToCopy).then(() => {
-                const btn = document.getElementById('btnCopyDrawer');
+            const btn = document.getElementById('btnCopyDrawer');
+
+            const handleSuccess = () => {
                 btn.innerHTML = `<i class="fa-solid fa-check"></i> Copied to Clipboard!`;
+                showToast("List copied to clipboard!");
 
                 setTimeout(() => {
                     btn.innerHTML = `<i class="fa-regular fa-copy"></i> Copy Selected List`;
                 }, 2000);
-            }).catch(err => {
-                console.error('Copy failed:', err);
-            });
+            };
+
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(textToCopy)
+                    .then(handleSuccess)
+                    .catch(() => fallbackCopyTextToClipboard(textToCopy, handleSuccess));
+            } else {
+                fallbackCopyTextToClipboard(textToCopy, handleSuccess);
+            }
+        }
+
+        // Fallback method using temporary text area (Works on Mobile Safari & Android)
+        function fallbackCopyTextToClipboard(text, onSuccess) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            
+            textArea.style.position = "fixed";
+            textArea.style.top = "0";
+            textArea.style.left = "0";
+            textArea.style.width = "2em";
+            textArea.style.height = "2em";
+            textArea.style.padding = "0";
+            textArea.style.border = "none";
+            textArea.style.outline = "none";
+            textArea.style.boxShadow = "none";
+            textArea.style.background = "transparent";
+
+            document.body.appendChild(textArea);
+            
+            if (navigator.userAgent.match(/ipad|iphone/i)) {
+                const range = document.createRange();
+                range.selectNodeContents(textArea);
+                const selection = window.getSelection();
+                selection.removeAllRanges();
+                selection.addRange(range);
+                textArea.setSelectionRange(0, 999999);
+            } else {
+                textArea.focus();
+                textArea.select();
+            }
+
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    onSuccess();
+                } else {
+                    showToast("Failed to copy list.");
+                }
+            } catch (err) {
+                console.error('Fallback copy failed', err);
+                showToast("Copy not supported on this device.");
+            }
+
+            document.body.removeChild(textArea);
         }
 
         // Toast Notification Trigger
