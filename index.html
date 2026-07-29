@@ -128,56 +128,6 @@
             box-shadow: 0 0 12px rgba(255, 106, 0, 0.35);
         }
 
-        /* --- PRESET BUNDLES BAR --- */
-        .bundle-presets-bar {
-            background: rgba(157, 78, 221, 0.08);
-            border: 1px dashed var(--accent-purple);
-            border-radius: 8px;
-            padding: 12px 15px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .bundle-title {
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: var(--accent-purple-light);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            text-transform: uppercase;
-        }
-
-        .bundle-buttons {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
-        .btn-bundle {
-            background: rgba(22, 18, 32, 0.9);
-            border: 1px solid var(--border-color);
-            color: var(--text-main);
-            padding: 6px 12px;
-            border-radius: 6px;
-            font-size: 0.78rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .btn-bundle:hover {
-            border-color: var(--accent-orange);
-            color: var(--accent-orange);
-            background: rgba(255, 106, 0, 0.1);
-        }
-
         /* FILTER & SORT ROW */
         .filter-sort-bar {
             display: flex;
@@ -865,18 +815,6 @@
             </div>
         </div>
 
-        <!-- QUICK PRESET BUNDLES BAR -->
-        <div class="bundle-presets-bar">
-            <div class="bundle-title">
-                <i class="fa-solid fa-bolt"></i> Quick Selection Bundles:
-            </div>
-            <div class="bundle-buttons">
-                <button class="btn-bundle" onclick="loadBundle('sports')">🏎️ Speed & Sports</button>
-                <button class="btn-bundle" onclick="loadBundle('story')">⚔️ Story & Souls</button>
-                <button class="btn-bundle" onclick="loadBundle('budget')">💾 Budget Storage (&lt;150GB)</button>
-            </div>
-        </div>
-
         <!-- SEARCH, SORT, & FILTER CHIPS -->
         <div class="filter-sort-bar">
             <div class="search-box">
@@ -1263,13 +1201,6 @@
             '#ffd166', '#c77dff', '#ff3366', '#48cae4'
         ];
 
-        // Bundle Definitions
-        const bundles = {
-            sports: ['5', '4', '8', '6'], // NBA 2K26, Forza 5, GRID, Skater XL
-            story: ['3', '9', '11'],       // Elden Ring, GoW Ragnarok, Wukong
-            budget: ['7', '6', '3', '8']    // DotA, Skater XL, Elden Ring, GRID
-        };
-
         // DOM References
         const gameGrid = document.getElementById('gameGrid');
         const cartItems = document.getElementById('cartItems');
@@ -1401,20 +1332,6 @@
             activeGenre = chip.getAttribute('data-genre');
             filterAndSortGames();
         });
-
-        // Quick Preset Bundles Loader
-        function loadBundle(bundleKey) {
-            const gameIds = bundles[bundleKey];
-            if (!gameIds) return;
-
-            gameIds.forEach(id => {
-                if (!selectedGames.has(id)) {
-                    toggleGame(id, false);
-                }
-            });
-            updateCartUI();
-            showToast(`Loaded Bundle: ${bundleKey.toUpperCase()}!`, 'fa-bolt');
-        }
 
         // Toggle Game Selection Logic
         function toggleGame(id, updateUI = true) {
