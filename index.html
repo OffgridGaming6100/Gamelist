@@ -142,9 +142,11 @@
             box-shadow: 0 5px 20px rgba(255, 94, 0, 0.25);
         }
 
+        /* Highlight selected game cards */
         .game-card.selected {
             border: 2px solid var(--accent-orange);
-            box-shadow: 0 0 15px rgba(255, 94, 0, 0.4);
+            box-shadow: 0 0 20px rgba(255, 94, 0, 0.5);
+            background: var(--bg-card-hover);
         }
 
         .card-img {
@@ -166,6 +168,14 @@
             border-radius: 4px;
             font-size: 0.75rem;
             font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        /* Selected Badge Overlay Style */
+        .game-card.selected .card-badge {
+            background: var(--accent-orange);
+            color: #fff;
+            box-shadow: 0 0 10px rgba(255, 94, 0, 0.8);
         }
 
         .card-content {
@@ -714,15 +724,18 @@
 
             const title = card.getAttribute('data-title');
             const size = parseFloat(card.getAttribute('data-size'));
+            const badge = card.querySelector('.card-badge');
 
             if (selectedGames.has(id)) {
                 selectedGames.delete(id);
                 card.classList.remove('selected');
                 card.querySelector('.btn-play').innerHTML = `<i class="fa-solid fa-plus"></i> Select Game`;
+                badge.innerHTML = `<i class="fa-solid fa-wifi-slash"></i> OFFLINE`;
             } else {
                 selectedGames.set(id, { title, size });
                 card.classList.add('selected');
                 card.querySelector('.btn-play').innerHTML = `<i class="fa-solid fa-check"></i> Selected`;
+                badge.innerHTML = `<i class="fa-solid fa-circle-check"></i> SELECTED`;
             }
 
             updateDrawerUI();
