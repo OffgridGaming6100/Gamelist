@@ -19,6 +19,7 @@
             --border-color: #262e3d;
             --text-main: #f0f2f5;
             --text-muted: #8d98a7;
+            --whatsapp-green: #25d366;
         }
 
         * {
@@ -92,12 +93,15 @@
             margin-top: 5px;
         }
 
-        /* Search Bar */
+        /* Controls: Search & Category Filters */
         .controls {
-            max-width: 600px;
+            max-width: 800px;
             margin: 25px auto 15px;
             padding: 0 20px;
             width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
         }
 
         .search-box {
@@ -129,6 +133,32 @@
             transform: translateY(-50%);
             color: var(--text-muted);
             font-size: 1.1rem;
+        }
+
+        .filter-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.2s ease;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--accent-orange);
+            color: #fff;
+            border-color: var(--accent-orange);
+            box-shadow: 0 0 10px rgba(255, 94, 0, 0.4);
         }
 
         /* Container Layout */
@@ -169,12 +199,38 @@
             box-shadow: 0 0 15px rgba(255, 94, 0, 0.4);
         }
 
-        .card-img {
+        .card-img-wrapper {
+            position: relative;
             width: 100%;
             height: 220px;
+        }
+
+        .card-img {
+            width: 100%;
+            height: 100%;
             object-fit: cover;
             background-color: #0d0f12;
             border-bottom: 1px solid var(--border-color);
+        }
+
+        .card-selected-overlay {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 94, 0, 0.25);
+            backdrop-filter: blur(2px);
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 2rem;
+            text-shadow: 0 0 10px rgba(0,0,0,0.8);
+        }
+
+        .game-card.selected .card-selected-overlay {
+            display: flex;
         }
 
         .card-badge {
@@ -188,6 +244,7 @@
             border-radius: 4px;
             font-size: 0.75rem;
             font-weight: bold;
+            z-index: 2;
         }
 
         .card-content {
@@ -272,7 +329,7 @@
             bottom: 20px;
             right: 20px;
             width: 340px;
-            max-height: 460px;
+            max-height: 520px;
             background: var(--bg-card);
             border: 1px solid var(--accent-orange);
             border-radius: 10px;
@@ -281,6 +338,7 @@
             flex-direction: column;
             z-index: 1000;
             overflow: hidden;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .cart-header {
@@ -292,13 +350,19 @@
             align-items: center;
             border-bottom: 1px solid var(--border-color);
             font-size: 0.95rem;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .cart-header:hover {
+            background: rgba(255, 94, 0, 0.25);
         }
 
         .cart-items {
             list-style: none;
             padding: 10px;
             overflow-y: auto;
-            max-height: 220px;
+            max-height: 200px;
             flex: 1;
         }
 
@@ -353,7 +417,7 @@
             border-top: 1px solid var(--border-color);
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 8px;
         }
 
         .cart-total-row {
@@ -361,6 +425,7 @@
             justify-content: space-between;
             align-items: center;
             font-weight: bold;
+            margin-bottom: 4px;
         }
 
         .cart-total-size {
@@ -399,8 +464,35 @@
             color: var(--text-muted);
         }
 
-        .btn-copy-drawer.copied {
-            background: #28a745;
+        .btn-whatsapp {
+            background: var(--whatsapp-green);
+            color: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 0.85rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            width: 100%;
+        }
+
+        .btn-whatsapp:hover:not(:disabled) {
+            background: #1eb954;
+            box-shadow: 0 0 12px rgba(37, 211, 102, 0.4);
+        }
+
+        .btn-whatsapp:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            background: var(--border-color);
+            color: var(--text-muted);
         }
 
         .empty-msg {
@@ -408,6 +500,30 @@
             font-size: 0.85rem;
             text-align: center;
             padding: 20px 0;
+        }
+
+        /* Toast Notification Banner */
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--bg-card);
+            border-left: 4px solid var(--accent-orange);
+            color: #fff;
+            padding: 12px 20px;
+            border-radius: 6px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 3000;
+            transform: translateX(120%);
+            transition: transform 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .toast.show {
+            transform: translateX(0);
         }
 
         /* Modal Overlay */
@@ -524,26 +640,37 @@
     <header>
         <div class="logo-container">
             <img src="logo.png" alt="Offgrid Gaming Logo" class="site-logo">
+            <div class="site-title">OFFGRID <span>GAMING</span></div>
+            <div class="tagline">Instant. Offline. Play.</div>
         </div>
     </header>
 
-    <!-- Search Bar -->
+    <!-- Controls: Search Bar & Filters -->
     <div class="controls">
         <div class="search-box">
             <i class="fa-solid fa-magnifying-glass"></i>
             <input type="text" id="searchInput" placeholder="Search games..." onkeyup="filterGames()">
         </div>
+        <div class="filter-container">
+            <button class="filter-btn active" onclick="filterCategory('all', event)">All Games</button>
+            <button class="filter-btn" onclick="filterCategory('Action', event)">Action / RPG</button>
+            <button class="filter-btn" onclick="filterCategory('Open World', event)">Open World</button>
+            <button class="filter-btn" onclick="filterCategory('Racing', event)">Racing</button>
+        </div>
     </div>
 
     <!-- Main Section -->
     <main class="container">
-        <!-- Game Cards -->
+        <!-- Game Cards Grid -->
         <div class="game-grid" id="gameGrid">
             
             <!-- Game Card 1 -->
-            <div class="game-card" data-id="1" data-title="Cyberpunk 2077" data-size="70">
+            <div class="game-card" data-id="1" data-title="Cyberpunk 2077" data-size="70" data-genre="Action RPG">
                 <span class="card-badge"><i class="fa-solid fa-wifi-slash"></i> OFFLINE</span>
-                <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1091500/header.jpg" alt="Cyberpunk 2077" class="card-img">
+                <div class="card-img-wrapper">
+                    <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1091500/header.jpg" alt="Cyberpunk 2077" class="card-img">
+                    <div class="card-selected-overlay"><i class="fa-solid fa-circle-check"></i></div>
+                </div>
                 <div class="card-content">
                     <div class="game-title">Cyberpunk 2077</div>
                     <div class="game-meta">
@@ -558,9 +685,12 @@
             </div>
 
             <!-- Game Card 2 -->
-            <div class="game-card" data-id="2" data-title="Grand Theft Auto V" data-size="100">
+            <div class="game-card" data-id="2" data-title="Grand Theft Auto V" data-size="100" data-genre="Open World">
                 <span class="card-badge"><i class="fa-solid fa-wifi-slash"></i> OFFLINE</span>
-                <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/271590/header.jpg" alt="GTA V" class="card-img">
+                <div class="card-img-wrapper">
+                    <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/271590/header.jpg" alt="GTA V" class="card-img">
+                    <div class="card-selected-overlay"><i class="fa-solid fa-circle-check"></i></div>
+                </div>
                 <div class="card-content">
                     <div class="game-title">Grand Theft Auto V</div>
                     <div class="game-meta">
@@ -575,9 +705,12 @@
             </div>
 
             <!-- Game Card 3 -->
-            <div class="game-card" data-id="3" data-title="Elden Ring" data-size="50">
+            <div class="game-card" data-id="3" data-title="Elden Ring" data-size="50" data-genre="Action RPG">
                 <span class="card-badge"><i class="fa-solid fa-wifi-slash"></i> OFFLINE</span>
-                <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1245620/header.jpg" alt="Elden Ring" class="card-img">
+                <div class="card-img-wrapper">
+                    <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1245620/header.jpg" alt="Elden Ring" class="card-img">
+                    <div class="card-selected-overlay"><i class="fa-solid fa-circle-check"></i></div>
+                </div>
                 <div class="card-content">
                     <div class="game-title">Elden Ring</div>
                     <div class="game-meta">
@@ -592,9 +725,12 @@
             </div>
 
             <!-- Game Card 4 -->
-            <div class="game-card" data-id="4" data-title="Forza Horizon 5" data-size="110">
+            <div class="game-card" data-id="4" data-title="Forza Horizon 5" data-size="110" data-genre="Racing">
                 <span class="card-badge"><i class="fa-solid fa-wifi-slash"></i> OFFLINE</span>
-                <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1551360/header.jpg" alt="Forza Horizon 5" class="card-img">
+                <div class="card-img-wrapper">
+                    <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1551360/header.jpg" alt="Forza Horizon 5" class="card-img">
+                    <div class="card-selected-overlay"><i class="fa-solid fa-circle-check"></i></div>
+                </div>
                 <div class="card-content">
                     <div class="game-title">Forza Horizon 5</div>
                     <div class="game-meta">
@@ -612,10 +748,10 @@
     </main>
 
     <!-- Floating Bottom Drawer Widget -->
-    <div class="cart-widget">
-        <div class="cart-header">
-            <span><i class="fa-solid fa-calculator"></i> Selected Games</span>
-            <span id="selectedCount" style="color: var(--accent-orange);">(0)</span>
+    <div class="cart-widget" id="cartWidget">
+        <div class="cart-header" onclick="toggleCartDrawer()">
+            <span><i class="fa-solid fa-calculator"></i> Selected Games <span id="selectedCount" style="color: var(--accent-orange);">(0)</span></span>
+            <i class="fa-solid fa-chevron-down" id="drawerToggleIcon"></i>
         </div>
         <ul class="cart-items" id="cartItems">
             <div class="empty-msg">No games selected yet.</div>
@@ -627,6 +763,9 @@
             </div>
             <button class="btn-copy-drawer" id="btnCopyDrawer" onclick="copySelectedList()" disabled>
                 <i class="fa-regular fa-copy"></i> Copy Selected List
+            </button>
+            <button class="btn-whatsapp" id="btnWhatsApp" onclick="sendViaWhatsApp()" disabled>
+                <i class="fa-brands fa-whatsapp"></i> Order via WhatsApp
             </button>
         </div>
     </div>
@@ -644,12 +783,17 @@
         </div>
     </div>
 
+    <!-- Toast Banner -->
+    <div class="toast" id="toast"><i class="fa-solid fa-info-circle"></i> <span id="toastMsg">Message</span></div>
+
     <footer>
         <p>&copy; 2026 <span>OFFGRID GAMING</span>. All games optimized for instant offline play.</p>
     </footer>
 
     <script>
         let selectedGames = new Map();
+        let activeCategory = 'all';
+        let isDrawerCollapsed = false;
 
         // Game Database
         const gameSpecsData = {
@@ -687,15 +831,33 @@
             }
         };
 
-        // Search Filter Logic
+        // Combined Filter (Search + Category)
         function filterGames() {
             const query = document.getElementById('searchInput').value.toLowerCase();
             const cards = document.querySelectorAll('.game-card');
 
             cards.forEach(card => {
                 const title = card.getAttribute('data-title').toLowerCase();
-                card.style.display = title.includes(query) ? 'flex' : 'none';
+                const genre = card.getAttribute('data-genre') || '';
+                
+                const matchesSearch = title.includes(query);
+                const matchesCategory = activeCategory === 'all' || genre.includes(activeCategory);
+
+                if (matchesSearch && matchesCategory) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
             });
+        }
+
+        function filterCategory(category, event) {
+            activeCategory = category;
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            if (event && event.target) {
+                event.target.classList.add('active');
+            }
+            filterGames();
         }
 
         // Toggle Selection Handler
@@ -710,10 +872,12 @@
                 selectedGames.delete(id);
                 card.classList.remove('selected');
                 card.querySelector('.btn-play').innerHTML = `<i class="fa-solid fa-plus"></i> Select Game`;
+                showToast(`Removed ${title}`);
             } else {
                 selectedGames.set(id, { title, size });
                 card.classList.add('selected');
                 card.querySelector('.btn-play').innerHTML = `<i class="fa-solid fa-check"></i> Selected`;
+                showToast(`Added ${title} (${size} GB)`);
             }
 
             updateDrawerUI();
@@ -732,6 +896,7 @@
             const drawerTotal = document.getElementById('totalSize');
             const countElement = document.getElementById('selectedCount');
             const btnCopy = document.getElementById('btnCopyDrawer');
+            const btnWhatsApp = document.getElementById('btnWhatsApp');
 
             drawerList.innerHTML = '';
             let totalGB = 0;
@@ -739,8 +904,10 @@
             if (selectedGames.size === 0) {
                 drawerList.innerHTML = '<div class="empty-msg">No games selected yet.</div>';
                 btnCopy.disabled = true;
+                btnWhatsApp.disabled = true;
             } else {
                 btnCopy.disabled = false;
+                btnWhatsApp.disabled = false;
                 selectedGames.forEach((game, id) => {
                     totalGB += game.size;
 
@@ -763,6 +930,21 @@
             countElement.innerText = `(${selectedGames.size})`;
         }
 
+        // Collapse / Expand Cart Drawer
+        function toggleCartDrawer() {
+            const cartWidget = document.getElementById('cartWidget');
+            const icon = document.getElementById('drawerToggleIcon');
+            isDrawerCollapsed = !isDrawerCollapsed;
+
+            if (isDrawerCollapsed) {
+                cartWidget.style.transform = 'translateY(calc(100% - 46px))';
+                icon.className = 'fa-solid fa-chevron-up';
+            } else {
+                cartWidget.style.transform = 'translateY(0)';
+                icon.className = 'fa-solid fa-chevron-down';
+            }
+        }
+
         // Copy List to Clipboard
         function copySelectedList() {
             if (selectedGames.size === 0) return;
@@ -779,16 +961,43 @@
 
             navigator.clipboard.writeText(textToCopy).then(() => {
                 const btn = document.getElementById('btnCopyDrawer');
-                btn.classList.add('copied');
                 btn.innerHTML = `<i class="fa-solid fa-check"></i> Copied to Clipboard!`;
 
                 setTimeout(() => {
-                    btn.classList.remove('copied');
                     btn.innerHTML = `<i class="fa-regular fa-copy"></i> Copy Selected List`;
                 }, 2000);
             }).catch(err => {
                 console.error('Copy failed:', err);
             });
+        }
+
+        // Order via WhatsApp / Chat
+        function sendViaWhatsApp() {
+            if (selectedGames.size === 0) return;
+
+            let message = "🎮 *New Game Order - Offgrid Gaming*%0A%0A";
+            let totalGB = 0;
+
+            selectedGames.forEach((game) => {
+                message += `• ${game.title} (${game.size} GB)%0A`;
+                totalGB += game.size;
+            });
+
+            message += `%0A💾 *Total Storage:* ${totalGB} GB`;
+            
+            // Replace with your actual mobile number with country code (e.g. 639123456789)
+            const phoneNumber = "639123456789"; 
+            window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
+        }
+
+        // Toast Notification Trigger
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMsg').innerText = msg;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2500);
         }
 
         // Modal triggers
