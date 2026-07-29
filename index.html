@@ -805,7 +805,7 @@
                 </div>
                 <div class="card-content">
                     <div class="game-title">Battle Realms Complete</div>
-                    <div class="game-meta"><span>Strategy</span><span>773 MB</span></div>
+                    <div class="game-meta"><span>Strategy</span><span>791.55 MB</span></div>
                     <div class="setting-tweak-hint" id="tweak-1"><i class="fa-solid fa-sliders"></i> Ready for launch</div>
                     <div class="card-actions">
                         <button class="btn-play" data-action="toggle" data-id="1"><i class="fa-solid fa-plus"></i> Select Game</button>
@@ -1069,8 +1069,10 @@
             }
 
             function formatSize(sizeInGB) {
-                if (sizeInGB < 1) {
-                    return `${Math.round(sizeInGB * 1000)} MB`;
+                if (sizeInGB <= 0) return '0 GB';
+                if (sizeInGB < 1.0) {
+                    const mbValue = sizeInGB * 1024;
+                    return `${mbValue % 1 === 0 ? mbValue : mbValue.toFixed(2)} MB`;
                 }
                 return `${sizeInGB.toFixed(2)} GB`;
             }
