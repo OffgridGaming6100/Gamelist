@@ -39,10 +39,9 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            padding-bottom: 120px; /* Space for mobile floating drawer */
+            padding-bottom: 140px;
         }
 
-        /* Header section */
         header {
             text-align: center;
             padding: 35px 20px 20px;
@@ -70,7 +69,6 @@
             filter: drop-shadow(0 0 25px rgba(255, 94, 0, 0.6));
         }
 
-        /* Search Bar */
         .controls {
             max-width: 600px;
             margin: 25px auto 15px;
@@ -109,7 +107,6 @@
             font-size: 1.1rem;
         }
 
-        /* Container Layout */
         .container {
             max-width: 1100px;
             margin: 0 auto;
@@ -122,15 +119,13 @@
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
             gap: 20px;
-            perspective: 1000px; /* Perspective added for 3D fan-out depth */
         }
 
-        /* Game Cards */
         .game-card {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
             border-radius: 8px;
-            overflow: visible; /* Changed to visible so fan-out preview can extend cleanly */
+            overflow: hidden;
             display: flex;
             flex-direction: column;
             transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
@@ -141,7 +136,6 @@
             transform: translateY(-5px);
             border-color: var(--accent-orange);
             box-shadow: 0 5px 20px rgba(255, 94, 0, 0.25);
-            z-index: 50; /* Bring hovered card above adjacent grid items */
         }
 
         .game-card.selected {
@@ -150,56 +144,12 @@
             background: var(--bg-card-hover);
         }
 
-        /* Thumbnail Container & Dynamic Video Fan-Out Effect */
-        .card-img-wrapper {
-            position: relative;
-            width: 100%;
-            height: 220px;
-            border-top-left-radius: 8px;
-            border-top-right-radius: 8px;
-            background-color: #0d0f12;
-            border-bottom: 1px solid var(--border-color);
-        }
-
         .card-img {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-            border-top-left-radius: 7px;
-            border-top-right-radius: 7px;
-        }
-
-        /* The Gameplay Fan-Out Video Frame */
-        .gameplay-fanout {
-            position: absolute;
-            top: -15px;
-            left: 5%;
-            width: 90%;
             height: 220px;
-            border-radius: 8px;
-            overflow: hidden;
-            border: 2px solid var(--accent-orange);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.8), 0 0 20px rgba(255, 94, 0, 0.4);
-            opacity: 0;
-            pointer-events: none;
-            transform-origin: bottom center;
-            transform: scale(0.85) rotateX(-20deg) translateY(0);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            z-index: 20;
-            background: #000;
-        }
-
-        .gameplay-fanout video {
-            width: 100%;
-            height: 100%;
             object-fit: cover;
-        }
-
-        /* Trigger Fan Out Effect on Card Hover */
-        .game-card:hover .gameplay-fanout {
-            opacity: 1;
-            transform: scale(1.08) rotateX(0deg) translateY(-25px);
+            background-color: #0d0f12;
+            border-bottom: 1px solid var(--border-color);
         }
 
         .card-badge {
@@ -214,7 +164,6 @@
             font-size: 0.75rem;
             font-weight: bold;
             transition: all 0.3s ease;
-            z-index: 30;
         }
 
         .game-card.selected .card-badge {
@@ -228,9 +177,6 @@
             display: flex;
             flex-direction: column;
             flex: 1;
-            border-bottom-left-radius: 8px;
-            border-bottom-right-radius: 8px;
-            background: var(--bg-card);
         }
 
         .game-title {
@@ -302,12 +248,13 @@
             background: rgba(255, 94, 0, 0.1);
         }
 
-        /* Floating Bottom Drawer */
+        /* Cart Widget */
         .cart-widget {
             position: fixed;
             bottom: 20px;
             right: 20px;
             width: 340px;
+            max-width: calc(100vw - 40px);
             max-height: 460px;
             background: var(--bg-card);
             border: 1px solid var(--accent-orange);
@@ -503,6 +450,8 @@
             font-size: 1.2rem;
             cursor: pointer;
             transition: color 0.2s;
+            background: transparent;
+            border: none;
         }
 
         .modal-close:hover {
@@ -540,7 +489,6 @@
             font-weight: 500;
         }
 
-        /* Footer */
         footer {
             text-align: center;
             padding: 25px;
@@ -554,7 +502,6 @@
             color: var(--accent-orange);
         }
 
-        /* Mobile Viewports Optimization */
         @media (max-width: 600px) {
             .container {
                 padding: 10px;
@@ -565,7 +512,7 @@
                 gap: 12px;
             }
 
-            .card-img-wrapper, .gameplay-fanout {
+            .card-img {
                 height: 140px;
             }
 
@@ -584,11 +531,6 @@
             .cart-items {
                 max-height: 120px;
             }
-            
-            /* Disable hover fanout on touch devices to prevent layout jumpiness */
-            .gameplay-fanout {
-                display: none;
-            }
         }
     </style>
 </head>
@@ -600,34 +542,19 @@
         </div>
     </header>
 
-    <!-- Search Bar -->
     <div class="controls">
         <div class="search-box">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" id="searchInput" placeholder="Search games..." onkeyup="filterGames()">
+            <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+            <input type="text" id="searchInput" placeholder="Search games..." aria-label="Search games">
         </div>
     </div>
 
-    <!-- Main Section -->
     <main class="container">
         <div class="game-grid" id="gameGrid">
-            
-            <!-- Game Card 1: Cyberpunk 2077 -->
+            <!-- Game cards injected or pre-rendered -->
             <div class="game-card" data-id="1" data-title="Cyberpunk 2077" data-size="70">
                 <span class="card-badge"><i class="fa-solid fa-wifi-slash"></i> OFFLINE</span>
-                
-                <div class="card-img-wrapper">
-                    <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1091500/header.jpg" alt="Cyberpunk 2077" class="card-img">
-                    
-                    <!-- Fanout Gameplay Preview -->
-                    <div class="gameplay-fanout">
-                        <video loop muted playsinline preload="none">
-                            <source src="https://cdn.cloudflare.steamstatic.com/steam/apps/256801252/movie480_vp9.webm" type="video/webm">
-                            <source src="https://cdn.cloudflare.steamstatic.com/steam/apps/256801252/movie480.mp4" type="video/mp4">
-                        </video>
-                    </div>
-                </div>
-
+                <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1091500/header.jpg" alt="Cyberpunk 2077" class="card-img" loading="lazy">
                 <div class="card-content">
                     <div class="game-title">Cyberpunk 2077</div>
                     <div class="game-meta">
@@ -635,28 +562,15 @@
                         <span>70 GB</span>
                     </div>
                     <div class="card-actions">
-                        <button class="btn-play" onclick="toggleGameSelection('1')"><i class="fa-solid fa-plus"></i> Select Game</button>
-                        <button class="btn-specs" onclick="openSpecs('1')"><i class="fa-solid fa-microchip"></i> Min PC Specs</button>
+                        <button class="btn-play" data-action="toggle" data-id="1"><i class="fa-solid fa-plus"></i> Select Game</button>
+                        <button class="btn-specs" data-action="specs" data-id="1"><i class="fa-solid fa-microchip"></i> Min PC Specs</button>
                     </div>
                 </div>
             </div>
 
-            <!-- Game Card 2: GTA V -->
             <div class="game-card" data-id="2" data-title="Grand Theft Auto V" data-size="100">
                 <span class="card-badge"><i class="fa-solid fa-wifi-slash"></i> OFFLINE</span>
-                
-                <div class="card-img-wrapper">
-                    <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/271590/header.jpg" alt="GTA V" class="card-img">
-                    
-                    <!-- Fanout Gameplay Preview -->
-                    <div class="gameplay-fanout">
-                        <video loop muted playsinline preload="none">
-                            <source src="https://cdn.cloudflare.steamstatic.com/steam/apps/256757115/movie480_vp9.webm" type="video/webm">
-                            <source src="https://cdn.cloudflare.steamstatic.com/steam/apps/256757115/movie480.mp4" type="video/mp4">
-                        </video>
-                    </div>
-                </div>
-
+                <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/271590/header.jpg" alt="GTA V" class="card-img" loading="lazy">
                 <div class="card-content">
                     <div class="game-title">Grand Theft Auto V</div>
                     <div class="game-meta">
@@ -664,28 +578,15 @@
                         <span>100 GB</span>
                     </div>
                     <div class="card-actions">
-                        <button class="btn-play" onclick="toggleGameSelection('2')"><i class="fa-solid fa-plus"></i> Select Game</button>
-                        <button class="btn-specs" onclick="openSpecs('2')"><i class="fa-solid fa-microchip"></i> Min PC Specs</button>
+                        <button class="btn-play" data-action="toggle" data-id="2"><i class="fa-solid fa-plus"></i> Select Game</button>
+                        <button class="btn-specs" data-action="specs" data-id="2"><i class="fa-solid fa-microchip"></i> Min PC Specs</button>
                     </div>
                 </div>
             </div>
 
-            <!-- Game Card 3: Elden Ring -->
             <div class="game-card" data-id="3" data-title="Elden Ring" data-size="50">
                 <span class="card-badge"><i class="fa-solid fa-wifi-slash"></i> OFFLINE</span>
-                
-                <div class="card-img-wrapper">
-                    <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1245620/header.jpg" alt="Elden Ring" class="card-img">
-                    
-                    <!-- Fanout Gameplay Preview -->
-                    <div class="gameplay-fanout">
-                        <video loop muted playsinline preload="none">
-                            <source src="https://cdn.cloudflare.steamstatic.com/steam/apps/256864126/movie480_vp9.webm" type="video/webm">
-                            <source src="https://cdn.cloudflare.steamstatic.com/steam/apps/256864126/movie480.mp4" type="video/mp4">
-                        </video>
-                    </div>
-                </div>
-
+                <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1245620/header.jpg" alt="Elden Ring" class="card-img" loading="lazy">
                 <div class="card-content">
                     <div class="game-title">Elden Ring</div>
                     <div class="game-meta">
@@ -693,28 +594,15 @@
                         <span>50 GB</span>
                     </div>
                     <div class="card-actions">
-                        <button class="btn-play" onclick="toggleGameSelection('3')"><i class="fa-solid fa-plus"></i> Select Game</button>
-                        <button class="btn-specs" onclick="openSpecs('3')"><i class="fa-solid fa-microchip"></i> Min PC Specs</button>
+                        <button class="btn-play" data-action="toggle" data-id="3"><i class="fa-solid fa-plus"></i> Select Game</button>
+                        <button class="btn-specs" data-action="specs" data-id="3"><i class="fa-solid fa-microchip"></i> Min PC Specs</button>
                     </div>
                 </div>
             </div>
 
-            <!-- Game Card 4: Forza Horizon 5 -->
             <div class="game-card" data-id="4" data-title="Forza Horizon 5" data-size="110">
                 <span class="card-badge"><i class="fa-solid fa-wifi-slash"></i> OFFLINE</span>
-                
-                <div class="card-img-wrapper">
-                    <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1551360/header.jpg" alt="Forza Horizon 5" class="card-img">
-                    
-                    <!-- Fanout Gameplay Preview -->
-                    <div class="gameplay-fanout">
-                        <video loop muted playsinline preload="none">
-                            <source src="https://cdn.cloudflare.steamstatic.com/steam/apps/256858682/movie480_vp9.webm" type="video/webm">
-                            <source src="https://cdn.cloudflare.steamstatic.com/steam/apps/256858682/movie480.mp4" type="video/mp4">
-                        </video>
-                    </div>
-                </div>
-
+                <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1551360/header.jpg" alt="Forza Horizon 5" class="card-img" loading="lazy">
                 <div class="card-content">
                     <div class="game-title">Forza Horizon 5</div>
                     <div class="game-meta">
@@ -722,16 +610,15 @@
                         <span>110 GB</span>
                     </div>
                     <div class="card-actions">
-                        <button class="btn-play" onclick="toggleGameSelection('4')"><i class="fa-solid fa-plus"></i> Select Game</button>
-                        <button class="btn-specs" onclick="openSpecs('4')"><i class="fa-solid fa-microchip"></i> Min PC Specs</button>
+                        <button class="btn-play" data-action="toggle" data-id="4"><i class="fa-solid fa-plus"></i> Select Game</button>
+                        <button class="btn-specs" data-action="specs" data-id="4"><i class="fa-solid fa-microchip"></i> Min PC Specs</button>
                     </div>
                 </div>
             </div>
-
         </div>
     </main>
 
-    <!-- Floating Bottom Drawer Widget -->
+    <!-- Floating Drawer -->
     <div class="cart-widget">
         <div class="cart-header">
             <span><i class="fa-solid fa-calculator"></i> Selected Games</span>
@@ -745,22 +632,20 @@
                 <span>Total Storage:</span>
                 <span class="cart-total-size" id="totalSize">0 GB</span>
             </div>
-            <button class="btn-copy-drawer" id="btnCopyDrawer" onclick="copySelectedList()" disabled>
+            <button class="btn-copy-drawer" id="btnCopyDrawer" disabled>
                 <i class="fa-regular fa-copy"></i> Copy Selected List
             </button>
         </div>
     </div>
 
-    <!-- Modal Window for Minimum System Specs -->
-    <div class="modal-overlay" id="specsModal" onclick="closeSpecsOnOuterClick(event)">
+    <!-- Modal Window -->
+    <div class="modal-overlay" id="specsModal">
         <div class="modal-card">
             <div class="modal-header">
                 <h3 id="modalGameTitle"><i class="fa-solid fa-desktop"></i> Game Title</h3>
-                <i class="fa-solid fa-xmark modal-close" onclick="closeSpecs()"></i>
+                <button class="modal-close" id="btnCloseModal" aria-label="Close modal"><i class="fa-solid fa-xmark"></i></button>
             </div>
-            <ul class="specs-list" id="modalSpecsContent">
-                <!-- Requirements dynamically filled via JS -->
-            </ul>
+            <ul class="specs-list" id="modalSpecsContent"></ul>
         </div>
     </div>
 
@@ -769,9 +654,8 @@
     </footer>
 
     <script>
-        let selectedGames = new Map();
+        const selectedGames = new Map();
 
-        // Game Database
         const gameSpecsData = {
             "1": {
                 title: "Cyberpunk 2077 - Minimum Specs",
@@ -807,39 +691,37 @@
             }
         };
 
-        // Attach Video Play/Pause Listeners for Hover
-        document.addEventListener("DOMContentLoaded", () => {
-            const cards = document.querySelectorAll('.game-card');
+        // DOM Elements
+        const searchInput = document.getElementById('searchInput');
+        const gameGrid = document.getElementById('gameGrid');
+        const cartItems = document.getElementById('cartItems');
+        const totalSizeEl = document.getElementById('totalSize');
+        const selectedCountEl = document.getElementById('selectedCount');
+        const btnCopyDrawer = document.getElementById('btnCopyDrawer');
+        const specsModal = document.getElementById('specsModal');
+        const btnCloseModal = document.getElementById('btnCloseModal');
 
-            cards.forEach(card => {
-                const video = card.querySelector('video');
-                if (!video) return;
-
-                card.addEventListener('mouseenter', () => {
-                    video.play().catch(() => {
-                        // Suppress autonav errors if user hasn't interacted yet
-                    });
-                });
-
-                card.addEventListener('mouseleave', () => {
-                    video.pause();
-                    video.currentTime = 0; // Reset video to start
-                });
-            });
-        });
-
-        // Search Filter Logic
-        function filterGames() {
-            const query = document.getElementById('searchInput').value.toLowerCase();
-            const cards = document.querySelectorAll('.game-card');
-
-            cards.forEach(card => {
+        // Event Listener: Search Filter
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            document.querySelectorAll('.game-card').forEach(card => {
                 const title = card.getAttribute('data-title').toLowerCase();
                 card.style.display = title.includes(query) ? 'flex' : 'none';
             });
-        }
+        });
 
-        // Toggle Selection Handler
+        // Event Delegation for Grid Actions
+        gameGrid.addEventListener('click', (e) => {
+            const btn = e.target.closest('button');
+            if (!btn) return;
+
+            const action = btn.dataset.action;
+            const id = btn.dataset.id;
+
+            if (action === 'toggle') toggleGameSelection(id);
+            if (action === 'specs') openSpecs(id);
+        });
+
         function toggleGameSelection(id) {
             const card = document.querySelector(`.game-card[data-id="${id}"]`);
             if (!card) return;
@@ -863,52 +745,48 @@
             updateDrawerUI();
         }
 
-        // Remove item directly from list
-        function removeFromList(id) {
-            if (selectedGames.has(id)) {
-                toggleGameSelection(id);
-            }
-        }
-
-        // Update Floating Drawer UI
         function updateDrawerUI() {
-            const drawerList = document.getElementById('cartItems');
-            const drawerTotal = document.getElementById('totalSize');
-            const countElement = document.getElementById('selectedCount');
-            const btnCopy = document.getElementById('btnCopyDrawer');
-
-            drawerList.innerHTML = '';
+            cartItems.innerHTML = '';
             let totalGB = 0;
 
             if (selectedGames.size === 0) {
-                drawerList.innerHTML = '<div class="empty-msg">No games selected yet.</div>';
-                btnCopy.disabled = true;
+                cartItems.innerHTML = '<div class="empty-msg">No games selected yet.</div>';
+                btnCopyDrawer.disabled = true;
             } else {
-                btnCopy.disabled = false;
+                btnCopyDrawer.disabled = false;
                 selectedGames.forEach((game, id) => {
                     totalGB += game.size;
 
-                    const drawerItem = document.createElement('li');
-                    drawerItem.className = 'cart-item';
-                    drawerItem.innerHTML = `
+                    const li = document.createElement('li');
+                    li.className = 'cart-item';
+                    li.innerHTML = `
                         <span class="cart-item-title">${game.title}</span>
                         <div class="cart-item-right">
                             <span class="cart-item-size">${game.size} GB</span>
-                            <button class="btn-item-remove" onclick="removeFromList('${id}')" title="Remove Game">
+                            <button class="btn-item-remove" data-id="${id}" title="Remove Game">
                                 <i class="fa-solid fa-xmark"></i>
                             </button>
                         </div>
                     `;
-                    drawerList.appendChild(drawerItem);
+                    cartItems.appendChild(li);
                 });
             }
 
-            drawerTotal.innerText = `${totalGB} GB`;
-            countElement.innerText = `(${selectedGames.size})`;
+            totalSizeEl.innerText = `${totalGB} GB`;
+            selectedCountEl.innerText = `(${selectedGames.size})`;
         }
 
-        // Copy List to Clipboard with Universal Mobile Fallback
-        function copySelectedList() {
+        // Cart Item Removal via Event Delegation
+        cartItems.addEventListener('click', (e) => {
+            const removeBtn = e.target.closest('.btn-item-remove');
+            if (removeBtn) {
+                const id = removeBtn.dataset.id;
+                toggleGameSelection(id);
+            }
+        });
+
+        // Copy Functionality
+        btnCopyDrawer.addEventListener('click', () => {
             if (selectedGames.size === 0) return;
 
             let textToCopy = "🎮 Selected Games & Storage Breakdown:\n\n";
@@ -928,72 +806,61 @@
             } else {
                 fallbackCopyText(textToCopy);
             }
-        }
+        });
 
         function fallbackCopyText(text) {
             const textArea = document.createElement("textarea");
             textArea.value = text;
-            
-            textArea.style.top = "0";
-            textArea.style.left = "0";
             textArea.style.position = "fixed";
             textArea.style.opacity = "0";
 
             document.body.appendChild(textArea);
             textArea.focus();
             textArea.select();
-
             textArea.setSelectionRange(0, 99999);
 
             try {
-                const successful = document.execCommand('copy');
-                if (successful) showCopySuccess();
+                if (document.execCommand('copy')) showCopySuccess();
             } catch (err) {
-                alert("Selection copied text manually:\n" + text);
+                alert("Text copied manually:\n" + text);
             }
-
             document.body.removeChild(textArea);
         }
 
         function showCopySuccess() {
-            const btn = document.getElementById('btnCopyDrawer');
-            btn.classList.add('copied');
-            btn.innerHTML = `<i class="fa-solid fa-check"></i> Copied!`;
+            btnCopyDrawer.classList.add('copied');
+            btnCopyDrawer.innerHTML = `<i class="fa-solid fa-check"></i> Copied!`;
 
             setTimeout(() => {
-                btn.classList.remove('copied');
-                btn.innerHTML = `<i class="fa-regular fa-copy"></i> Copy Selected List`;
+                btnCopyDrawer.classList.remove('copied');
+                btnCopyDrawer.innerHTML = `<i class="fa-regular fa-copy"></i> Copy Selected List`;
             }, 2000);
         }
 
-        // Modal triggers
+        // Modal Functionality
         function openSpecs(id) {
             const specs = gameSpecsData[id];
             if (!specs) return;
 
             document.getElementById('modalGameTitle').innerHTML = `<i class="fa-solid fa-desktop"></i> ${specs.title}`;
-            
-            const specsContent = `
+            document.getElementById('modalSpecsContent').innerHTML = `
                 <li><span class="specs-label">OS</span><span class="specs-value">${specs.os}</span></li>
                 <li><span class="specs-label">Processor</span><span class="specs-value">${specs.cpu}</span></li>
                 <li><span class="specs-label">Memory</span><span class="specs-value">${specs.ram}</span></li>
                 <li><span class="specs-label">Graphics</span><span class="specs-value">${specs.gpu}</span></li>
                 <li><span class="specs-label">DirectX</span><span class="specs-value">${specs.directx}</span></li>
             `;
-
-            document.getElementById('modalSpecsContent').innerHTML = specsContent;
-            document.getElementById('specsModal').classList.add('active');
+            specsModal.classList.add('active');
         }
 
         function closeSpecs() {
-            document.getElementById('specsModal').classList.remove('active');
+            specsModal.classList.remove('active');
         }
 
-        function closeSpecsOnOuterClick(event) {
-            if (event.target.id === 'specsModal') {
-                closeSpecs();
-            }
-        }
+        btnCloseModal.addEventListener('click', closeSpecs);
+        specsModal.addEventListener('click', (e) => {
+            if (e.target === specsModal) closeSpecs();
+        });
     </script>
 </body>
 </html>
