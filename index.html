@@ -406,105 +406,6 @@
             border-color: var(--accent-purple);
         }
 
-        /* MODAL */
-        .modal-container {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0.95);
-            background: var(--bg-card);
-            border: 1px solid var(--accent-purple);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9), 0 0 25px rgba(157, 78, 221, 0.25);
-            border-radius: 12px;
-            width: 90%;
-            max-width: 440px;
-            padding: 22px;
-            z-index: 2000;
-            opacity: 0;
-            pointer-events: none;
-            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .modal-container.active {
-            opacity: 1;
-            pointer-events: auto;
-            transform: translate(-50%, -50%) scale(1);
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 12px;
-            margin-bottom: 16px;
-        }
-
-        .modal-title {
-            font-size: 1.15rem;
-            font-weight: 700;
-            color: #fff;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .modal-title i {
-            color: var(--accent-orange);
-        }
-
-        .btn-close-modal {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--border-color);
-            border-radius: 50%;
-            width: 28px;
-            height: 28px;
-            color: var(--text-muted);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .btn-close-modal:hover {
-            color: #fff;
-            border-color: var(--accent-orange);
-            background: var(--accent-orange);
-        }
-
-        .reqs-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .req-card-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 14px;
-            background: rgba(11, 10, 16, 0.6);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-        }
-
-        .req-card-label {
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: var(--accent-purple-light);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .req-card-value {
-            font-size: 0.85rem;
-            color: #fff;
-            font-weight: 700;
-            text-align: right;
-        }
-
         /* DRAWER & CART */
         .cart-widget {
             position: fixed;
@@ -585,104 +486,6 @@
             font-size: 0.8rem;
         }
 
-        .cart-item-right {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .btn-remove-item {
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            cursor: pointer;
-            font-size: 0.85rem;
-            transition: color 0.2s ease;
-        }
-
-        .btn-remove-item:hover {
-            color: var(--accent-red);
-        }
-
-        .hdd-storage-section {
-            padding: 12px 15px;
-            background: rgba(0, 0, 0, 0.4);
-            border-top: 1px solid var(--border-color);
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .hdd-label-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            font-size: 0.8rem;
-            color: var(--text-muted);
-        }
-
-        .target-drive-select {
-            background: rgba(11, 10, 16, 0.8);
-            border: 1px solid var(--border-color);
-            color: var(--text-main);
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-size: 0.75rem;
-            outline: none;
-        }
-
-        .tetris-bar-bg {
-            width: 100%;
-            height: 14px;
-            background: rgba(255, 255, 255, 0.08);
-            border-radius: 6px;
-            overflow: hidden;
-            display: flex;
-            position: relative;
-            border: 1px solid var(--border-color);
-        }
-
-        .tetris-block {
-            height: 100%;
-            transition: width 0.3s ease;
-            position: relative;
-            border-right: 1px solid rgba(11, 10, 16, 0.5);
-        }
-
-        .storage-advice-box {
-            font-size: 0.75rem;
-            color: var(--accent-purple-light);
-            background: rgba(157, 78, 221, 0.1);
-            border: 1px rgba(157, 78, 221, 0.3) solid;
-            padding: 6px 10px;
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            line-height: 1.2;
-        }
-
-        .storage-advice-box i {
-            color: var(--accent-yellow);
-        }
-
-        .hdd-info-group {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .hdd-icon {
-            color: var(--accent-orange);
-            font-size: 0.9rem;
-        }
-
-        .hdd-val-highlight {
-            color: var(--accent-orange);
-            font-weight: bold;
-            font-size: 0.85rem;
-        }
-
         .cart-footer {
             padding: 12px 15px;
             background: var(--bg-dark);
@@ -713,13 +516,6 @@
             background: var(--border-color);
         }
 
-        .empty-msg {
-            color: var(--text-muted);
-            font-size: 0.85rem;
-            text-align: center;
-            padding: 20px 0;
-        }
-
         .toast-container {
             position: fixed;
             top: 20px;
@@ -743,10 +539,6 @@
             align-items: center;
             gap: 8px;
             animation: slideIn 0.3s ease, fadeOut 0.3s 2.2s ease forwards;
-        }
-
-        .toast i {
-            color: var(--accent-orange);
         }
 
         @keyframes slideIn {
@@ -893,482 +685,73 @@
                 </div>
             </div>
 
-            <!-- MGS V - THE PHANTOM PAIN -->
-            <div class="game-card" data-id="6" data-title="MGS V - THE PHANTOM PAIN" data-genre="Action" data-size="23.01" data-unit="GB" data-display="23.01 GB" data-ram="4" data-vram="2" data-cpu="Intel Core i5-4460 / AMD FX-8320" data-gpu="NVIDIA GTX 650 / AMD Radeon R7 260x">
-                <div class="hud-status-badge status-ready" id="hud-6">&lt;CALCULATING&gt;</div>
-                <div class="card-img-wrapper">
-                    <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/287700/header.jpg" alt="MGS V - THE PHANTOM PAIN" class="card-img" loading="lazy">
-                    <div class="fps-badge" id="fps-6"><i class="fa-solid fa-gauge-high"></i> -- FPS</div>
-                </div>
-                <div class="card-content">
-                    <div class="game-title">MGS V - THE PHANTOM PAIN</div>
-                    <div class="game-meta"><span>Action</span><span>23.01 GB</span></div>
-                    <div class="setting-tweak-hint" id="tweak-6"><i class="fa-solid fa-sliders"></i> Ready for launch</div>
-                    <div class="card-actions">
-                        <button class="btn-play" data-action="toggle" data-id="6"><i class="fa-solid fa-plus"></i> Select Game</button>
-                        <button class="btn-reqs" data-action="reqs" data-id="6"><i class="fa-solid fa-sliders"></i> System Reqs</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- NBA 2K26 -->
-            <div class="game-card" data-id="7" data-title="NBA 2K26" data-genre="Sports" data-size="73.52" data-unit="GB" data-display="73.52 GB" data-ram="8" data-vram="4" data-cpu="Intel Core i5-6600 / AMD Ryzen 5 1600" data-gpu="NVIDIA GTX 1060 6GB / AMD RX 580">
-                <div class="hud-status-badge status-ready" id="hud-7">&lt;CALCULATING&gt;</div>
-                <div class="card-img-wrapper">
-                    <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2878980/header.jpg" alt="NBA 2K26" class="card-img" loading="lazy">
-                    <div class="fps-badge" id="fps-7"><i class="fa-solid fa-gauge-high"></i> -- FPS</div>
-                </div>
-                <div class="card-content">
-                    <div class="game-title">NBA 2K26</div>
-                    <div class="game-meta"><span>Sports</span><span>73.52 GB</span></div>
-                    <div class="setting-tweak-hint" id="tweak-7"><i class="fa-solid fa-sliders"></i> Ready for launch</div>
-                    <div class="card-actions">
-                        <button class="btn-play" data-action="toggle" data-id="7"><i class="fa-solid fa-plus"></i> Select Game</button>
-                        <button class="btn-reqs" data-action="reqs" data-id="7"><i class="fa-solid fa-sliders"></i> System Reqs</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Red Alert 2 -->
-            <div class="game-card" data-id="9" data-title="Red Alert 2" data-genre="Strategy" data-size="1.76" data-unit="GB" data-display="1.76 GB" data-ram="2" data-vram="0.25" data-cpu="Intel Pentium II 266 MHz" data-gpu="2MB Graphics Card">
-                <div class="hud-status-badge status-ready" id="hud-9">&lt;CALCULATING&gt;</div>
-                <div class="card-img-wrapper">
-                    <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2732960/header.jpg" alt="Red Alert 2" class="card-img" loading="lazy">
-                    <div class="fps-badge" id="fps-9"><i class="fa-solid fa-gauge-high"></i> -- FPS</div>
-                </div>
-                <div class="card-content">
-                    <div class="game-title">Red Alert 2</div>
-                    <div class="game-meta"><span>Strategy</span><span>1.76 GB</span></div>
-                    <div class="setting-tweak-hint" id="tweak-9"><i class="fa-solid fa-sliders"></i> Ready for launch</div>
-                    <div class="card-actions">
-                        <button class="btn-play" data-action="toggle" data-id="9"><i class="fa-solid fa-plus"></i> Select Game</button>
-                        <button class="btn-reqs" data-action="reqs" data-id="9"><i class="fa-solid fa-sliders"></i> System Reqs</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Sniper - Ghost Warrior Contracts -->
-            <div class="game-card" data-id="10" data-title="Sniper - Ghost Warrior Contracts" data-genre="Action" data-size="16.58" data-unit="GB" data-display="16.58 GB" data-ram="8" data-vram="2" data-cpu="Intel Core i5-4460 / AMD FX-6350" data-gpu="NVIDIA GTX 760 / AMD Radeon HD 7870">
-                <div class="hud-status-badge status-ready" id="hud-10">&lt;CALCULATING&gt;</div>
-                <div class="card-img-wrapper">
-                    <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/973580/header.jpg" alt="Sniper - Ghost Warrior Contracts" class="card-img" loading="lazy">
-                    <div class="fps-badge" id="fps-10"><i class="fa-solid fa-gauge-high"></i> -- FPS</div>
-                </div>
-                <div class="card-content">
-                    <div class="game-title">Sniper - Ghost Warrior Contracts</div>
-                    <div class="game-meta"><span>Action</span><span>16.58 GB</span></div>
-                    <div class="setting-tweak-hint" id="tweak-10"><i class="fa-solid fa-sliders"></i> Ready for launch</div>
-                    <div class="card-actions">
-                        <button class="btn-play" data-action="toggle" data-id="10"><i class="fa-solid fa-plus"></i> Select Game</button>
-                        <button class="btn-reqs" data-action="reqs" data-id="10"><i class="fa-solid fa-sliders"></i> System Reqs</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Sniper Ghost Warrior -->
-            <div class="game-card" data-id="11" data-title="Sniper Ghost Warrior" data-genre="Action" data-size="4.60" data-unit="GB" data-display="4.60 GB" data-ram="2" data-vram="0.5" data-cpu="Intel Pentium 4 3.2 GHz / AMD Athlon 64 3500+" data-gpu="NVIDIA 6800 / ATI X1650">
-                <div class="hud-status-badge status-ready" id="hud-11">&lt;CALCULATING&gt;</div>
-                <div class="card-img-wrapper">
-                    <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/34830/header.jpg" alt="Sniper Ghost Warrior" class="card-img" loading="lazy">
-                    <div class="fps-badge" id="fps-11"><i class="fa-solid fa-gauge-high"></i> -- FPS</div>
-                </div>
-                <div class="card-content">
-                    <div class="game-title">Sniper Ghost Warrior</div>
-                    <div class="game-meta"><span>Action</span><span>4.60 GB</span></div>
-                    <div class="setting-tweak-hint" id="tweak-11"><i class="fa-solid fa-sliders"></i> Ready for launch</div>
-                    <div class="card-actions">
-                        <button class="btn-play" data-action="toggle" data-id="11"><i class="fa-solid fa-plus"></i> Select Game</button>
-                        <button class="btn-reqs" data-action="reqs" data-id="11"><i class="fa-solid fa-sliders"></i> System Reqs</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Warcraft III -->
-            <div class="game-card" data-id="12" data-title="Warcraft III" data-genre="Strategy" data-size="1.98" data-unit="GB" data-display="1.98 GB" data-ram="2" data-vram="0.25" data-cpu="1 GHz Processor" data-gpu="DirectX Compatible GPU">
-                <div class="hud-status-badge status-ready" id="hud-12">&lt;CALCULATING&gt;</div>
-                <div class="card-img-wrapper">
-                    <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1170060/header.jpg" alt="Warcraft III" class="card-img" loading="lazy">
-                    <div class="fps-badge" id="fps-12"><i class="fa-solid fa-gauge-high"></i> -- FPS</div>
-                </div>
-                <div class="card-content">
-                    <div class="game-title">Warcraft III</div>
-                    <div class="game-meta"><span>Strategy</span><span>1.98 GB</span></div>
-                    <div class="setting-tweak-hint" id="tweak-12"><i class="fa-solid fa-sliders"></i> Ready for launch</div>
-                    <div class="card-actions">
-                        <button class="btn-play" data-action="toggle" data-id="12"><i class="fa-solid fa-plus"></i> Select Game</button>
-                        <button class="btn-reqs" data-action="reqs" data-id="12"><i class="fa-solid fa-sliders"></i> System Reqs</button>
-                    </div>
-                </div>
-            </div>
-
         </div>
     </main>
 
-    <!-- SYSTEM REQUIREMENTS MODAL -->
-    <div class="modal-container" id="reqsModal">
-        <div class="modal-header">
-            <div class="modal-title" id="modalGameTitle"><i class="fa-solid fa-microchip"></i> System Requirements</div>
-            <button class="btn-close-modal" id="btnCloseModal">&times;</button>
-        </div>
-        <div class="reqs-grid">
-            <div class="req-card-row">
-                <div class="req-card-label"><i class="fa-solid fa-microchip"></i> CPU</div>
-                <div class="req-card-value" id="modalCpu">--</div>
-            </div>
-            <div class="req-card-row">
-                <div class="req-card-label"><i class="fa-solid fa-memory"></i> RAM</div>
-                <div class="req-card-value" id="modalRam">--</div>
-            </div>
-            <div class="req-card-row">
-                <div class="req-card-label"><i class="fa-solid fa-display"></i> GPU</div>
-                <div class="req-card-value" id="modalGpu">--</div>
-            </div>
-            <div class="req-card-row">
-                <div class="req-card-label"><i class="fa-solid fa-vr-cardboard"></i> VRAM</div>
-                <div class="req-card-value" id="modalVram">--</div>
-            </div>
-        </div>
-    </div>
-
-    <!-- CART WIDGET -->
+    <!-- Drawer Widget -->
     <div class="cart-widget">
         <div class="cart-header">
             <span><i class="fa-solid fa-gamepad"></i> Selected Games</span>
             <button class="btn-clear-all" id="btnClearAll">Clear</button>
         </div>
         <ul class="cart-items" id="cartItems">
-            <li class="empty-msg">No games selected yet</li>
+            <!-- Items rendered via JS -->
         </ul>
-        <div class="hdd-storage-section">
-            <div class="hdd-label-row">
-                <div class="hdd-info-group">
-                    <i class="fa-solid fa-hard-drive hdd-icon"></i>
-                    <span>Storage Used: <span class="hdd-val-highlight" id="totalSize">0 GB</span></span>
-                </div>
-                <select class="target-drive-select" id="driveSelect">
-                    <option value="64">64 GB Drive</option>
-                    <option value="128">128 GB Drive</option>
-                    <option value="256" selected>256 GB Drive</option>
-                    <option value="512">512 GB Drive</option>
-                    <option value="1024">1 TB Drive</option>
-                </select>
-            </div>
-            <div class="tetris-bar-bg" id="tetrisBar"></div>
-            <div class="storage-advice-box" id="storageAdvice">
-                <i class="fa-solid fa-lightbulb"></i> Select games to calculate optimal drive allocation.
-            </div>
-        </div>
         <div class="cart-footer">
-            <button class="btn-copy-drawer" id="btnCopyList" disabled>
+            <button class="btn-copy-drawer" id="btnCopySelected" onclick="copySelectedGames()">
                 <i class="fa-solid fa-copy"></i> Copy Selected List
             </button>
         </div>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const state = {
-                selectedIds: new Set(),
-                activePreset: { ram: 4, vram: 1 },
-                currentGenre: 'all',
-                searchQuery: '',
-                sortOption: 'name-asc'
-            };
-
-            const colors = ['#ff6a00', '#9d4edd', '#00e676', '#00b4d8', '#ffd166', '#ff3366', '#c77dff'];
-
-            function showToast(message) {
-                const container = document.getElementById('toastContainer');
-                const toast = document.createElement('div');
-                toast.className = 'toast';
-                toast.innerHTML = `<i class="fa-solid fa-circle-check"></i> ${message}`;
-                container.appendChild(toast);
-                setTimeout(() => toast.remove(), 2500);
+        // Sample JavaScript for handling list dynamic updates and FB DM friendly formatting
+        function copySelectedGames() {
+            // Get selected game elements or data
+            const selectedCards = document.querySelectorAll('.game-card.selected');
+            
+            if (selectedCards.length === 0) {
+                showToast("No games selected!");
+                return;
             }
 
-            function formatSize(sizeInGB) {
-                if (sizeInGB <= 0) return '0 GB';
-                if (sizeInGB < 1.0) {
-                    const mbValue = Math.round(sizeInGB * 1024);
-                    return `${mbValue} MB`;
-                }
-                return `${sizeInGB.toFixed(2)} GB`;
-            }
+            // Universal gaming icons & simple formatting that won't break in FB Messenger (Mobile & PC)
+            let formattedText = "🎮 MY OFFGRID GAMING LIST 🕹️\n";
+            formattedText += "-----------------------------------\n";
 
-            function updateRigAnalyzer() {
-                document.querySelectorAll('.game-card').forEach(card => {
-                    const id = card.dataset.id;
-                    const reqRam = parseFloat(card.dataset.ram) || 2;
-                    const reqVram = parseFloat(card.dataset.vram) || 0.5;
-
-                    const hud = document.getElementById(`hud-${id}`);
-                    const fps = document.getElementById(`fps-${id}`);
-                    const tweak = document.getElementById(`tweak-${id}`);
-
-                    if (!hud || !fps || !tweak) return;
-
-                    const hasRam = state.activePreset.ram >= reqRam;
-                    const hasVram = state.activePreset.vram >= reqVram;
-
-                    // Compute precise ratio for realistic rating
-                    const ramRatio = state.activePreset.ram / reqRam;
-                    const vramRatio = state.activePreset.vram / reqVram;
-
-                    if (hasRam && hasVram) {
-                        if (ramRatio >= 2.0 && vramRatio >= 2.0) {
-                            hud.className = 'hud-status-badge status-ready';
-                            hud.innerHTML = '<i class="fa-solid fa-circle-check"></i> Optimal (1080p+)';
-                            fps.innerHTML = `<i class="fa-solid fa-gauge-high"></i> 100+ FPS`;
-                            tweak.innerHTML = '<i class="fa-solid fa-sliders"></i> Ultra Preset / Maxed Out';
-                        } else {
-                            hud.className = 'hud-status-badge status-playable';
-                            hud.innerHTML = '<i class="fa-solid fa-check"></i> Playable (720p/1080p)';
-                            fps.innerHTML = `<i class="fa-solid fa-gauge-high"></i> ~60 FPS`;
-                            tweak.innerHTML = '<i class="fa-solid fa-sliders"></i> High / Medium Settings';
-                        }
-                    } else if (hasRam && !hasVram) {
-                        hud.className = 'hud-status-badge status-vram';
-                        hud.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> VRAM Limited';
-                        fps.innerHTML = `<i class="fa-solid fa-gauge-high"></i> ~35-45 FPS`;
-                        tweak.innerHTML = '<i class="fa-solid fa-sliders"></i> Lower Textures & Shadow Maps';
-                    } else {
-                        hud.className = 'hud-status-badge status-warning';
-                        hud.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> System Bottleneck';
-                        fps.innerHTML = `<i class="fa-solid fa-gauge-high"></i> <30 FPS`;
-                        tweak.innerHTML = '<i class="fa-solid fa-sliders"></i> 720p / Low Preset & Upscaling Needed';
-                    }
-                });
-            }
-
-            function updateCartUI() {
-                const cartItemsList = document.getElementById('cartItems');
-                const totalSizeEl = document.getElementById('totalSize');
-                const btnCopy = document.getElementById('btnCopyList');
-                const tetrisBar = document.getElementById('tetrisBar');
-                const storageAdvice = document.getElementById('storageAdvice');
-                const targetDriveGB = parseFloat(document.getElementById('driveSelect').value);
-
-                cartItemsList.innerHTML = '';
-                tetrisBar.innerHTML = '';
-
-                if (state.selectedIds.size === 0) {
-                    cartItemsList.innerHTML = '<li class="empty-msg">No games selected yet</li>';
-                    totalSizeEl.textContent = '0 GB';
-                    btnCopy.disabled = true;
-                    storageAdvice.innerHTML = '<i class="fa-solid fa-lightbulb"></i> Select games to calculate optimal drive allocation.';
-                    return;
-                }
-
-                btnCopy.disabled = false;
-                let totalGB = 0;
-                let itemsHTML = '';
-
-                state.selectedIds.forEach((id, index) => {
-                    const card = document.querySelector(`.game-card[data-id="${id}"]`);
-                    if (!card) return;
-
-                    const title = card.dataset.title;
-                    const sizeGB = parseFloat(card.dataset.size);
-                    const displaySize = card.dataset.display || formatSize(sizeGB);
-                    totalGB += sizeGB;
-
-                    itemsHTML += `
-                        <li class="cart-item">
-                            <span class="cart-item-title"><i class="fa-solid fa-gamepad"></i> ${title}</span>
-                            <div class="cart-item-right">
-                                <span>${displaySize}</span>
-                                <button class="btn-remove-item" data-id="${id}"><i class="fa-solid fa-xmark"></i></button>
-                            </div>
-                        </li>
-                    `;
-
-                    const block = document.createElement('div');
-                    block.className = 'tetris-block';
-                    const pct = (sizeGB / targetDriveGB) * 100;
-                    block.style.width = `${pct}%`;
-                    block.style.backgroundColor = colors[index % colors.length];
-                    block.title = `${title}: ${displaySize}`;
-                    tetrisBar.appendChild(block);
-                });
-
-                cartItemsList.innerHTML = itemsHTML;
-                totalSizeEl.textContent = formatSize(totalGB);
-
-                const freeGB = targetDriveGB - totalGB;
-                if (freeGB < 0) {
-                    storageAdvice.innerHTML = `<i class="fa-solid fa-circle-exclamation" style="color: var(--accent-red)"></i> <strong>Over Capacity!</strong> Exceeds drive capacity by ${Math.abs(freeGB).toFixed(2)} GB.`;
-                } else {
-                    storageAdvice.innerHTML = `<i class="fa-solid fa-hard-drive"></i> <strong>${formatSize(freeGB)} Free</strong> remaining on ${targetDriveGB} GB Drive.`;
-                }
-            }
-
-            function filterAndSortGames() {
-                const cards = Array.from(document.querySelectorAll('.game-card'));
-
-                cards.forEach(card => {
-                    const title = card.dataset.title.toLowerCase();
-                    const genre = card.dataset.genre;
-
-                    const matchesSearch = title.includes(state.searchQuery.toLowerCase());
-                    const matchesGenre = state.currentGenre === 'all' || genre === state.currentGenre;
-
-                    if (matchesSearch && matchesGenre) {
-                        card.style.display = 'flex';
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
-
-                const grid = document.getElementById('gameGrid');
-                cards.sort((a, b) => {
-                    if (state.sortOption === 'name-asc') {
-                        return a.dataset.title.localeCompare(b.dataset.title);
-                    } else if (state.sortOption === 'size-asc') {
-                        return parseFloat(a.dataset.size) - parseFloat(b.dataset.size);
-                    } else if (state.sortOption === 'size-desc') {
-                        return parseFloat(b.dataset.size) - parseFloat(a.dataset.size);
-                    }
-                });
-
-                cards.forEach(card => grid.appendChild(card));
-            }
-
-            /* --- EVENT LISTENERS --- */
-
-            // 1. Grid Click Handler
-            document.getElementById('gameGrid').addEventListener('click', (e) => {
-                const btn = e.target.closest('button');
-                if (!btn) return;
-
-                const action = btn.dataset.action;
-                const id = btn.dataset.id;
-                const card = document.querySelector(`.game-card[data-id="${id}"]`);
-
-                if (action === 'toggle') {
-                    if (state.selectedIds.has(id)) {
-                        state.selectedIds.delete(id);
-                        card.classList.remove('selected');
-                        btn.innerHTML = '<i class="fa-solid fa-plus"></i> Select Game';
-                        showToast(`Removed ${card.dataset.title}`);
-                    } else {
-                        state.selectedIds.add(id);
-                        card.classList.add('selected');
-                        btn.innerHTML = '<i class="fa-solid fa-check"></i> Selected';
-                        showToast(`Added ${card.dataset.title}`);
-                    }
-                    updateCartUI();
-                } else if (action === 'reqs') {
-                    document.getElementById('modalGameTitle').innerHTML = `<i class="fa-solid fa-microchip"></i> ${card.dataset.title}`;
-                    document.getElementById('modalCpu').textContent = card.dataset.cpu || 'Dual Core CPU';
-                    document.getElementById('modalRam').textContent = `${card.dataset.ram} GB`;
-                    document.getElementById('modalGpu').textContent = card.dataset.gpu || 'DirectX Compatible';
-                    document.getElementById('modalVram').textContent = `${card.dataset.vram} GB`;
-
-                    document.getElementById('reqsModal').classList.add('active');
-                }
+            selectedCards.forEach((card, index) => {
+                const title = card.getAttribute('data-title');
+                const size = card.getAttribute('data-display');
+                const genre = card.getAttribute('data-genre');
+                formattedText += `${index + 1}. 🕹️ ${title}\n   💾 Size: ${size} | Genre: ${genre}\n\n`;
             });
 
-            // 2. Modal Close
-            document.getElementById('btnCloseModal').addEventListener('click', () => {
-                document.getElementById('reqsModal').classList.remove('active');
+            formattedText += "-----------------------------------\n";
+            formattedText += "⚡ Ready for Offline Play!";
+
+            // Copy to clipboard
+            navigator.clipboard.writeText(formattedText).then(() => {
+                showToast("List copied! Ready to paste on Facebook DM.");
+            }).catch(err => {
+                showToast("Failed to copy list.");
             });
+        }
 
-            // 3. Cart Removes & Clear All
-            document.getElementById('cartItems').addEventListener('click', (e) => {
-                const removeBtn = e.target.closest('.btn-remove-item');
-                if (removeBtn) {
-                    const id = removeBtn.dataset.id;
-                    state.selectedIds.delete(id);
+        function showToast(message) {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.innerHTML = `<i class="fa-solid fa-circle-check"></i> ${message}`;
+            container.appendChild(toast);
+            setTimeout(() => toast.remove(), 2500);
+        }
 
-                    const card = document.querySelector(`.game-card[data-id="${id}"]`);
-                    if (card) {
-                        card.classList.remove('selected');
-                        const toggleBtn = card.querySelector('[data-action="toggle"]');
-                        if (toggleBtn) toggleBtn.innerHTML = '<i class="fa-solid fa-plus"></i> Select Game';
-                    }
-                    updateCartUI();
-                }
+        // Example click handler to toggle selection
+        document.querySelectorAll('.btn-play').forEach(button => {
+            button.addEventListener('click', (e) => {
+                const card = e.target.closest('.game-card');
+                card.classList.toggle('selected');
             });
-
-            document.getElementById('btnClearAll').addEventListener('click', () => {
-                state.selectedIds.clear();
-                document.querySelectorAll('.game-card').forEach(card => {
-                    card.classList.remove('selected');
-                    const btn = card.querySelector('[data-action="toggle"]');
-                    if (btn) btn.innerHTML = '<i class="fa-solid fa-plus"></i> Select Game';
-                });
-                updateCartUI();
-                showToast('Cleared all selected games');
-            });
-
-            // 4. Rig Preset Selector
-            document.getElementById('rigPresets').addEventListener('click', (e) => {
-                const btn = e.target.closest('.btn-preset');
-                if (!btn) return;
-
-                document.querySelectorAll('.btn-preset').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-
-                state.activePreset.ram = parseFloat(btn.dataset.ram);
-                state.activePreset.vram = parseFloat(btn.dataset.vram);
-
-                updateRigAnalyzer();
-                showToast(`Rig profile updated: ${btn.textContent.trim()}`);
-            });
-
-            // 5. Search, Filter Chips & Sort
-            document.getElementById('searchInput').addEventListener('input', (e) => {
-                state.searchQuery = e.target.value;
-                filterAndSortGames();
-            });
-
-            document.getElementById('sortSelect').addEventListener('change', (e) => {
-                state.sortOption = e.target.value;
-                filterAndSortGames();
-            });
-
-            document.getElementById('genreChips').addEventListener('click', (e) => {
-                const chip = e.target.closest('.chip');
-                if (!chip) return;
-
-                document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
-                chip.classList.add('active');
-
-                state.currentGenre = chip.dataset.genre;
-                filterAndSortGames();
-            });
-
-            // 6. Drive Select Change
-            document.getElementById('driveSelect').addEventListener('change', () => {
-                updateCartUI();
-            });
-
-            // 7. Copy Selected List to Clipboard
-            document.getElementById('btnCopyList').addEventListener('click', () => {
-                let text = "Selected Games List:\n";
-                let totalGB = 0;
-
-                state.selectedIds.forEach(id => {
-                    const card = document.querySelector(`.game-card[data-id="${id}"]`);
-                    if (card) {
-                        const title = card.dataset.title;
-                        const sizeGB = parseFloat(card.dataset.size);
-                        const displaySize = card.dataset.display || formatSize(sizeGB);
-                        totalGB += sizeGB;
-                        text += `- ${title} (${displaySize})\n`;
-                    }
-                });
-
-                text += `\nTotal Storage: ${formatSize(totalGB)}`;
-
-                navigator.clipboard.writeText(text).then(() => {
-                    showToast('Game list copied to clipboard!');
-                });
-            });
-
-            // Initial Calculations
-            updateRigAnalyzer();
-            updateCartUI();
         });
     </script>
 </body>
