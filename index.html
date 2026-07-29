@@ -579,6 +579,12 @@
             font-size: 0.8rem;
         }
 
+        .cart-item-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
         .btn-remove-item {
             background: none;
             border: none;
@@ -785,13 +791,12 @@
             <button class="chip" data-genre="Strategy">Strategy</button>
             <button class="chip" data-genre="RPG">RPG</button>
             <button class="chip" data-genre="Sports">Sports</button>
-            <button class="chip" data-genre="Software">Software</button>
         </div>
     </div>
 
     <main class="container">
         <div class="game-grid" id="gameGrid">
-            <!-- Game Cards -->
+            <!-- Game Cards (Playnite removed) -->
             <div class="game-card" data-id="1" data-title="Battle Realms Complete" data-genre="Strategy" data-size="0.773" data-ram="2" data-vram="0.5" data-cpu="1.8 GHz Processor" data-gpu="DirectX 9 Compatible GPU">
                 <div class="hud-status-badge status-ready" id="hud-1">&lt;CALCULATING&gt;</div>
                 <div class="card-img-wrapper">
@@ -907,23 +912,6 @@
                     <div class="card-actions">
                         <button class="btn-play" data-action="toggle" data-id="7"><i class="fa-solid fa-plus"></i> Select Game</button>
                         <button class="btn-reqs" data-action="reqs" data-id="7"><i class="fa-solid fa-sliders"></i> System Reqs</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="game-card" data-id="8" data-title="Playnite" data-genre="Software" data-size="0.738" data-ram="2" data-vram="0.25" data-cpu="Dual Core CPU" data-gpu="Integrated Graphics">
-                <div class="hud-status-badge status-ready" id="hud-8">&lt;CALCULATING&gt;</div>
-                <div class="card-img-wrapper">
-                    <img src="https://playnite.link/images/logo.png" alt="Playnite" class="card-img" loading="lazy">
-                    <div class="fps-badge" id="fps-8"><i class="fa-solid fa-gauge-high"></i> -- FPS</div>
-                </div>
-                <div class="card-content">
-                    <div class="game-title">Playnite</div>
-                    <div class="game-meta"><span>Software</span><span>738 MB</span></div>
-                    <div class="setting-tweak-hint" id="tweak-8"><i class="fa-solid fa-sliders"></i> Ready for launch</div>
-                    <div class="card-actions">
-                        <button class="btn-play" data-action="toggle" data-id="8"><i class="fa-solid fa-plus"></i> Select Game</button>
-                        <button class="btn-reqs" data-action="reqs" data-id="8"><i class="fa-solid fa-sliders"></i> System Reqs</button>
                     </div>
                 </div>
             </div>
@@ -1080,6 +1068,13 @@
                 setTimeout(() => toast.remove(), 2500);
             }
 
+            function formatSize(sizeInGB) {
+                if (sizeInGB < 1) {
+                    return `${Math.round(sizeInGB * 1000)} MB`;
+                }
+                return `${sizeInGB.toFixed(2)} GB`;
+            }
+
             function updateRigAnalyzer() {
                 document.querySelectorAll('.game-card').forEach(card => {
                     const id = card.dataset.id;
@@ -1144,14 +1139,14 @@
                     if (!card) return;
 
                     const title = card.dataset.title;
-                    const size = parseFloat(card.dataset.size);
-                    totalGB += size;
+                    const sizeGB = parseFloat(card.dataset.size);
+                    totalGB += sizeGB;
 
                     itemsHTML += `
                         <li class="cart-item">
                             <span class="cart-item-title"><i class="fa-solid fa-gamepad"></i> ${title}</span>
                             <div class="cart-item-right">
-                                <span>${size >= 1 ? size.toFixed(2) + ' GB' : Math.round(size * 1024) + ' MB'}</span>
+                                <span>${formatSize(sizeGB)}</span>
                                 <button class="btn-remove-item" data-id="${id}"><i class="fa-solid fa-xmark"></i></button>
                             </div>
                         </li>
@@ -1159,23 +1154,21 @@
 
                     const block = document.createElement('div');
                     block.className = 'tetris-block';
-                    const pct = (size / targetDriveGB) * 100;
+                    const pct = (sizeGB / targetDriveGB) * 100;
                     block.style.width = `${pct}%`;
                     block.style.backgroundColor = colors[index % colors.length];
-                    block.title = `${title}: ${size} GB`;
+                    block.title = `${title}: ${formatSize(sizeGB)}`;
                     tetrisBar.appendChild(block);
                 });
 
                 cartItemsList.innerHTML = itemsHTML;
-
-                let displayTotal = totalGB >= 1 ? `${totalGB.toFixed(2)} GB` : `${Math.round(totalGB * 1024)} MB`;
-                totalSizeEl.textContent = displayTotal;
+                totalSizeEl.textContent = formatSize(totalGB);
 
                 const freeGB = targetDriveGB - totalGB;
                 if (freeGB < 0) {
-                    storageAdvice.innerHTML = `<i class="fa-solid fa-circle-exclamation" style="color: var(--accent-red)"></i> <strong>Over Capacity!</strong> Exceeds drive by Math.abs(freeGB).toFixed(1) GB.`;
+                    storageAdvice.innerHTML = `<i class="fa-solid fa-circle-exclamation" style="color: var(--accent-red)"></i> <strong>Over Capacity!</strong> Exceeds drive capacity by ${Math.abs(freeGB).toFixed(2)} GB.`;
                 } else {
-                    storageAdvice.innerHTML = `<i class="fa-solid fa-hard-drive"></i> <strong>${freeGB.toFixed(1)} GB Free</strong> remaining on ${targetDriveGB} GB Drive.`;
+                    storageAdvice.innerHTML = `<i class="fa-solid fa-hard-drive"></i> <strong>${formatSize(freeGB)} Free</strong> remaining on ${targetDriveGB} GB Drive.`;
                 }
             }
 
@@ -1328,13 +1321,13 @@
                     const card = document.querySelector(`.game-card[data-id="${id}"]`);
                     if (card) {
                         const title = card.dataset.title;
-                        const size = parseFloat(card.dataset.size);
-                        totalGB += size;
-                        text += `- ${title} (${size >= 1 ? size.toFixed(2) + ' GB' : Math.round(size * 1024) + ' MB'})\n`;
+                        const sizeGB = parseFloat(card.dataset.size);
+                        totalGB += sizeGB;
+                        text += `- ${title} (${formatSize(sizeGB)})\n`;
                     }
                 });
 
-                text += `\nTotal Estimated Storage: ${totalGB.toFixed(2)} GB`;
+                text += `\nTotal Storage: ${formatSize(totalGB)}`;
 
                 navigator.clipboard.writeText(text).then(() => {
                     showToast('Game list copied to clipboard!');
