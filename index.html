@@ -36,7 +36,7 @@
             background-color: var(--bg-dark);
             color: var(--text-main);
             background-image: 
-                radial-gradient(circle at 50% 0%, rgba(255, 94, 0, 0.12) 0%, transparent 50%),
+                radial-gradient(circle at 50% 0%, rgba(255, 94, 0, 0.15) 0%, transparent 50%),
                 linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
                 linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
             background-size: 100% 100%, 40px 40px, 40px 40px;
@@ -57,7 +57,7 @@
             max-width: 200px;
             height: auto;
             margin-bottom: 10px;
-            filter: drop-shadow(0 0 15px rgba(255, 94, 0, 0.35));
+            filter: drop-shadow(0 0 15px rgba(255, 94, 0, 0.4));
         }
 
         /* --- CONTROL PANEL & RIG ANALYZER --- */
@@ -71,10 +71,11 @@
             gap: 15px;
         }
 
-        /* Centered Rig Analyzer Panel */
+        /* Centered Rig Analyzer Panel (Logo Matched) */
         .rig-analyzer-panel {
-            background: rgba(21, 25, 33, 0.9);
-            border: 1px solid var(--border-color);
+            background: rgba(21, 25, 33, 0.95);
+            border: 1px solid var(--accent-orange);
+            box-shadow: 0 0 15px rgba(255, 94, 0, 0.2), inset 0 0 15px rgba(255, 94, 0, 0.05);
             border-radius: 8px;
             padding: 20px 15px;
             display: flex;
@@ -83,14 +84,14 @@
             justify-content: center;
             gap: 15px;
             text-align: center;
-            backdrop-filter: blur(5px);
         }
 
         .rig-title {
             font-family: 'Teko', sans-serif;
-            font-size: 1.4rem;
-            letter-spacing: 1px;
-            color: var(--accent-cyan);
+            font-size: 1.5rem;
+            letter-spacing: 1.2px;
+            color: var(--accent-orange);
+            text-shadow: 0 0 10px rgba(255, 94, 0, 0.4);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -107,7 +108,7 @@
         }
 
         .btn-preset {
-            background: rgba(255, 255, 255, 0.04);
+            background: rgba(11, 13, 16, 0.8);
             border: 1px solid var(--border-color);
             color: var(--text-muted);
             padding: 8px 16px;
@@ -115,15 +116,15 @@
             font-size: 0.8rem;
             font-weight: bold;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.25s ease;
             text-transform: uppercase;
         }
 
         .btn-preset:hover, .btn-preset.active {
             color: var(--accent-cyan);
             border-color: var(--accent-cyan);
-            background: rgba(0, 240, 255, 0.1);
-            box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
+            background: rgba(0, 240, 255, 0.12);
+            box-shadow: 0 0 12px rgba(0, 240, 255, 0.3);
         }
 
         .search-box {
@@ -137,7 +138,7 @@
             background: var(--bg-card);
             border: 1px solid var(--border-color);
             border-radius: 8px;
-            color: #fff;
+            color: var(--text-main);
             font-size: 0.95rem;
             outline: none;
             transition: all 0.3s ease;
@@ -312,66 +313,54 @@
         }
 
         .btn-reqs:hover {
-            background: rgba(255, 255, 255, 0.1);
-            color: #fff;
-            border-color: var(--text-muted);
+            background: rgba(0, 240, 255, 0.1);
+            color: var(--accent-cyan);
+            border-color: var(--accent-cyan);
         }
 
-        /* --- MODAL FOR SYSTEM REQUIREMENTS --- */
-        .modal-overlay {
+        /* --- SIMPLE FLOATING WINDOW MODAL (NO BACKGROUND BLUR / NO FULLSCREEN OVERLAY) --- */
+        .modal-container {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(8px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.95);
+            background: var(--bg-card);
+            border: 2px solid var(--accent-orange);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9), 0 0 20px rgba(255, 94, 0, 0.3);
+            border-radius: 8px;
+            width: 90%;
+            max-width: 440px;
+            padding: 20px;
             z-index: 2000;
             opacity: 0;
             pointer-events: none;
-            transition: opacity 0.3s ease;
+            transition: all 0.25s ease-in-out;
         }
 
-        .modal-overlay.active {
+        .modal-container.active {
             opacity: 1;
             pointer-events: auto;
-        }
-
-        .modal-container {
-            background: var(--bg-card);
-            border: 1px solid var(--accent-cyan);
-            box-shadow: 0 0 25px rgba(0, 240, 255, 0.2);
-            border-radius: 8px;
-            width: 90%;
-            max-width: 480px;
-            padding: 20px;
-            position: relative;
-            transform: translateY(20px);
-            transition: transform 0.3s ease;
-        }
-
-        .modal-overlay.active .modal-container {
-            transform: translateY(0);
+            transform: translate(-50%, -50%) scale(1);
         }
 
         .modal-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 1px solid rgba(255, 94, 0, 0.3);
             padding-bottom: 10px;
             margin-bottom: 15px;
         }
 
         .modal-title {
             font-family: 'Teko', sans-serif;
-            font-size: 1.5rem;
-            color: var(--accent-cyan);
+            font-size: 1.6rem;
+            color: var(--accent-orange);
             letter-spacing: 1px;
             text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .btn-close-modal {
@@ -380,10 +369,11 @@
             color: var(--text-muted);
             font-size: 1.2rem;
             cursor: pointer;
+            transition: color 0.2s;
         }
 
         .btn-close-modal:hover {
-            color: #fff;
+            color: var(--accent-orange);
         }
 
         .reqs-list {
@@ -398,14 +388,14 @@
         .reqs-list li {
             display: flex;
             justify-content: space-between;
-            padding: 8px;
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 8px 12px;
+            background: rgba(11, 13, 16, 0.6);
+            border: 1px solid var(--border-color);
             border-radius: 4px;
         }
 
         .reqs-label {
-            color: var(--text-muted);
+            color: var(--accent-cyan);
         }
 
         .reqs-value {
@@ -423,7 +413,7 @@
             background: var(--bg-card);
             border: 1px solid var(--accent-orange);
             border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.85);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.85), 0 0 15px rgba(255, 94, 0, 0.15);
             display: flex;
             flex-direction: column;
             z-index: 1000;
@@ -439,6 +429,7 @@
             align-items: center;
             border-bottom: 1px solid var(--border-color);
             font-size: 0.95rem;
+            color: var(--accent-orange);
         }
 
         .cart-items {
@@ -460,7 +451,18 @@
             font-size: 0.85rem;
         }
 
-        /* --- STORAGE SECTION --- */
+        .cart-item-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .cart-item-title i {
+            color: var(--accent-cyan);
+            font-size: 0.8rem;
+        }
+
+        /* --- ENHANCED STORAGE SECTION WITH SSD ICON --- */
         .ssd-storage-section {
             padding: 12px 15px;
             background: rgba(0, 0, 0, 0.4);
@@ -473,16 +475,35 @@
 
         .ssd-label-row {
             display: flex;
+            align-items: center;
             justify-content: space-between;
             width: 100%;
             font-size: 0.85rem;
             color: var(--text-muted);
         }
 
-        .ssd-val-highlight {
+        .ssd-info-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .ssd-icon {
             color: var(--accent-cyan);
+            font-size: 1rem;
+            animation: pulse-glow 2s infinite ease-in-out;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; filter: drop-shadow(0 0 5px var(--accent-cyan)); }
+        }
+
+        .ssd-val-highlight {
+            color: var(--accent-orange);
             font-weight: bold;
             font-size: 0.95rem;
+            text-shadow: 0 0 8px rgba(255, 94, 0, 0.3);
         }
 
         .cart-footer {
@@ -530,7 +551,7 @@
     </header>
 
     <div class="controls">
-        <!-- RIG COMPATIBILITY ANALYZER PANEL (CENTERED) -->
+        <!-- RIG COMPATIBILITY ANALYZER PANEL (MATCHED TO LOGO PALETTE) -->
         <div class="rig-analyzer-panel">
             <div class="rig-title">
                 <i class="fa-solid fa-microchip"></i> System Rig Compatibility Profile
@@ -623,7 +644,7 @@
     <!-- Floating Drawer / Sidebar -->
     <div class="cart-widget">
         <div class="cart-header">
-            <span><i class="fa-solid fa-hard-drive"></i> Selected Payload</span>
+            <span><i class="fa-solid fa-gamepad"></i> Selected Payload</span>
             <span id="selectedCount" style="color: var(--accent-orange);">(0)</span>
         </div>
         
@@ -631,10 +652,13 @@
             <div class="empty-msg">No games selected.</div>
         </ul>
 
-        <!-- STORAGE DISPLAY SECTION -->
+        <!-- STORAGE DISPLAY SECTION WITH SSD ICON DETAIL -->
         <div class="ssd-storage-section">
             <div class="ssd-label-row">
-                <span>TOTAL STORAGE REQUIRED:</span>
+                <div class="ssd-info-group">
+                    <i class="fa-solid fa-hard-drive ssd-icon"></i>
+                    <span>PAYLOAD DRIVE SIZE:</span>
+                </div>
                 <span id="totalSize" class="ssd-val-highlight">0 GB</span>
             </div>
         </div>
@@ -646,21 +670,19 @@
         </div>
     </div>
 
-    <!-- SYSTEM REQUIREMENTS MODAL -->
-    <div class="modal-overlay" id="reqsModal">
-        <div class="modal-container">
-            <div class="modal-header">
-                <div class="modal-title" id="modalGameTitle">Game Requirements</div>
-                <button class="btn-close-modal" id="btnCloseModal"><i class="fa-solid fa-xmark"></i></button>
-            </div>
-            <ul class="reqs-list">
-                <li><span class="reqs-label">MINIMUM RAM:</span> <span class="reqs-value" id="modalRam">-</span></li>
-                <li><span class="reqs-label">MINIMUM VRAM:</span> <span class="reqs-value" id="modalVram">-</span></li>
-                <li><span class="reqs-label">CPU:</span> <span class="reqs-value" id="modalCpu">-</span></li>
-                <li><span class="reqs-label">GPU:</span> <span class="reqs-value" id="modalGpu">-</span></li>
-                <li><span class="reqs-label">STORAGE:</span> <span class="reqs-value" id="modalStorage">-</span></li>
-            </ul>
+    <!-- COMPACT FLOATING SYSTEM REQUIREMENTS WINDOW (NO BACKDROP / BLUR) -->
+    <div class="modal-container" id="reqsModal">
+        <div class="modal-header">
+            <div class="modal-title"><i class="fa-solid fa-terminal"></i> <span id="modalGameTitle">Game Requirements</span></div>
+            <button class="btn-close-modal" id="btnCloseModal"><i class="fa-solid fa-xmark"></i></button>
         </div>
+        <ul class="reqs-list">
+            <li><span class="reqs-label">MINIMUM RAM:</span> <span class="reqs-value" id="modalRam">-</span></li>
+            <li><span class="reqs-label">MINIMUM VRAM:</span> <span class="reqs-value" id="modalVram">-</span></li>
+            <li><span class="reqs-label">CPU:</span> <span class="reqs-value" id="modalCpu">-</span></li>
+            <li><span class="reqs-label">GPU:</span> <span class="reqs-value" id="modalGpu">-</span></li>
+            <li><span class="reqs-label">STORAGE:</span> <span class="reqs-value" id="modalStorage">-</span></li>
+        </ul>
     </div>
 
     <script>
@@ -753,7 +775,7 @@
 
                 updateUI();
             } else if (action === 'reqs') {
-                // Open System Reqs Modal
+                // Open Floating System Reqs Window
                 modalGameTitle.innerText = card.getAttribute('data-title');
                 modalRam.innerText = `${card.getAttribute('data-ram')} GB`;
                 modalVram.innerText = `${card.getAttribute('data-vram')} GB`;
@@ -765,11 +787,8 @@
             }
         });
 
-        // Close Modal Handlers
+        // Close Floating Window Modal Handlers
         btnCloseModal.addEventListener('click', () => reqsModal.classList.remove('active'));
-        reqsModal.addEventListener('click', (e) => {
-            if (e.target === reqsModal) reqsModal.classList.remove('active');
-        });
 
         // Update Storage & Selection UI
         function updateUI() {
@@ -786,7 +805,7 @@
                     const li = document.createElement('li');
                     li.className = 'cart-item';
                     li.innerHTML = `
-                        <span>${game.title}</span>
+                        <span class="cart-item-title"><i class="fa-solid fa-gamepad"></i> ${game.title}</span>
                         <span style="color: var(--accent-orange); font-weight: bold;">${game.size} GB</span>
                     `;
                     cartItems.appendChild(li);
@@ -797,27 +816,28 @@
             selectedCountEl.innerText = `(${selectedGames.size})`;
         }
 
-        // Cross-Browser Copy Selection Function (Mobile + PC Compatible)
+        // Cross-Browser Copy Function (Gaming Icons Included in Output)
         async function copySelectionList() {
             if (selectedGames.size === 0) return;
 
             let totalGB = 0;
-            let textToCopy = "Offgrid Gaming - Selected Games Payload:\n";
-            textToCopy += "----------------------------------------\n";
+            let textToCopy = "🎮 OFFGRID GAMING - SELECTED PAYLOAD LOADOUT 🎮\n";
+            textToCopy += "═══════════════════════════════════════════\n";
 
             selectedGames.forEach((game) => {
-                textToCopy += `• ${game.title} (${game.size} GB)\n`;
+                textToCopy += `🕹️ ${game.title} - [${game.size} GB]\n`;
                 totalGB += game.size;
             });
 
-            textToCopy += "----------------------------------------\n";
-            textToCopy += `Total Storage Required: ${totalGB} GB\n`;
+            textToCopy += "═══════════════════════════════════════════\n";
+            textToCopy += `💾 TOTAL STORAGE REQUIRED: ${totalGB} GB\n`;
+            textToCopy += "⚡ READY FOR OFFLINE DEPLOYMENT ⚡\n";
 
             try {
                 if (navigator.clipboard && window.isSecureContext) {
                     await navigator.clipboard.writeText(textToCopy);
                 } else {
-                    // Fallback for legacy browsers and mobile contexts
+                    // Fallback for legacy mobile/web browsers
                     const textArea = document.createElement("textarea");
                     textArea.value = textToCopy;
                     textArea.style.position = "fixed";
@@ -830,7 +850,7 @@
                     textArea.remove();
                 }
 
-                // Temporary UI Feedback
+                // Temporary Success Feedback
                 const originalText = btnCopyDrawer.innerHTML;
                 btnCopyDrawer.innerHTML = `<i class="fa-solid fa-check"></i> Copied to Clipboard!`;
                 btnCopyDrawer.style.background = "var(--accent-green)";
