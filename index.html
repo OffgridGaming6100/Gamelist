@@ -71,41 +71,46 @@
             gap: 15px;
         }
 
+        /* Centered Rig Analyzer Panel */
         .rig-analyzer-panel {
             background: rgba(21, 25, 33, 0.9);
             border: 1px solid var(--border-color);
             border-radius: 8px;
-            padding: 15px;
+            padding: 20px 15px;
             display: flex;
-            flex-wrap: wrap;
+            flex-direction: column;
             align-items: center;
-            justify-content: space-between;
+            justify-content: center;
             gap: 15px;
+            text-align: center;
             backdrop-filter: blur(5px);
         }
 
         .rig-title {
             font-family: 'Teko', sans-serif;
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             letter-spacing: 1px;
             color: var(--accent-cyan);
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 8px;
             text-transform: uppercase;
         }
 
         .preset-buttons {
             display: flex;
-            gap: 8px;
+            gap: 10px;
             flex-wrap: wrap;
+            justify-content: center;
+            width: 100%;
         }
 
         .btn-preset {
             background: rgba(255, 255, 255, 0.04);
             border: 1px solid var(--border-color);
             color: var(--text-muted);
-            padding: 6px 12px;
+            padding: 8px 16px;
             border-radius: 4px;
             font-size: 0.8rem;
             font-weight: bold;
@@ -455,72 +460,29 @@
             font-size: 0.85rem;
         }
 
-        /* --- SCI-FI ANIMATED SSD STORAGE BAR --- */
+        /* --- STORAGE SECTION --- */
         .ssd-storage-section {
             padding: 12px 15px;
             background: rgba(0, 0, 0, 0.4);
             border-top: 1px solid var(--border-color);
             display: flex;
-            flex-direction: column;
-            gap: 6px;
+            align-items: center;
+            justify-content: space-between;
             font-family: 'Share Tech Mono', monospace;
         }
 
         .ssd-label-row {
             display: flex;
             justify-content: space-between;
-            font-size: 0.75rem;
+            width: 100%;
+            font-size: 0.85rem;
             color: var(--text-muted);
         }
 
         .ssd-val-highlight {
             color: var(--accent-cyan);
             font-weight: bold;
-        }
-
-        .ssd-track {
-            height: 12px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--border-color);
-            border-radius: 3px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .ssd-bar-fill {
-            height: 100%;
-            width: 0%;
-            background: linear-gradient(90deg, var(--accent-cyan) 0%, var(--accent-orange) 100%);
-            background-size: 30px 30px;
-            background-image: linear-gradient(
-                135deg, 
-                rgba(255, 255, 255, 0.25) 25%, 
-                transparent 25%, 
-                transparent 50%, 
-                rgba(255, 255, 255, 0.25) 50%, 
-                rgba(255, 255, 255, 0.25) 75%, 
-                transparent 75%, 
-                transparent
-            );
-            animation: moveStripes 1.5s linear infinite;
-            transition: width 0.4s ease;
-            box-shadow: 0 0 10px var(--accent-cyan);
-        }
-
-        .ssd-bar-fill.overload {
-            background: linear-gradient(90deg, #ff3355 0%, #ff0000 100%);
-            box-shadow: 0 0 12px rgba(255, 51, 85, 0.8);
-            animation: moveStripes 0.8s linear infinite, pulseGlow 1s ease-in-out infinite alternate;
-        }
-
-        @keyframes moveStripes {
-            0% { background-position: 0 0; }
-            100% { background-position: 30px 0; }
-        }
-
-        @keyframes pulseGlow {
-            0% { opacity: 0.8; }
-            100% { opacity: 1; }
+            font-size: 0.95rem;
         }
 
         .cart-footer {
@@ -544,6 +506,7 @@
             justify-content: center;
             gap: 8px;
             text-transform: uppercase;
+            transition: all 0.2s;
         }
 
         .btn-copy-drawer:disabled {
@@ -567,7 +530,7 @@
     </header>
 
     <div class="controls">
-        <!-- RIG COMPATIBILITY ANALYZER PANEL -->
+        <!-- RIG COMPATIBILITY ANALYZER PANEL (CENTERED) -->
         <div class="rig-analyzer-panel">
             <div class="rig-title">
                 <i class="fa-solid fa-microchip"></i> System Rig Compatibility Profile
@@ -668,18 +631,11 @@
             <div class="empty-msg">No games selected.</div>
         </ul>
 
-        <!-- SCI-FI ANIMATED SSD METER -->
+        <!-- STORAGE DISPLAY SECTION -->
         <div class="ssd-storage-section">
             <div class="ssd-label-row">
-                <span>DRIVE TARGET: <span class="ssd-val-highlight">512 GB SSD</span></span>
-                <span id="ssdPctText">0%</span>
-            </div>
-            <div class="ssd-track">
-                <div class="ssd-bar-fill" id="ssdBarFill"></div>
-            </div>
-            <div class="ssd-label-row">
-                <span>USED: <span id="totalSize" class="ssd-val-highlight">0 GB</span></span>
-                <span id="freeSpaceText">512 GB FREE</span>
+                <span>TOTAL STORAGE REQUIRED:</span>
+                <span id="totalSize" class="ssd-val-highlight">0 GB</span>
             </div>
         </div>
 
@@ -709,7 +665,6 @@
 
     <script>
         const selectedGames = new Map();
-        const MAX_DRIVE_CAPACITY = 512;
         let currentRig = { ram: 8, vram: 4 };
 
         // DOM Handles
@@ -718,9 +673,7 @@
         const totalSizeEl = document.getElementById('totalSize');
         const selectedCountEl = document.getElementById('selectedCount');
         const btnCopyDrawer = document.getElementById('btnCopyDrawer');
-        const ssdBarFill = document.getElementById('ssdBarFill');
-        const ssdPctText = document.getElementById('ssdPctText');
-        const freeSpaceText = document.getElementById('freeSpaceText');
+        const searchInput = document.getElementById('searchInput');
 
         // Modal Handles
         const reqsModal = document.getElementById('reqsModal');
@@ -731,6 +684,15 @@
         const modalCpu = document.getElementById('modalCpu');
         const modalGpu = document.getElementById('modalGpu');
         const modalStorage = document.getElementById('modalStorage');
+
+        // Search Filter
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase().trim();
+            document.querySelectorAll('.game-card').forEach(card => {
+                const title = card.getAttribute('data-title').toLowerCase();
+                card.style.display = title.includes(query) ? 'flex' : 'none';
+            });
+        });
 
         // Rig Analyzer Preset Selection
         document.getElementById('rigPresets').addEventListener('click', (e) => {
@@ -809,7 +771,7 @@
             if (e.target === reqsModal) reqsModal.classList.remove('active');
         });
 
-        // Update SSD & Selection UI
+        // Update Storage & Selection UI
         function updateUI() {
             cartItems.innerHTML = '';
             let totalGB = 0;
@@ -831,25 +793,62 @@
                 });
             }
 
-            // SSD Meter Calculations
             totalSizeEl.innerText = `${totalGB} GB`;
             selectedCountEl.innerText = `(${selectedGames.size})`;
+        }
 
-            const pct = Math.min(100, Math.round((totalGB / MAX_DRIVE_CAPACITY) * 100));
-            ssdBarFill.style.width = `${pct}%`;
-            ssdPctText.innerText = `${pct}%`;
+        // Cross-Browser Copy Selection Function (Mobile + PC Compatible)
+        async function copySelectionList() {
+            if (selectedGames.size === 0) return;
 
-            const freeSpace = MAX_DRIVE_CAPACITY - totalGB;
-            if (freeSpace < 0) {
-                freeSpaceText.innerText = `OVERFLOW ${Math.abs(freeSpace)} GB`;
-                freeSpaceText.style.color = "var(--accent-red)";
-                ssdBarFill.classList.add('overload');
-            } else {
-                freeSpaceText.innerText = `${freeSpace} GB FREE`;
-                freeSpaceText.style.color = "var(--text-muted)";
-                ssdBarFill.classList.remove('overload');
+            let totalGB = 0;
+            let textToCopy = "Offgrid Gaming - Selected Games Payload:\n";
+            textToCopy += "----------------------------------------\n";
+
+            selectedGames.forEach((game) => {
+                textToCopy += `• ${game.title} (${game.size} GB)\n`;
+                totalGB += game.size;
+            });
+
+            textToCopy += "----------------------------------------\n";
+            textToCopy += `Total Storage Required: ${totalGB} GB\n`;
+
+            try {
+                if (navigator.clipboard && window.isSecureContext) {
+                    await navigator.clipboard.writeText(textToCopy);
+                } else {
+                    // Fallback for legacy browsers and mobile contexts
+                    const textArea = document.createElement("textarea");
+                    textArea.value = textToCopy;
+                    textArea.style.position = "fixed";
+                    textArea.style.left = "-999999px";
+                    textArea.style.top = "-999999px";
+                    document.body.appendChild(textArea);
+                    textArea.focus();
+                    textArea.select();
+                    document.execCommand('copy');
+                    textArea.remove();
+                }
+
+                // Temporary UI Feedback
+                const originalText = btnCopyDrawer.innerHTML;
+                btnCopyDrawer.innerHTML = `<i class="fa-solid fa-check"></i> Copied to Clipboard!`;
+                btnCopyDrawer.style.background = "var(--accent-green)";
+                btnCopyDrawer.style.color = "#000";
+
+                setTimeout(() => {
+                    btnCopyDrawer.innerHTML = originalText;
+                    btnCopyDrawer.style.background = "var(--accent-orange)";
+                    btnCopyDrawer.style.color = "#fff";
+                }, 2000);
+
+            } catch (err) {
+                console.error("Failed to copy text: ", err);
+                alert("Failed to copy automatically. Please select text manually.");
             }
         }
+
+        btnCopyDrawer.addEventListener('click', copySelectionList);
 
         // Initialize Analyzer on Load
         analyzeRigCompatibility();
