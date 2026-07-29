@@ -288,6 +288,126 @@
             border: 1px solid var(--accent-orange);
         }
 
+        .btn-reqs {
+            width: 100%;
+            padding: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            font-weight: 600;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            text-transform: uppercase;
+        }
+
+        .btn-reqs:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border-color: var(--text-muted);
+        }
+
+        /* --- MODAL FOR SYSTEM REQUIREMENTS --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-container {
+            background: var(--bg-card);
+            border: 1px solid var(--accent-cyan);
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.2);
+            border-radius: 8px;
+            width: 90%;
+            max-width: 480px;
+            padding: 20px;
+            position: relative;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.active .modal-container {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .modal-title {
+            font-family: 'Teko', sans-serif;
+            font-size: 1.5rem;
+            color: var(--accent-cyan);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .btn-close-modal {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .btn-close-modal:hover {
+            color: #fff;
+        }
+
+        .reqs-list {
+            list-style: none;
+            font-size: 0.85rem;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            font-family: 'Share Tech Mono', monospace;
+        }
+
+        .reqs-list li {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
+        }
+
+        .reqs-label {
+            color: var(--text-muted);
+        }
+
+        .reqs-value {
+            color: #fff;
+            font-weight: bold;
+        }
+
         /* --- SCI-FI SIDEBAR / DRAWER --- */
         .cart-widget {
             position: fixed;
@@ -468,7 +588,7 @@
     <main class="container">
         <div class="game-grid" id="gameGrid">
             <!-- Game Card 1 -->
-            <div class="game-card" data-id="1" data-title="Cyberpunk 2077" data-size="70" data-ram="12" data-vram="6">
+            <div class="game-card" data-id="1" data-title="Cyberpunk 2077" data-size="70" data-ram="12" data-vram="6" data-cpu="Intel Core i7-6700 / AMD Ryzen 5 1600" data-gpu="GTX 1060 6GB / RX 580 8GB">
                 <div class="hud-status-badge status-ready" id="hud-1">&lt;CALCULATING&gt;</div>
                 <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1091500/header.jpg" alt="Cyberpunk 2077" class="card-img" loading="lazy">
                 <div class="card-content">
@@ -479,12 +599,13 @@
                     </div>
                     <div class="card-actions">
                         <button class="btn-play" data-action="toggle" data-id="1"><i class="fa-solid fa-plus"></i> Select Game</button>
+                        <button class="btn-reqs" data-action="reqs" data-id="1"><i class="fa-solid fa-sliders"></i> System Reqs</button>
                     </div>
                 </div>
             </div>
 
             <!-- Game Card 2 -->
-            <div class="game-card" data-id="2" data-title="Grand Theft Auto V" data-size="100" data-ram="4" data-vram="2">
+            <div class="game-card" data-id="2" data-title="Grand Theft Auto V" data-size="100" data-ram="4" data-vram="2" data-cpu="Intel Core i5 3470 / AMD FX-8350" data-gpu="NVIDIA GTX 660 / AMD HD 7870">
                 <div class="hud-status-badge status-ready" id="hud-2">&lt;CALCULATING&gt;</div>
                 <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/271590/header.jpg" alt="GTA V" class="card-img" loading="lazy">
                 <div class="card-content">
@@ -495,12 +616,13 @@
                     </div>
                     <div class="card-actions">
                         <button class="btn-play" data-action="toggle" data-id="2"><i class="fa-solid fa-plus"></i> Select Game</button>
+                        <button class="btn-reqs" data-action="reqs" data-id="2"><i class="fa-solid fa-sliders"></i> System Reqs</button>
                     </div>
                 </div>
             </div>
 
             <!-- Game Card 3 -->
-            <div class="game-card" data-id="3" data-title="Elden Ring" data-size="50" data-ram="12" data-vram="3">
+            <div class="game-card" data-id="3" data-title="Elden Ring" data-size="50" data-ram="12" data-vram="3" data-cpu="Intel Core i5-8400 / AMD Ryzen 3 3300X" data-gpu="NVIDIA GTX 1060 3GB / AMD RX 580 4GB">
                 <div class="hud-status-badge status-ready" id="hud-3">&lt;CALCULATING&gt;</div>
                 <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1245620/header.jpg" alt="Elden Ring" class="card-img" loading="lazy">
                 <div class="card-content">
@@ -511,12 +633,13 @@
                     </div>
                     <div class="card-actions">
                         <button class="btn-play" data-action="toggle" data-id="3"><i class="fa-solid fa-plus"></i> Select Game</button>
+                        <button class="btn-reqs" data-action="reqs" data-id="3"><i class="fa-solid fa-sliders"></i> System Reqs</button>
                     </div>
                 </div>
             </div>
 
             <!-- Game Card 4 -->
-            <div class="game-card" data-id="4" data-title="Forza Horizon 5" data-size="110" data-ram="8" data-vram="4">
+            <div class="game-card" data-id="4" data-title="Forza Horizon 5" data-size="110" data-ram="8" data-vram="4" data-cpu="Intel Core i5-4460 / AMD Ryzen 3 1200" data-gpu="NVIDIA GTX 970 / AMD RX 470">
                 <div class="hud-status-badge status-ready" id="hud-4">&lt;CALCULATING&gt;</div>
                 <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1551360/header.jpg" alt="Forza Horizon 5" class="card-img" loading="lazy">
                 <div class="card-content">
@@ -527,6 +650,7 @@
                     </div>
                     <div class="card-actions">
                         <button class="btn-play" data-action="toggle" data-id="4"><i class="fa-solid fa-plus"></i> Select Game</button>
+                        <button class="btn-reqs" data-action="reqs" data-id="4"><i class="fa-solid fa-sliders"></i> System Reqs</button>
                     </div>
                 </div>
             </div>
@@ -566,6 +690,23 @@
         </div>
     </div>
 
+    <!-- SYSTEM REQUIREMENTS MODAL -->
+    <div class="modal-overlay" id="reqsModal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <div class="modal-title" id="modalGameTitle">Game Requirements</div>
+                <button class="btn-close-modal" id="btnCloseModal"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <ul class="reqs-list">
+                <li><span class="reqs-label">MINIMUM RAM:</span> <span class="reqs-value" id="modalRam">-</span></li>
+                <li><span class="reqs-label">MINIMUM VRAM:</span> <span class="reqs-value" id="modalVram">-</span></li>
+                <li><span class="reqs-label">CPU:</span> <span class="reqs-value" id="modalCpu">-</span></li>
+                <li><span class="reqs-label">GPU:</span> <span class="reqs-value" id="modalGpu">-</span></li>
+                <li><span class="reqs-label">STORAGE:</span> <span class="reqs-value" id="modalStorage">-</span></li>
+            </ul>
+        </div>
+    </div>
+
     <script>
         const selectedGames = new Map();
         const MAX_DRIVE_CAPACITY = 512;
@@ -580,6 +721,16 @@
         const ssdBarFill = document.getElementById('ssdBarFill');
         const ssdPctText = document.getElementById('ssdPctText');
         const freeSpaceText = document.getElementById('freeSpaceText');
+
+        // Modal Handles
+        const reqsModal = document.getElementById('reqsModal');
+        const btnCloseModal = document.getElementById('btnCloseModal');
+        const modalGameTitle = document.getElementById('modalGameTitle');
+        const modalRam = document.getElementById('modalRam');
+        const modalVram = document.getElementById('modalVram');
+        const modalCpu = document.getElementById('modalCpu');
+        const modalGpu = document.getElementById('modalGpu');
+        const modalStorage = document.getElementById('modalStorage');
 
         // Rig Analyzer Preset Selection
         document.getElementById('rigPresets').addEventListener('click', (e) => {
@@ -615,27 +766,47 @@
             });
         }
 
-        // Selection Handler
+        // Action Handler (Toggle & Reqs)
         gameGrid.addEventListener('click', (e) => {
             const btn = e.target.closest('button');
-            if (!btn || btn.dataset.action !== 'toggle') return;
+            if (!btn) return;
+
+            const action = btn.dataset.action;
             const id = btn.dataset.id;
-            
             const card = document.querySelector(`.game-card[data-id="${id}"]`);
-            const title = card.getAttribute('data-title');
-            const size = parseFloat(card.getAttribute('data-size'));
 
-            if (selectedGames.has(id)) {
-                selectedGames.delete(id);
-                card.classList.remove('selected');
-                btn.innerHTML = `<i class="fa-solid fa-plus"></i> Select Game`;
-            } else {
-                selectedGames.set(id, { title, size });
-                card.classList.add('selected');
-                btn.innerHTML = `<i class="fa-solid fa-check"></i> Selected`;
+            if (action === 'toggle') {
+                const title = card.getAttribute('data-title');
+                const size = parseFloat(card.getAttribute('data-size'));
+
+                if (selectedGames.has(id)) {
+                    selectedGames.delete(id);
+                    card.classList.remove('selected');
+                    btn.innerHTML = `<i class="fa-solid fa-plus"></i> Select Game`;
+                } else {
+                    selectedGames.set(id, { title, size });
+                    card.classList.add('selected');
+                    btn.innerHTML = `<i class="fa-solid fa-check"></i> Selected`;
+                }
+
+                updateUI();
+            } else if (action === 'reqs') {
+                // Open System Reqs Modal
+                modalGameTitle.innerText = card.getAttribute('data-title');
+                modalRam.innerText = `${card.getAttribute('data-ram')} GB`;
+                modalVram.innerText = `${card.getAttribute('data-vram')} GB`;
+                modalCpu.innerText = card.getAttribute('data-cpu') || 'N/A';
+                modalGpu.innerText = card.getAttribute('data-gpu') || 'N/A';
+                modalStorage.innerText = `${card.getAttribute('data-size')} GB`;
+                
+                reqsModal.classList.add('active');
             }
+        });
 
-            updateUI();
+        // Close Modal Handlers
+        btnCloseModal.addEventListener('click', () => reqsModal.classList.remove('active'));
+        reqsModal.addEventListener('click', (e) => {
+            if (e.target === reqsModal) reqsModal.classList.remove('active');
         });
 
         // Update SSD & Selection UI
