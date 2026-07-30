@@ -11,9 +11,9 @@
     
     <style>
         :root {
-            --bg-dark: #0b0a10;
-            --bg-card: #161220;
-            --bg-card-hover: #1f1a2e;
+            --bg-dark: #08070c;
+            --bg-card: rgba(22, 18, 32, 0.85);
+            --bg-card-hover: rgba(31, 26, 46, 0.95);
             --accent-orange: #ff6a00;
             --accent-purple: #9d4edd;
             --accent-purple-glow: #7b2cbf;
@@ -22,7 +22,7 @@
             --accent-blue: #00b4d8;
             --accent-yellow: #ffd166;
             --accent-red: #ff3366;
-            --border-color: #2e2440;
+            --border-color: rgba(157, 78, 221, 0.25);
             --text-main: #f3effa;
             --text-muted: #9a8cae;
         }
@@ -33,36 +33,76 @@
             padding: 0;
         }
 
+        /* --- HIGH-TECH CYBERPUNK BACKGROUND SYSTEM --- */
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--bg-dark);
             color: var(--text-main);
-            background-image: 
-                radial-gradient(circle at 50% 0%, rgba(157, 78, 221, 0.18) 0%, transparent 60%),
-                linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-            background-size: 100% 100%, 40px 40px, 40px 40px;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             padding-bottom: 260px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Layer 1: Ambient Neon Spotlights */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 140vw;
+            height: 140vh;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(157, 78, 221, 0.22) 0%, transparent 45%),
+                radial-gradient(circle at 80% 30%, rgba(255, 106, 0, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 50% 80%, rgba(0, 180, 216, 0.12) 0%, transparent 50%),
+                radial-gradient(circle at 50% 0%, rgba(123, 44, 191, 0.25) 0%, transparent 55%);
+            z-index: -2;
+            pointer-events: none;
+            animation: ambientPulse 12s ease-in-out infinite alternate;
+        }
+
+        /* Layer 2: Cyber Grid Texture & Scanline Overlay */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(180deg, rgba(0,0,0,0) 50%, rgba(0, 0, 0, 0.25) 50%);
+            background-size: 40px 40px, 40px 40px, 100% 4px;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.85;
+        }
+
+        @keyframes ambientPulse {
+            0% { opacity: 0.7; transform: translateX(-50%) scale(1); }
+            100% { opacity: 1; transform: translateX(-50%) scale(1.08); }
         }
 
         header {
             text-align: center;
             padding: 25px 20px 15px;
             border-bottom: 1px solid var(--border-color);
-            background: linear-gradient(180deg, rgba(11,10,16,0.95) 0%, rgba(11,10,16,0.85) 100%);
+            background: linear-gradient(180deg, rgba(8, 7, 12, 0.95) 0%, rgba(8, 7, 12, 0.75) 100%);
+            backdrop-filter: blur(12px);
         }
 
         .site-logo {
             max-width: 200px;
             height: auto;
             margin-bottom: 10px;
-            filter: drop-shadow(0 0 18px rgba(157, 78, 221, 0.5));
+            filter: drop-shadow(0 0 20px rgba(157, 78, 221, 0.6));
         }
 
-        /* --- CONTROL PANEL & RIG ANALYZER --- */
         .controls {
             max-width: 1100px;
             margin: 20px auto 10px;
@@ -74,10 +114,11 @@
         }
 
         .rig-analyzer-panel {
-            background: rgba(22, 18, 32, 0.95);
-            border: 1px solid var(--accent-purple);
-            box-shadow: 0 0 20px rgba(157, 78, 221, 0.25), inset 0 0 15px rgba(255, 106, 0, 0.05);
-            border-radius: 10px;
+            background: rgba(18, 14, 28, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(157, 78, 221, 0.1);
+            border-radius: 12px;
             padding: 20px 15px;
             display: flex;
             flex-direction: column;
@@ -124,11 +165,10 @@
         .btn-preset:hover, .btn-preset.active {
             color: #fff;
             border-color: var(--accent-orange);
-            background: linear-gradient(135deg, rgba(157, 78, 221, 0.3) 0%, rgba(255, 106, 0, 0.3) 100%);
-            box-shadow: 0 0 12px rgba(255, 106, 0, 0.35);
+            background: linear-gradient(135deg, rgba(157, 78, 221, 0.4) 0%, rgba(255, 106, 0, 0.4) 100%);
+            box-shadow: 0 0 15px rgba(255, 106, 0, 0.4);
         }
 
-        /* FILTER & SORT ROW */
         .filter-sort-bar {
             display: flex;
             gap: 12px;
@@ -146,6 +186,7 @@
             width: 100%;
             padding: 12px 16px 12px 45px;
             background: var(--bg-card);
+            backdrop-filter: blur(8px);
             border: 1px solid var(--border-color);
             border-radius: 8px;
             color: var(--text-main);
@@ -155,8 +196,8 @@
         }
 
         .search-box input:focus {
-            border-color: var(--accent-purple);
-            box-shadow: 0 0 15px rgba(157, 78, 221, 0.35);
+            border-color: var(--accent-purple-light);
+            box-shadow: 0 0 20px rgba(157, 78, 221, 0.4);
         }
 
         .search-box i {
@@ -170,17 +211,13 @@
         .sort-dropdown {
             padding: 12px 16px;
             background: var(--bg-card);
+            backdrop-filter: blur(8px);
             border: 1px solid var(--border-color);
             border-radius: 8px;
             color: var(--text-main);
             font-size: 0.85rem;
             outline: none;
             cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .sort-dropdown:focus {
-            border-color: var(--accent-purple);
         }
 
         .genre-chips {
@@ -204,9 +241,10 @@
         }
 
         .chip:hover, .chip.active {
-            background: rgba(157, 78, 221, 0.2);
+            background: rgba(157, 78, 221, 0.25);
             color: var(--accent-purple-light);
             border-color: var(--accent-purple);
+            box-shadow: 0 0 12px rgba(157, 78, 221, 0.3);
         }
 
         .container {
@@ -225,8 +263,9 @@
 
         .game-card {
             background: var(--bg-card);
+            backdrop-filter: blur(10px);
             border: 1px solid var(--border-color);
-            border-radius: 10px;
+            border-radius: 12px;
             overflow: hidden;
             display: flex;
             flex-direction: column;
@@ -235,21 +274,9 @@
         }
 
         .game-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-6px);
             border-color: var(--accent-orange);
-            box-shadow: 0 6px 22px rgba(255, 106, 0, 0.25);
-        }
-
-        .game-card.selected {
-            border: 2px solid var(--accent-orange);
-            box-shadow: 0 0 20px rgba(255, 106, 0, 0.45);
-            background: var(--bg-card-hover);
-        }
-
-        .game-card.tetris-highlight {
-            transform: translateY(-8px) scale(1.02);
-            border-color: var(--accent-purple-light) !important;
-            box-shadow: 0 0 25px rgba(199, 125, 255, 0.8) !important;
+            box-shadow: 0 10px 30px rgba(255, 106, 0, 0.3);
         }
 
         .card-img-wrapper {
@@ -267,7 +294,6 @@
             border-bottom: 1px solid var(--border-color);
         }
 
-        /* --- STATUS BADGES & PERFORMANCE OVERLAY --- */
         .hud-status-badge {
             position: absolute;
             top: 8px;
@@ -280,7 +306,7 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
             z-index: 10;
-            background: rgba(11, 10, 16, 0.92);
+            background: rgba(8, 7, 12, 0.9);
             backdrop-filter: blur(6px);
             display: inline-flex;
             align-items: center;
@@ -294,23 +320,11 @@
             box-shadow: 0 0 10px rgba(0, 230, 118, 0.35);
         }
 
-        .hud-status-badge.status-warning {
-            color: var(--accent-red);
-            border: 1px solid var(--accent-red);
-            box-shadow: 0 0 10px rgba(255, 51, 102, 0.35);
-        }
-
-        .hud-status-badge.status-vram {
-            color: var(--accent-orange);
-            border: 1px solid var(--accent-orange);
-            box-shadow: 0 0 10px rgba(255, 106, 0, 0.35);
-        }
-
         .fps-badge {
             position: absolute;
             bottom: 8px;
             right: 8px;
-            background: rgba(11, 10, 16, 0.88);
+            background: rgba(8, 7, 12, 0.88);
             border: 1px solid var(--accent-blue);
             color: var(--accent-blue);
             font-size: 0.68rem;
@@ -349,7 +363,6 @@
             justify-content: space-between;
         }
 
-        /* Dynamic Setting Tweak Tooltip */
         .setting-tweak-hint {
             font-size: 0.7rem;
             color: var(--accent-yellow);
@@ -384,12 +397,6 @@
             transition: all 0.2s;
         }
 
-        .game-card.selected .btn-play {
-            background: #231b33;
-            color: var(--accent-orange);
-            border: 1px solid var(--accent-orange);
-        }
-
         .btn-reqs {
             width: 100%;
             padding: 8px;
@@ -414,116 +421,18 @@
             border-color: var(--accent-purple);
         }
 
-        /* --- FLOATING WINDOW SYSTEM REQUIREMENTS --- */
-        .modal-container {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0.95);
-            background: var(--bg-card);
-            border: 1px solid var(--accent-purple);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9), 0 0 25px rgba(157, 78, 221, 0.25);
-            border-radius: 12px;
-            width: 90%;
-            max-width: 440px;
-            padding: 22px;
-            z-index: 2000;
-            opacity: 0;
-            pointer-events: none;
-            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .modal-container.active {
-            opacity: 1;
-            pointer-events: auto;
-            transform: translate(-50%, -50%) scale(1);
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 12px;
-            margin-bottom: 16px;
-        }
-
-        .modal-title {
-            font-size: 1.15rem;
-            font-weight: 700;
-            color: #fff;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .modal-title i {
-            color: var(--accent-orange);
-        }
-
-        .btn-close-modal {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--border-color);
-            border-radius: 50%;
-            width: 28px;
-            height: 28px;
-            color: var(--text-muted);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .btn-close-modal:hover {
-            color: #fff;
-            border-color: var(--accent-orange);
-            background: var(--accent-orange);
-        }
-
-        .reqs-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .req-card-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 14px;
-            background: rgba(11, 10, 16, 0.6);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-        }
-
-        .req-card-label {
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: var(--accent-purple-light);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .req-card-value {
-            font-size: 0.85rem;
-            color: #fff;
-            font-weight: 700;
-            text-align: right;
-        }
-
-        /* --- SIDEBAR / DRAWER --- */
+        /* --- DRAWER WIDGET --- */
         .cart-widget {
             position: fixed;
             bottom: 20px;
             right: 20px;
-            width: 400px;
+            width: 380px;
             max-width: calc(100vw - 40px);
-            background: var(--bg-card);
+            background: rgba(18, 14, 28, 0.92);
+            backdrop-filter: blur(16px);
             border: 1px solid var(--accent-purple);
             border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.85), 0 0 20px rgba(157, 78, 221, 0.2);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8), 0 0 25px rgba(157, 78, 221, 0.25);
             display: flex;
             flex-direction: column;
             z-index: 1000;
@@ -542,83 +451,6 @@
             color: var(--accent-purple-light);
         }
 
-        .cart-header-actions {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .btn-clear-all {
-            background: rgba(255, 51, 102, 0.15);
-            border: 1px solid var(--accent-red);
-            color: var(--accent-red);
-            padding: 3px 8px;
-            border-radius: 4px;
-            font-size: 0.7rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.2s;
-            text-transform: uppercase;
-        }
-
-        .btn-clear-all:hover {
-            background: var(--accent-red);
-            color: #fff;
-        }
-
-        .cart-items {
-            list-style: none;
-            padding: 10px;
-            overflow-y: auto;
-            max-height: 150px;
-            flex: 1;
-        }
-
-        .cart-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 8px 10px;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 6px;
-            margin-bottom: 6px;
-            font-size: 0.85rem;
-        }
-
-        .cart-item-title {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
-        .cart-item-title i {
-            color: var(--accent-orange);
-            font-size: 0.8rem;
-        }
-
-        .cart-item-right {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .btn-remove-item {
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            cursor: pointer;
-            font-size: 0.85rem;
-            transition: color 0.2s ease;
-        }
-
-        .btn-remove-item:hover {
-            color: var(--accent-red);
-        }
-
-        /* --- STORAGE TETRIS & ADVICE SECTION --- */
         .hdd-storage-section {
             padding: 12px 15px;
             background: rgba(0, 0, 0, 0.4);
@@ -628,93 +460,14 @@
             gap: 8px;
         }
 
-        .hdd-label-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            font-size: 0.8rem;
-            color: var(--text-muted);
-        }
-
-        .target-drive-select {
-            background: rgba(11, 10, 16, 0.8);
-            border: 1px solid var(--border-color);
-            color: var(--text-main);
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-size: 0.75rem;
-            outline: none;
-        }
-
-        /* SEGMENTED TETRIS STORAGE BAR */
         .tetris-bar-bg {
             width: 100%;
-            height: 14px;
+            height: 12px;
             background: rgba(255, 255, 255, 0.08);
             border-radius: 6px;
             overflow: hidden;
             display: flex;
-            position: relative;
             border: 1px solid var(--border-color);
-        }
-
-        .tetris-block {
-            height: 100%;
-            transition: width 0.3s ease, filter 0.2s ease;
-            position: relative;
-            cursor: pointer;
-            border-right: 1px solid rgba(11, 10, 16, 0.5);
-        }
-
-        .tetris-block:hover {
-            filter: brightness(1.4);
-            z-index: 5;
-        }
-
-        .tetris-overflow {
-            background: var(--accent-red) !important;
-            box-shadow: 0 0 10px var(--accent-red);
-        }
-
-        /* DYNAMIC STORAGE ADVICE */
-        .storage-advice-box {
-            font-size: 0.75rem;
-            color: var(--accent-purple-light);
-            background: rgba(157, 78, 221, 0.1);
-            border: 1px rgba(157, 78, 221, 0.3) solid;
-            padding: 6px 10px;
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            line-height: 1.2;
-        }
-
-        .storage-advice-box i {
-            color: var(--accent-yellow);
-        }
-
-        .hdd-info-group {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .hdd-icon {
-            color: var(--accent-orange);
-            font-size: 0.9rem;
-            animation: pulse-glow 2s infinite ease-in-out;
-        }
-
-        @keyframes pulse-glow {
-            0%, 100% { opacity: 0.6; }
-            50% { opacity: 1; filter: drop-shadow(0 0 5px var(--accent-orange)); }
-        }
-
-        .hdd-val-highlight {
-            color: var(--accent-orange);
-            font-weight: bold;
-            font-size: 0.85rem;
         }
 
         .cart-footer {
@@ -738,117 +491,56 @@
             justify-content: center;
             gap: 8px;
             text-transform: uppercase;
-            transition: all 0.2s;
-        }
-
-        .btn-copy-drawer:disabled {
-            opacity: 0.4;
-            cursor: not-allowed;
-            background: var(--border-color);
-        }
-
-        .empty-msg {
-            color: var(--text-muted);
-            font-size: 0.85rem;
-            text-align: center;
-            padding: 20px 0;
-        }
-
-        /* TOAST NOTIFICATION */
-        .toast-container {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 3000;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            pointer-events: none;
-        }
-
-        .toast {
-            background: rgba(22, 18, 32, 0.95);
-            border: 1px solid var(--accent-purple);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
-            border-radius: 8px;
-            padding: 10px 16px;
-            color: #fff;
-            font-size: 0.85rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            animation: slideIn 0.3s ease, fadeOut 0.3s 2.2s ease forwards;
-        }
-
-        .toast i {
-            color: var(--accent-orange);
-        }
-
-        @keyframes slideIn {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-
-        @keyframes fadeOut {
-            to { opacity: 0; transform: translateY(-10px); }
         }
     </style>
 </head>
 <body>
-
-    <div class="toast-container" id="toastContainer"></div>
 
     <header>
         <img src="logo.png" alt="Offgrid Gaming Logo" class="site-logo" onerror="this.src='https://via.placeholder.com/200x60/161220/ff6a00?text=OFFGRID+GAMING'">
     </header>
 
     <div class="controls">
-        <!-- RIG ANALYZER PANEL -->
         <div class="rig-analyzer-panel">
             <div class="rig-title">
                 <i class="fa-solid fa-microchip"></i> System Rig Compatibility Profile
             </div>
-            <div class="preset-buttons" id="rigPresets">
-                <button class="btn-preset active" data-ram="8" data-vram="4">Budget Rig (8GB RAM / 4GB VRAM)</button>
-                <button class="btn-preset" data-ram="16" data-vram="6">Mid Gaming (16GB RAM / 6GB VRAM)</button>
-                <button class="btn-preset" data-ram="32" data-vram="12">Beast Mode (32GB RAM / 12GB VRAM)</button>
+            <div class="preset-buttons">
+                <button class="btn-preset active">Budget Rig (8GB RAM / 4GB VRAM)</button>
+                <button class="btn-preset">Mid Gaming (16GB RAM / 6GB VRAM)</button>
+                <button class="btn-preset">Beast Mode (32GB RAM / 12GB VRAM)</button>
             </div>
         </div>
 
-        <!-- SEARCH, SORT, & FILTER CHIPS -->
         <div class="filter-sort-bar">
             <div class="search-box">
                 <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" id="searchInput" placeholder="Search games...">
+                <input type="text" placeholder="Search games...">
             </div>
-            <select class="sort-dropdown" id="sortSelect">
-                <option value="name-asc">Sort: A to Z</option>
-                <option value="size-asc">Sort: Size (Smallest)</option>
-                <option value="size-desc">Sort: Size (Largest)</option>
+            <select class="sort-dropdown">
+                <option>Sort: A to Z</option>
+                <option>Sort: Size (Smallest)</option>
+                <option>Sort: Size (Largest)</option>
             </select>
         </div>
 
-        <div class="genre-chips" id="genreChips">
-            <button class="chip active" data-genre="all">All Games</button>
-            <button class="chip" data-genre="RPG">RPG</button>
-            <button class="chip" data-genre="Open World">Open World</button>
-            <button class="chip" data-genre="Souls-like">Souls-like</button>
-            <button class="chip" data-genre="Racing">Racing</button>
-            <button class="chip" data-genre="Sports">Sports</button>
-            <button class="chip" data-genre="Action-Adventure">Action-Adventure</button>
-            <button class="chip" data-genre="Strategy">Strategy</button>
-            <button class="chip" data-genre="Simulation">Simulation</button>
+        <div class="genre-chips">
+            <button class="chip active">All Games</button>
+            <button class="chip">RPG</button>
+            <button class="chip">Open World</button>
+            <button class="chip">Souls-like</button>
+            <button class="chip">Racing</button>
         </div>
     </div>
 
     <main class="container">
-        <div class="game-grid" id="gameGrid">
+        <div class="game-grid">
             <!-- Game Card 1 -->
-            <div class="game-card" data-id="1" data-title="Cyberpunk 2077" data-genre="RPG" data-size="70" data-ram="12" data-vram="6" data-cpu="Intel Core i7-6700 / AMD Ryzen 5 1600" data-gpu="GTX 1060 6GB / RX 580 8GB">
-                <div class="hud-status-badge status-ready" id="hud-1">&lt;CALCULATING&gt;</div>
+            <div class="game-card">
+                <div class="hud-status-badge status-ready"><i class="fa-solid fa-circle-check"></i> Compatible</div>
                 <div class="card-img-wrapper">
-                    <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1091500/header.jpg" alt="Cyberpunk 2077" class="card-img" loading="lazy">
-                    <div class="fps-badge" id="fps-1"><i class="fa-solid fa-gauge-high"></i> -- FPS</div>
+                    <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1091500/header.jpg" alt="Cyberpunk 2077" class="card-img">
+                    <div class="fps-badge"><i class="fa-solid fa-gauge-high"></i> ~60 FPS</div>
                 </div>
                 <div class="card-content">
                     <div class="game-title">Cyberpunk 2077</div>
@@ -856,20 +548,20 @@
                         <span>RPG</span>
                         <span>70 GB</span>
                     </div>
-                    <div class="setting-tweak-hint" id="tweak-1"><i class="fa-solid fa-sliders"></i> Ready for launch</div>
+                    <div class="setting-tweak-hint"><i class="fa-solid fa-sliders"></i> Ultra settings ready</div>
                     <div class="card-actions">
-                        <button class="btn-play" data-action="toggle" data-id="1"><i class="fa-solid fa-plus"></i> Select Game</button>
-                        <button class="btn-reqs" data-action="reqs" data-id="1"><i class="fa-solid fa-sliders"></i> System Reqs</button>
+                        <button class="btn-play"><i class="fa-solid fa-plus"></i> Select Game</button>
+                        <button class="btn-reqs"><i class="fa-solid fa-sliders"></i> System Reqs</button>
                     </div>
                 </div>
             </div>
 
             <!-- Game Card 2 -->
-            <div class="game-card" data-id="2" data-title="Grand Theft Auto V" data-genre="Open World" data-size="100" data-ram="4" data-vram="2" data-cpu="Intel Core i5 3470 / AMD FX-8350" data-gpu="NVIDIA GTX 660 / AMD HD 7870">
-                <div class="hud-status-badge status-ready" id="hud-2">&lt;CALCULATING&gt;</div>
+            <div class="game-card">
+                <div class="hud-status-badge status-ready"><i class="fa-solid fa-circle-check"></i> Compatible</div>
                 <div class="card-img-wrapper">
-                    <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/271590/header.jpg" alt="GTA V" class="card-img" loading="lazy">
-                    <div class="fps-badge" id="fps-2"><i class="fa-solid fa-gauge-high"></i> -- FPS</div>
+                    <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/271590/header.jpg" alt="GTA V" class="card-img">
+                    <div class="fps-badge"><i class="fa-solid fa-gauge-high"></i> ~90 FPS</div>
                 </div>
                 <div class="card-content">
                     <div class="game-title">Grand Theft Auto V</div>
@@ -877,20 +569,20 @@
                         <span>Open World</span>
                         <span>100 GB</span>
                     </div>
-                    <div class="setting-tweak-hint" id="tweak-2"><i class="fa-solid fa-sliders"></i> Ready for launch</div>
+                    <div class="setting-tweak-hint"><i class="fa-solid fa-sliders"></i> Max settings ready</div>
                     <div class="card-actions">
-                        <button class="btn-play" data-action="toggle" data-id="2"><i class="fa-solid fa-plus"></i> Select Game</button>
-                        <button class="btn-reqs" data-action="reqs" data-id="2"><i class="fa-solid fa-sliders"></i> System Reqs</button>
+                        <button class="btn-play"><i class="fa-solid fa-plus"></i> Select Game</button>
+                        <button class="btn-reqs"><i class="fa-solid fa-sliders"></i> System Reqs</button>
                     </div>
                 </div>
             </div>
 
             <!-- Game Card 3 -->
-            <div class="game-card" data-id="3" data-title="Elden Ring" data-genre="Souls-like" data-size="50" data-ram="12" data-vram="3" data-cpu="Intel Core i5-8400 / AMD Ryzen 3 3300X" data-gpu="NVIDIA GTX 1060 3GB / AMD RX 580 4GB">
-                <div class="hud-status-badge status-ready" id="hud-3">&lt;CALCULATING&gt;</div>
+            <div class="game-card">
+                <div class="hud-status-badge status-ready"><i class="fa-solid fa-circle-check"></i> Compatible</div>
                 <div class="card-img-wrapper">
-                    <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1245620/header.jpg" alt="Elden Ring" class="card-img" loading="lazy">
-                    <div class="fps-badge" id="fps-3"><i class="fa-solid fa-gauge-high"></i> -- FPS</div>
+                    <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1245620/header.jpg" alt="Elden Ring" class="card-img">
+                    <div class="fps-badge"><i class="fa-solid fa-gauge-high"></i> ~60 FPS</div>
                 </div>
                 <div class="card-content">
                     <div class="game-title">Elden Ring</div>
@@ -898,397 +590,29 @@
                         <span>Souls-like</span>
                         <span>50 GB</span>
                     </div>
-                    <div class="setting-tweak-hint" id="tweak-3"><i class="fa-solid fa-sliders"></i> Ready for launch</div>
+                    <div class="setting-tweak-hint"><i class="fa-solid fa-sliders"></i> Max settings ready</div>
                     <div class="card-actions">
-                        <button class="btn-play" data-action="toggle" data-id="3"><i class="fa-solid fa-plus"></i> Select Game</button>
-                        <button class="btn-reqs" data-action="reqs" data-id="3"><i class="fa-solid fa-sliders"></i> System Reqs</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Game Card 4 -->
-            <div class="game-card" data-id="4" data-title="Forza Horizon 5" data-genre="Racing" data-size="110" data-ram="8" data-vram="4" data-cpu="Intel Core i5-4460 / AMD Ryzen 3 1200" data-gpu="NVIDIA GTX 970 / AMD RX 470">
-                <div class="hud-status-badge status-ready" id="hud-4">&lt;CALCULATING&gt;</div>
-                <div class="card-img-wrapper">
-                    <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1551360/header.jpg" alt="Forza Horizon 5" class="card-img" loading="lazy">
-                    <div class="fps-badge" id="fps-4"><i class="fa-solid fa-gauge-high"></i> -- FPS</div>
-                </div>
-                <div class="card-content">
-                    <div class="game-title">Forza Horizon 5</div>
-                    <div class="game-meta">
-                        <span>Racing</span>
-                        <span>110 GB</span>
-                    </div>
-                    <div class="setting-tweak-hint" id="tweak-4"><i class="fa-solid fa-sliders"></i> Ready for launch</div>
-                    <div class="card-actions">
-                        <button class="btn-play" data-action="toggle" data-id="4"><i class="fa-solid fa-plus"></i> Select Game</button>
-                        <button class="btn-reqs" data-action="reqs" data-id="4"><i class="fa-solid fa-sliders"></i> System Reqs</button>
+                        <button class="btn-play"><i class="fa-solid fa-plus"></i> Select Game</button>
+                        <button class="btn-reqs"><i class="fa-solid fa-sliders"></i> System Reqs</button>
                     </div>
                 </div>
             </div>
         </div>
     </main>
 
-    <!-- SYSTEM REQUIREMENTS MODAL -->
-    <div class="modal-container" id="reqsModal">
-        <div class="modal-header">
-            <div class="modal-title" id="modalGameTitle"><i class="fa-solid fa-desktop"></i> Requirements</div>
-            <button class="btn-close-modal" id="btnCloseModal"><i class="fa-solid fa-xmark"></i></button>
-        </div>
-        <div class="reqs-grid">
-            <div class="req-card-row">
-                <div class="req-card-label"><i class="fa-solid fa-microchip"></i> Recommended CPU</div>
-                <div class="req-card-value" id="modalCpu">--</div>
-            </div>
-            <div class="req-card-row">
-                <div class="req-card-label"><i class="fa-solid fa-memory"></i> Required RAM</div>
-                <div class="req-card-value" id="modalRam">--</div>
-            </div>
-            <div class="req-card-row">
-                <div class="req-card-label"><i class="fa-solid fa-tv"></i> Minimum GPU VRAM</div>
-                <div class="req-card-value" id="modalVram">--</div>
-            </div>
-            <div class="req-card-row">
-                <div class="req-card-label"><i class="fa-solid fa-hard-drive"></i> Storage Space</div>
-                <div class="req-card-value" id="modalSize">--</div>
-            </div>
-        </div>
-    </div>
-
-    <!-- SELECTION DRAWER / CART WIDGET -->
     <div class="cart-widget">
         <div class="cart-header">
-            <span><i class="fa-solid fa-layer-group"></i> Selected Titles (<span id="cartCount">0</span>)</span>
-            <div class="cart-header-actions">
-                <button class="btn-clear-all" id="btnClearCart">Clear All</button>
-            </div>
+            <span><i class="fa-solid fa-layer-group"></i> Selected Titles</span>
         </div>
-        <ul class="cart-items" id="cartItems">
-            <li class="empty-msg">No games selected yet.</li>
-        </ul>
-
         <div class="hdd-storage-section">
-            <div class="hdd-label-row">
-                <div class="hdd-info-group">
-                    <i class="fa-solid fa-hard-drive hdd-icon"></i>
-                    <span>Storage: <span class="hdd-val-highlight" id="totalSizeGB">0 GB</span></span>
-                </div>
-                <div>
-                    <select class="target-drive-select" id="driveSelect">
-                        <option value="256">256 GB Drive</option>
-                        <option value="512" selected>512 GB Drive</option>
-                        <option value="1024">1 TB Drive</option>
-                    </select>
-                </div>
-            </div>
-
-            <!-- TETRIS BAR -->
-            <div class="tetris-bar-bg" id="tetrisBar"></div>
-
-            <div class="storage-advice-box" id="storageAdvice">
-                <i class="fa-solid fa-circle-info"></i>
-                <span id="adviceText">Select titles to analyze storage allocation.</span>
-            </div>
+            <div class="tetris-bar-bg"></div>
         </div>
-
         <div class="cart-footer">
-            <button class="btn-copy-drawer" id="btnCopyList" disabled>
+            <button class="btn-copy-drawer">
                 <i class="fa-solid fa-copy"></i> Copy Selection List
             </button>
         </div>
     </div>
 
-    <script>
-        // --- APP STATE ---
-        let currentRig = { ram: 8, vram: 4 };
-        let selectedGames = [];
-        const colors = ['#9d4edd', '#ff6a00', '#00b4d8', '#00e676', '#ffd166', '#ff3366', '#c77dff'];
-
-        // --- DOM ELEMENTS ---
-        const gameGrid = document.getElementById('gameGrid');
-        const searchInput = document.getElementById('searchInput');
-        const sortSelect = document.getElementById('sortSelect');
-        const genreChips = document.getElementById('genreChips');
-        const rigPresets = document.getElementById('rigPresets');
-        const cartItems = document.getElementById('cartItems');
-        const cartCount = document.getElementById('cartCount');
-        const totalSizeGB = document.getElementById('totalSizeGB');
-        const driveSelect = document.getElementById('driveSelect');
-        const tetrisBar = document.getElementById('tetrisBar');
-        const adviceText = document.getElementById('adviceText');
-        const btnCopyList = document.getElementById('btnCopyList');
-        const btnClearCart = document.getElementById('btnClearCart');
-        const reqsModal = document.getElementById('reqsModal');
-        const btnCloseModal = document.getElementById('btnCloseModal');
-
-        // Modal Elements
-        const modalGameTitle = document.getElementById('modalGameTitle');
-        const modalCpu = document.getElementById('modalCpu');
-        const modalRam = document.getElementById('modalRam');
-        const modalVram = document.getElementById('modalVram');
-        const modalSize = document.getElementById('modalSize');
-
-        // --- INIT & EVENT LISTENERS ---
-        document.addEventListener('DOMContentLoaded', () => {
-            updateRigPerformance();
-
-            // Preset change
-            rigPresets.addEventListener('click', (e) => {
-                const btn = e.target.closest('.btn-preset');
-                if (!btn) return;
-                document.querySelectorAll('.btn-preset').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                currentRig.ram = parseInt(btn.dataset.ram);
-                currentRig.vram = parseInt(btn.dataset.vram);
-                updateRigPerformance();
-                showToast(`Profile set: ${currentRig.ram}GB RAM / ${currentRig.vram}GB VRAM`);
-            });
-
-            // Grid button actions (Play / Reqs)
-            gameGrid.addEventListener('click', (e) => {
-                const actionBtn = e.target.closest('button[data-action]');
-                if (!actionBtn) return;
-                const action = actionBtn.dataset.action;
-                const card = actionBtn.closest('.game-card');
-                const id = card.dataset.id;
-
-                if (action === 'toggle') {
-                    toggleSelectGame(id);
-                } else if (action === 'reqs') {
-                    openReqsModal(card);
-                }
-            });
-
-            // Search & Sort
-            searchInput.addEventListener('input', filterAndSortGames);
-            sortSelect.addEventListener('change', filterAndSortGames);
-
-            // Genre filter
-            genreChips.addEventListener('click', (e) => {
-                const chip = e.target.closest('.chip');
-                if (!chip) return;
-                document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
-                chip.classList.add('active');
-                filterAndSortGames();
-            });
-
-            // Storage drive change
-            driveSelect.addEventListener('change', updateStorageTetris);
-
-            // Clear Cart
-            btnClearCart.addEventListener('click', () => {
-                selectedGames = [];
-                document.querySelectorAll('.game-card').forEach(c => c.classList.remove('selected'));
-                updateCartUI();
-                showToast('Cleared all selections');
-            });
-
-            // Copy list
-            btnCopyList.addEventListener('click', () => {
-                if (selectedGames.length === 0) return;
-                const text = selectedGames.map(g => `- ${g.title} (${g.size} GB)`).join('\n');
-                const total = selectedGames.reduce((a, b) => a + b.size, 0);
-                const fullText = `My Offgrid Gaming Wishlist:\n${text}\nTotal Storage Required: ${total} GB`;
-                navigator.clipboard.writeText(fullText);
-                showToast('Copied list to clipboard!');
-            });
-
-            // Modal Close
-            btnCloseModal.addEventListener('click', closeModal);
-            window.addEventListener('click', (e) => {
-                if (e.target === reqsModal) closeModal();
-            });
-        });
-
-        // --- RIG PERFORMANCE ANALYZER ---
-        function updateRigPerformance() {
-            const cards = document.querySelectorAll('.game-card');
-            cards.forEach(card => {
-                const id = card.dataset.id;
-                const reqRam = parseInt(card.dataset.ram);
-                const reqVram = parseInt(card.dataset.vram);
-
-                const hudBadge = document.getElementById(`hud-${id}`);
-                const fpsBadge = document.getElementById(`fps-${id}`);
-                const tweakHint = document.getElementById(`tweak-${id}`);
-
-                let fps = 60;
-                let status = 'ready';
-                let statusText = '<i class="fa-solid fa-circle-check"></i> Compatible';
-                let hintText = 'Ready for max settings';
-
-                if (currentRig.ram < reqRam) {
-                    status = 'warning';
-                    statusText = '<i class="fa-solid fa-triangle-exclamation"></i> Low RAM';
-                    fps -= 25;
-                    hintText = 'Lower texture quality & background apps';
-                } else if (currentRig.vram < reqVram) {
-                    status = 'vram';
-                    statusText = '<i class="fa-solid fa-triangle-exclamation"></i> VRAM Limit';
-                    fps -= 15;
-                    hintText = 'Drop resolution to 1080p / High FX off';
-                }
-
-                if (currentRig.ram >= reqRam * 2 && currentRig.vram >= reqVram * 2) {
-                    fps += 30;
-                    hintText = 'Ultra settings ready @ 140+ FPS';
-                } else if (status === 'ready') {
-                    fps += 15;
-                }
-
-                fps = Math.max(24, fps);
-
-                // Update UI elements
-                hudBadge.className = `hud-status-badge status-${status}`;
-                hudBadge.innerHTML = statusText;
-                fpsBadge.innerHTML = `<i class="fa-solid fa-gauge-high"></i> ~${fps} FPS`;
-                tweakHint.innerHTML = `<i class="fa-solid fa-sliders"></i> ${hintText}`;
-            });
-        }
-
-        // --- GAME SELECTION & CART ---
-        function toggleSelectGame(id) {
-            const card = document.querySelector(`.game-card[data-id="${id}"]`);
-            const title = card.dataset.title;
-            const size = parseInt(card.dataset.size);
-
-            const index = selectedGames.findIndex(g => g.id === id);
-            if (index > -1) {
-                selectedGames.splice(index, 1);
-                card.classList.remove('selected');
-                card.querySelector('.btn-play').innerHTML = '<i class="fa-solid fa-plus"></i> Select Game';
-            } else {
-                selectedGames.push({ id, title, size });
-                card.classList.add('selected');
-                card.querySelector('.btn-play').innerHTML = '<i class="fa-solid fa-check"></i> Selected';
-            }
-
-            updateCartUI();
-        }
-
-        function updateCartUI() {
-            cartCount.textContent = selectedGames.length;
-            const totalSize = selectedGames.reduce((acc, item) => acc + item.size, 0);
-            totalSizeGB.textContent = `${totalSize} GB`;
-
-            btnCopyList.disabled = selectedGames.length === 0;
-
-            if (selectedGames.length === 0) {
-                cartItems.innerHTML = '<li class="empty-msg">No games selected yet.</li>';
-            } else {
-                cartItems.innerHTML = selectedGames.map((game, i) => `
-                    <li class="cart-item" data-id="${game.id}">
-                        <span class="cart-item-title"><i class="fa-solid fa-gamepad"></i> ${game.title}</span>
-                        <div class="cart-item-right">
-                            <span>${game.size} GB</span>
-                            <button class="btn-remove-item" onclick="toggleSelectGame('${game.id}')"><i class="fa-solid fa-xmark"></i></button>
-                        </div>
-                    </li>
-                `).join('');
-            }
-
-            updateStorageTetris();
-        }
-
-        // --- STORAGE TETRIS BAR & ADVICE ENGINE ---
-        function updateStorageTetris() {
-            const driveCapacity = parseInt(driveSelect.value);
-            const totalSize = selectedGames.reduce((acc, item) => acc + item.size, 0);
-            tetrisBar.innerHTML = '';
-
-            selectedGames.forEach((game, idx) => {
-                const percentage = (game.size / driveCapacity) * 100;
-                const block = document.createElement('div');
-                block.className = 'tetris-block';
-                block.style.width = `${percentage}%`;
-                block.style.backgroundColor = colors[idx % colors.length];
-                block.title = `${game.title}: ${game.size} GB`;
-
-                // Highlight card on block hover
-                block.addEventListener('mouseenter', () => {
-                    const card = document.querySelector(`.game-card[data-id="${game.id}"]`);
-                    if (card) card.classList.add('tetris-highlight');
-                });
-                block.addEventListener('mouseleave', () => {
-                    const card = document.querySelector(`.game-card[data-id="${game.id}"]`);
-                    if (card) card.classList.remove('tetris-highlight');
-                });
-
-                tetrisBar.appendChild(block);
-            });
-
-            // Overflow checking
-            if (totalSize > driveCapacity) {
-                const overflowSize = totalSize - driveCapacity;
-                adviceText.textContent = `Warning: Selections exceed drive space by ${overflowSize} GB! Consider picking a larger target drive.`;
-                adviceText.parentElement.style.borderColor = 'var(--accent-red)';
-                adviceText.parentElement.style.color = 'var(--accent-red)';
-            } else {
-                const remaining = driveCapacity - totalSize;
-                adviceText.textContent = `Allocated ${totalSize} GB / ${driveCapacity} GB. (${remaining} GB remaining free space).`;
-                adviceText.parentElement.style.borderColor = 'rgba(157, 78, 221, 0.3)';
-                adviceText.parentElement.style.color = 'var(--accent-purple-light)';
-            }
-        }
-
-        // --- FILTER & SORT ENGINE ---
-        function filterAndSortGames() {
-            const query = searchInput.value.toLowerCase();
-            const selectedGenre = document.querySelector('.chip.active').dataset.genre;
-            const sortMode = sortSelect.value;
-
-            const cards = Array.from(document.querySelectorAll('.game-card'));
-
-            cards.forEach(card => {
-                const title = card.dataset.title.toLowerCase();
-                const genre = card.dataset.genre;
-
-                const matchesSearch = title.includes(query);
-                const matchesGenre = (selectedGenre === 'all' || genre === selectedGenre);
-
-                if (matchesSearch && matchesGenre) {
-                    card.style.display = 'flex';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-
-            // Sort
-            cards.sort((a, b) => {
-                if (sortMode === 'name-asc') {
-                    return a.dataset.title.localeCompare(b.dataset.title);
-                } else if (sortMode === 'size-asc') {
-                    return parseInt(a.dataset.size) - parseInt(b.dataset.size);
-                } else if (sortMode === 'size-desc') {
-                    return parseInt(b.dataset.size) - parseInt(a.dataset.size);
-                }
-            });
-
-            cards.forEach(card => gameGrid.appendChild(card));
-        }
-
-        // --- MODAL & TOAST HELPERS ---
-        function openReqsModal(card) {
-            modalGameTitle.innerHTML = `<i class="fa-solid fa-desktop"></i> ${card.dataset.title}`;
-            modalCpu.textContent = card.dataset.cpu;
-            modalRam.textContent = `${card.dataset.ram} GB`;
-            modalVram.textContent = `${card.dataset.vram} GB VRAM`;
-            modalSize.textContent = `${card.dataset.size} GB`;
-            reqsModal.classList.add('active');
-        }
-
-        function closeModal() {
-            reqsModal.classList.remove('active');
-        }
-
-        function showToast(message) {
-            const container = document.getElementById('toastContainer');
-            const toast = document.createElement('div');
-            toast.className = 'toast';
-            toast.innerHTML = `<i class="fa-solid fa-circle-info"></i> ${message}`;
-            container.appendChild(toast);
-            setTimeout(() => toast.remove(), 2500);
-        }
-    </script>
 </body>
 </html>
