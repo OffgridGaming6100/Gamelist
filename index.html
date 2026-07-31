@@ -2279,7 +2279,7 @@
 
             let totalGB = 0;
             let exportText = `🎮 OFFGRID GAMING - SELECTED PAYLOAD LIST 🎮\n`;
-            exportText += `====================================\n`;
+            exportText += `\n`;
 
             selectedGames.forEach((game) => {
                 exportText += `🕹️ ${game.title} 💾 [${game.size} GB]\n`;
@@ -2287,10 +2287,10 @@
             });
 
             const driveLabel = targetDriveSelect.options[targetDriveSelect.selectedIndex].getAttribute('data-label');
-            exportText += `====================================\n`;
-            exportText += `📊 Total Allocated Size: ${totalGB} GB\n`;
-            exportText += `🖥️ Target Storage Media: ${driveLabel}\n`;
-            exportText += `⚡ Generated via Offgrid Gaming Hub\n`;
+            exportText += `\n`;
+            exportText += `📊 Total Size: ${totalGB} GB\n`;
+            exportText += `🖥️ Target Storage: ${driveLabel}\n`;
+            exportText += `⚡ Offgrid Gaming Hub\n`;
 
             navigator.clipboard.writeText(exportText).then(() => {
                 showToast('Game manifest copied with gaming icons!', 'fa-copy');
