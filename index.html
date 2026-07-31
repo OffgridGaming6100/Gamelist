@@ -2293,7 +2293,7 @@
             exportText += `⚡ Offgrid Gaming Hub\n`;
 
             navigator.clipboard.writeText(exportText).then(() => {
-                showToast('Game manifest copied with gaming icons!', 'fa-copy');
+                showToast('COPIED TO CLIPBOARD', 'fa-copy');
             }).catch(() => {
                 showToast('Failed to copy list', 'fa-triangle-exclamation');
             });
