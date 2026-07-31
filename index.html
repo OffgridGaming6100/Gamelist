@@ -2278,11 +2278,11 @@
             if (selectedGames.size === 0) return;
 
             let totalGB = 0;
-            let exportText = `🎮 OFFGRID GAMING - SELECTED PAYLOAD LIST 🎮\n`;
+            let exportText = `🎮 SELECTED PAYLOAD LIST 🎮\n`;
             exportText += `\n`;
 
             selectedGames.forEach((game) => {
-                exportText += `🕹️ ${game.title} 💾 [${game.size} GB]\n`;
+                exportText += `🕹️ ${game.title} 
                 totalGB += game.size;
             });
 
