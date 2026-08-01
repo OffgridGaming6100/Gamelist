@@ -1873,405 +1873,87 @@
         </div>
     </div>
 
-</div>
+       </div>
     </main>
 
-    <!-- FLOATING SYSTEM REQUIREMENTS MODAL -->
+    <!-- SYSTEM REQUIREMENTS MODAL -->
     <div class="modal-container" id="reqsModal">
         <div class="modal-header">
             <div class="modal-title" id="modalGameTitle"><i class="fa-solid fa-microchip"></i> System Requirements</div>
-            <button class="btn-close-modal" id="btnCloseModal"><i class="fa-solid fa-xmark"></i></button>
+            <button class="btn-close-modal" id="closeModalBtn"><i class="fa-solid fa-xmark"></i></button>
         </div>
         <div class="reqs-grid">
             <div class="req-card-row">
-                <span class="req-card-label"><i class="fa-solid fa-microchip"></i> CPU:</span>
+                <span class="req-card-label"><i class="fa-solid fa-microchip"></i> Processor (CPU)</span>
                 <span class="req-card-value" id="modalCpu">--</span>
             </div>
             <div class="req-card-row">
-                <span class="req-card-label"><i class="fa-solid fa-memory"></i> RAM:</span>
+                <span class="req-card-label"><i class="fa-solid fa-memory"></i> System Memory (RAM)</span>
                 <span class="req-card-value" id="modalRam">--</span>
             </div>
             <div class="req-card-row">
-                <span class="req-card-label"><i class="fa-solid fa-display"></i> GPU / VRAM:</span>
+                <span class="req-card-label"><i class="fa-solid fa-display"></i> Graphics Card (GPU)</span>
                 <span class="req-card-value" id="modalGpu">--</span>
             </div>
             <div class="req-card-row">
-                <span class="req-card-label"><i class="fa-solid fa-hard-drive"></i> Storage:</span>
+                <span class="req-card-label"><i class="fa-solid fa-hard-drive"></i> VRAM Required</span>
+                <span class="req-card-value" id="modalVram">--</span>
+            </div>
+            <div class="req-card-row">
+                <span class="req-card-label"><i class="fa-solid fa-database"></i> Storage Needed</span>
                 <span class="req-card-value" id="modalSize">--</span>
             </div>
         </div>
     </div>
 
-    <!-- CART & STORAGE TETRIS WIDGET -->
+    <!-- CART WIDGET -->
     <div class="cart-widget">
         <div class="cart-header">
-            <span><i class="fa-solid fa-gamepad"></i> Selected Games (<span id="cartCount">0</span>)</span>
+            <span><i class="fa-solid fa-layer-group"></i> Selected Titles (<span id="cartCount">0</span>)</span>
             <div class="cart-header-actions">
-                <button class="btn-clear-all" id="btnClearCart">Clear</button>
+                <button class="btn-clear-all" id="clearCartBtn"><i class="fa-solid fa-trash-can"></i> Clear</button>
             </div>
         </div>
-        
+
         <ul class="cart-items" id="cartItems">
-            <li class="empty-msg">No games selected yet.</li>
+            <li class="empty-msg">No games selected yet. Choose titles to fill your drive.</li>
         </ul>
 
         <div class="hdd-storage-section">
             <div class="hdd-label-row">
                 <div class="hdd-info-group">
                     <i class="fa-solid fa-hard-drive hdd-icon"></i>
-                    <span>Storage Tetris:</span>
-                    <span class="hdd-val-highlight" id="hddUsed">0.0 GB</span> / 
-                    <select class="target-drive-select" id="driveCapacitySelect">
-                        <option value="128">128 GB</option>
-                        <option value="256">256 GB</option>
-                        <option value="512" selected>512 GB</option>
-                        <option value="1024">1 TB (1024 GB)</option>
-                        <option value="2048">2 TB (2048 GB)</option>
-                    </select>
+                    <span>Target Drive Storage</span>
                 </div>
-                <span id="hddFreePercent">100% Free</span>
+                <select class="target-drive-select" id="driveSelect">
+                    <option value="64">64 GB Drive</option>
+                    <option value="128" selected>128 GB Drive</option>
+                    <option value="256">256 GB Drive</option>
+                    <option value="512">512 GB Drive</option>
+                    <option value="1024">1 TB Drive</option>
+                </select>
             </div>
-            
+
+            <!-- SEGMENTED TETRIS STORAGE BAR -->
             <div class="tetris-bar-bg" id="tetrisBar"></div>
-            
+
+            <div class="hdd-label-row">
+                <span>Used: <span class="hdd-val-highlight" id="usedSpace">0 GB</span></span>
+                <span>Available: <span id="freeSpace">128 GB</span></span>
+            </div>
+
+            <!-- DYNAMIC STORAGE ADVICE -->
             <div class="storage-advice-box" id="storageAdvice">
-                <i class="fa-solid fa-lightbulb"></i> <span id="storageAdviceText">Select games to see storage allocations.</span>
+                <i class="fa-solid fa-lightbulb"></i> <span id="adviceText">Add games to calculate your storage breakdown.</span>
             </div>
         </div>
 
         <div class="cart-footer">
-            <button class="btn-copy-drawer" id="btnCopyList" disabled>
-                <i class="fa-solid fa-copy"></i> Copy Selected List
+            <button class="btn-copy-drawer" id="copyCartBtn" disabled>
+                <i class="fa-solid fa-clipboard-check"></i> Copy Game Selection List
             </button>
         </div>
     </div>
 
-    <!-- JAVASCRIPT ENGINE -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // State variables
-            let selectedRig = { ram: 8, vram: 4 };
-            let selectedGames = new Map(); // id -> { title, size }
-            let currentGenre = 'all';
-            let searchQuery = '';
-            let sortOption = 'name-asc';
-
-            // Element references
-            const gameGrid = document.getElementById('gameGrid');
-            const searchInput = document.getElementById('searchInput');
-            const sortSelect = document.getElementById('sortSelect');
-            const genreChips = document.getElementById('genreChips');
-            const rigPresets = document.getElementById('rigPresets');
-            const cartItemsContainer = document.getElementById('cartItems');
-            const cartCount = document.getElementById('cartCount');
-            const hddUsed = document.getElementById('hddUsed');
-            const driveCapacitySelect = document.getElementById('driveCapacitySelect');
-            const hddFreePercent = document.getElementById('hddFreePercent');
-            const tetrisBar = document.getElementById('tetrisBar');
-            const storageAdviceText = document.getElementById('storageAdviceText');
-            const btnCopyList = document.getElementById('btnCopyList');
-            const btnClearCart = document.getElementById('btnClearCart');
-            const toastContainer = document.getElementById('toastContainer');
-
-            // Modal elements
-            const reqsModal = document.getElementById('reqsModal');
-            const btnCloseModal = document.getElementById('btnCloseModal');
-            const modalGameTitle = document.getElementById('modalGameTitle');
-            const modalCpu = document.getElementById('modalCpu');
-            const modalRam = document.getElementById('modalRam');
-            const modalGpu = document.getElementById('modalGpu');
-            const modalSize = document.getElementById('modalSize');
-
-            // Color palette for tetris blocks
-            const tetrisColors = [
-                '#9d4edd', '#ff6a00', '#00e676', '#00b4d8', 
-                '#ffd166', '#c77dff', '#ff3366', '#7b2cbf'
-            ];
-
-            // 1. Toast Notification system
-            function showToast(message) {
-                const toast = document.createElement('div');
-                toast.className = 'toast';
-                toast.innerHTML = `<i class="fa-solid fa-circle-check"></i> ${message}`;
-                toastContainer.appendChild(toast);
-                setTimeout(() => toast.remove(), 2500);
-            }
-
-            // 2. Rig Compatibility & Performance Simulator
-            function analyzeRigCompatibility() {
-                const cards = document.querySelectorAll('.game-card');
-                cards.forEach(card => {
-                    const id = card.dataset.id;
-                    const reqRam = parseFloat(card.dataset.ram) || 0;
-                    const reqVram = parseFloat(card.dataset.vram) || 0;
-
-                    const hudBadge = document.getElementById(`hud-${id}`);
-                    const fpsBadge = document.getElementById(`fps-${id}`);
-                    const tweakHint = document.getElementById(`tweak-${id}`);
-
-                    if (selectedRig.ram < reqRam) {
-                        hudBadge.className = 'hud-status-badge status-warning';
-                        hudBadge.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Low RAM';
-                        fpsBadge.innerHTML = '<i class="fa-solid fa-gauge"></i> 20-30 FPS';
-                        tweakHint.innerHTML = '<i class="fa-solid fa-sliders"></i> Tweak: Lower textures & RAM usage';
-                    } else if (selectedRig.vram < reqVram) {
-                        hudBadge.className = 'hud-status-badge status-vram';
-                        hudBadge.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> VRAM Limit';
-                        fpsBadge.innerHTML = '<i class="fa-solid fa-gauge"></i> 35-45 FPS';
-                        tweakHint.innerHTML = '<i class="fa-solid fa-sliders"></i> Tweak: Lower resolution / shadow quality';
-                    } else {
-                        hudBadge.className = 'hud-status-badge status-ready';
-                        hudBadge.innerHTML = '<i class="fa-solid fa-circle-check"></i> Ready';
-                        fpsBadge.innerHTML = '<i class="fa-solid fa-gauge-high"></i> 60+ FPS';
-                        tweakHint.innerHTML = '<i class="fa-solid fa-sliders"></i> Optimal Settings Applied';
-                    }
-                });
-            }
-
-            // Handle Preset Buttons
-            rigPresets.addEventListener('click', (e) => {
-                if (e.target.classList.contains('btn-preset')) {
-                    document.querySelectorAll('.btn-preset').forEach(b => b.classList.remove('active'));
-                    e.target.classList.add('active');
-                    selectedRig.ram = parseFloat(e.target.dataset.ram);
-                    selectedRig.vram = parseFloat(e.target.dataset.vram);
-                    analyzeRigCompatibility();
-                    showToast(`Switched Profile: ${e.target.innerText.split('(')[0].trim()}`);
-                }
-            });
-
-            // 3. Search, Filter & Sort System
-            function filterAndSortGames() {
-                const cards = Array.from(document.querySelectorAll('.game-card'));
-
-                cards.forEach(card => {
-                    const title = card.dataset.title.toLowerCase();
-                    const genre = card.dataset.genre;
-                    const matchesSearch = title.includes(searchQuery);
-                    const matchesGenre = (currentGenre === 'all' || genre.toLowerCase().includes(currentGenre.toLowerCase()));
-
-                    if (matchesSearch && matchesGenre) {
-                        card.style.display = 'flex';
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
-
-                // Sort visible cards
-                cards.sort((a, b) => {
-                    if (sortOption === 'name-asc') {
-                        return a.dataset.title.localeCompare(b.dataset.title);
-                    } else if (sortOption === 'size-asc') {
-                        return parseFloat(a.dataset.size) - parseFloat(b.dataset.size);
-                    } else if (sortOption === 'size-desc') {
-                        return parseFloat(b.dataset.size) - parseFloat(a.dataset.size);
-                    }
-                });
-
-                cards.forEach(card => gameGrid.appendChild(card));
-            }
-
-            searchInput.addEventListener('input', (e) => {
-                searchQuery = e.target.value.toLowerCase().trim();
-                filterAndSortGames();
-            });
-
-            sortSelect.addEventListener('change', (e) => {
-                sortOption = e.target.value;
-                filterAndSortGames();
-            });
-
-            genreChips.addEventListener('click', (e) => {
-                if (e.target.classList.contains('chip')) {
-                    document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
-                    e.target.classList.add('active');
-                    currentGenre = e.target.dataset.genre;
-                    filterAndSortGames();
-                }
-            });
-
-            // 4. Cart & Storage Tetris Visualization
-            function updateCartUI() {
-                cartCount.textContent = selectedGames.size;
-                cartItemsContainer.innerHTML = '';
-
-                let totalStorageUsed = 0;
-
-                if (selectedGames.size === 0) {
-                    cartItemsContainer.innerHTML = '<li class="empty-msg">No games selected yet.</li>';
-                    btnCopyList.disabled = true;
-                } else {
-                    btnCopyList.disabled = false;
-                    selectedGames.forEach((game, id) => {
-                        totalStorageUsed += game.size;
-                        const li = document.createElement('li');
-                        li.className = 'cart-item';
-                        li.dataset.id = id;
-                        li.innerHTML = `
-                            <div class="cart-item-title"><i class="fa-solid fa-compact-disc"></i> ${game.title}</div>
-                            <div class="cart-item-right">
-                                <span>${game.size < 1 ? (game.size * 1000).toFixed(0) + ' MB' : game.size.toFixed(2) + ' GB'}</span>
-                                <button class="btn-remove-item" data-id="${id}"><i class="fa-solid fa-xmark"></i></button>
-                            </div>
-                        `;
-                        cartItemsContainer.appendChild(li);
-                    });
-                }
-
-                // Update Storage Calculations
-                const driveCapacity = parseFloat(driveCapacitySelect.value);
-                hddUsed.textContent = `${totalStorageUsed.toFixed(2)} GB`;
-                
-                const freeGB = driveCapacity - totalStorageUsed;
-                const freePercent = Math.max(0, ((freeGB / driveCapacity) * 100)).toFixed(0);
-                hddFreePercent.textContent = `${freePercent}% Free (${freeGB > 0 ? freeGB.toFixed(1) : 0} GB)`;
-
-                // Render Segmented Tetris Bar
-                tetrisBar.innerHTML = '';
-                if (totalStorageUsed > driveCapacity) {
-                    const overflowBlock = document.createElement('div');
-                    overflowBlock.className = 'tetris-block tetris-overflow';
-                    overflowBlock.style.width = '100%';
-                    overflowBlock.title = 'Storage Limit Exceeded!';
-                    tetrisBar.appendChild(overflowBlock);
-
-                    storageAdviceText.innerHTML = `<span style="color:var(--accent-red);">Storage full! Remove games or increase drive target capacity.</span>`;
-                } else {
-                    let colorIndex = 0;
-                    selectedGames.forEach((game, id) => {
-                        const widthPct = (game.size / driveCapacity) * 100;
-                        const block = document.createElement('div');
-                        block.className = 'tetris-block';
-                        block.style.width = `${widthPct}%`;
-                        block.style.backgroundColor = tetrisColors[colorIndex % tetrisColors.length];
-                        block.title = `${game.title}: ${game.size} GB`;
-                        
-                        // Hover highlight effect on corresponding card
-                        block.addEventListener('mouseenter', () => {
-                            const card = document.querySelector(`.game-card[data-id="${id}"]`);
-                            if (card) card.classList.add('tetris-highlight');
-                        });
-                        block.addEventListener('mouseleave', () => {
-                            const card = document.querySelector(`.game-card[data-id="${id}"]`);
-                            if (card) card.classList.remove('tetris-highlight');
-                        });
-
-                        tetrisBar.appendChild(block);
-                        colorIndex++;
-                    });
-
-                    if (selectedGames.size === 0) {
-                        storageAdviceText.textContent = 'Select games to see storage allocations.';
-                    } else {
-                        storageAdviceText.textContent = `Target drive has ${freeGB.toFixed(1)} GB free space remaining.`;
-                    }
-                }
-            }
-
-            // Toggle Selection logic
-            function toggleGameSelection(id) {
-                const card = document.querySelector(`.game-card[data-id="${id}"]`);
-                if (!card) return;
-
-                const title = card.dataset.title;
-                const size = parseFloat(card.dataset.size);
-                const playBtn = card.querySelector('.btn-play');
-
-                if (selectedGames.has(id)) {
-                    selectedGames.delete(id);
-                    card.classList.remove('selected');
-                    playBtn.innerHTML = '<i class="fa-solid fa-plus"></i> Select Game';
-                    showToast(`Removed: ${title}`);
-                } else {
-                    selectedGames.set(id, { title, size });
-                    card.classList.add('selected');
-                    playBtn.innerHTML = '<i class="fa-solid fa-check"></i> Selected';
-                    showToast(`Added: ${title}`);
-                }
-
-                updateCartUI();
-            }
-
-            // Global Click Event Handler for Dynamic Buttons
-            document.addEventListener('click', (e) => {
-                const toggleBtn = e.target.closest('[data-action="toggle"]');
-                const reqsBtn = e.target.closest('[data-action="reqs"]');
-                const removeCartBtn = e.target.closest('.btn-remove-item');
-
-                if (toggleBtn) {
-                    const id = toggleBtn.dataset.id;
-                    toggleGameSelection(id);
-                } else if (reqsBtn) {
-                    const id = reqsBtn.dataset.id;
-                    openReqsModal(id);
-                } else if (removeCartBtn) {
-                    const id = removeCartBtn.dataset.id;
-                    toggleGameSelection(id);
-                }
-            });
-
-            // Drive Capacity Selector Handler
-            driveCapacitySelect.addEventListener('change', updateCartUI);
-
-            // Clear All Handler
-            btnClearCart.addEventListener('click', () => {
-                selectedGames.forEach((_, id) => {
-                    const card = document.querySelector(`.game-card[data-id="${id}"]`);
-                    if (card) {
-                        card.classList.remove('selected');
-                        card.querySelector('.btn-play').innerHTML = '<i class="fa-solid fa-plus"></i> Select Game';
-                    }
-                });
-                selectedGames.clear();
-                updateCartUI();
-                showToast('Cleared all selected games.');
-            });
-
-            // Copy List Handler
-            btnCopyList.addEventListener('click', () => {
-                if (selectedGames.size === 0) return;
-
-                let listText = "Offgrid Gaming - Selected Games List:\n";
-                let totalSize = 0;
-                selectedGames.forEach(game => {
-                    listText += `- ${game.title} (${game.size < 1 ? (game.size * 1000).toFixed(0) + ' MB' : game.size.toFixed(2) + ' GB'})\n`;
-                    totalSize += game.size;
-                });
-                listText += `\nTotal Storage Required: ${totalSize.toFixed(2)} GB`;
-
-                navigator.clipboard.writeText(listText).then(() => {
-                    showToast('Game list copied to clipboard!');
-                });
-            });
-
-            // 5. System Requirements Modal Logic
-            function openReqsModal(id) {
-                const card = document.querySelector(`.game-card[data-id="${id}"]`);
-                if (!card) return;
-
-                modalGameTitle.innerHTML = `<i class="fa-solid fa-gamepad"></i> ${card.dataset.title}`;
-                modalCpu.textContent = card.dataset.cpu || 'N/A';
-                modalRam.textContent = `${card.dataset.ram} GB System RAM`;
-                modalGpu.textContent = `${card.dataset.gpu} (${card.dataset.vram >= 1 ? card.dataset.vram + 'GB' : (card.dataset.vram * 1000) + 'MB'} VRAM)`;
-                modalSize.textContent = `${card.dataset.size} GB`;
-
-                reqsModal.classList.add('active');
-            }
-
-            btnCloseModal.addEventListener('click', () => {
-                reqsModal.classList.remove('active');
-            });
-
-            window.addEventListener('click', (e) => {
-                if (e.target === reqsModal) {
-                    reqsModal.classList.remove('active');
-                }
-            });
-
-            // Initialize App
-            analyzeRigCompatibility();
-            filterAndSortGames();
-        });
-    </script>
 </body>
 </html>
