@@ -1945,14 +1945,16 @@
                 updateCartUI();
             });
 
-            // Mobile-compatible Copy List handler (Updated with gaming icons)
+            // Mobile-compatible Copy List handler (Each game placed strictly on its own line below the other)
             document.getElementById('btnCopyList').addEventListener('click', () => {
                 let totalGB = 0;
-                let listText = "🎮Offgrid Gaming Selected Games List🎮\n\n";
+                let listText = "🎮 ── Offgrid Gaming Selected Games List ── 🎮\n\n";
+                
                 selectedGamesMap.forEach(game => {
                     totalGB += game.size;
-                    listText += `🕹️ ${game.title} (${formatSize(game.size)})\n`;
+                    listText += `🕹️ ${game.title} (${formatSize(game.size)})\n`; // Each item is explicitly followed by a line break
                 });
+                
                 listText += `\n💾 Total Size: ${formatSize(totalGB)}`;
 
                 if (navigator.clipboard && navigator.clipboard.writeText) {
