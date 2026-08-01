@@ -1945,14 +1945,14 @@
                 updateCartUI();
             });
 
-            // Mobile-compatible Copy List handler (Each game placed strictly on its own line below the other)
+            // Mobile-compatible Copy List handler (Modified to exclude game sizes)
             document.getElementById('btnCopyList').addEventListener('click', () => {
                 let totalGB = 0;
                 let listText = "🎮Selected Games List🎮\n\n";
                 
                 selectedGamesMap.forEach(game => {
                     totalGB += game.size;
-                    listText += `🕹️ ${game.title} (${formatSize(game.size)})\n`; // Each item is explicitly followed by a line break
+                    listText += `🕹️ ${game.title}\n`; // Excluded game size here
                 });
                 
                 listText += `\n💾 Total Size: ${formatSize(totalGB)}`;
