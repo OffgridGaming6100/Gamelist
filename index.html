@@ -1951,6 +1951,7 @@
                 let listText = "🎮Selected Games List🎮\n\n";
                 
                 selectedGamesMap.forEach(game => {
+                    totalGB += game.size;
                     listText += `🕹️ ${game.title} (${formatSize(game.size)})\n`; // Each item is explicitly followed by a line break
                 });
                 
