@@ -1952,7 +1952,7 @@
                 
                 selectedGamesMap.forEach(game => {
                     totalGB += game.size;
-                    listText += `🕹️ ${game.title}\n`; // Excluded game size here
+                    listText += ` ${game.title}\n`; // Excluded game size here
                 });
                 
                 listText += `\n💾 Total Size: ${formatSize(totalGB)}`;
