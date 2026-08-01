@@ -1947,10 +1947,13 @@
 
             // Mobile-compatible Copy List handler
             document.getElementById('btnCopyList').addEventListener('click', () => {
+                let totalGB = 0;
                 let listText = "--- Offgrid Gaming Selected Games List ---\n";
                 selectedGamesMap.forEach(game => {
+                    totalGB += game.size;
                     listText += `- ${game.title} (${formatSize(game.size)})\n`;
                 });
+                listText += `\nTotal Size: ${formatSize(totalGB)}`;
 
                 if (navigator.clipboard && navigator.clipboard.writeText) {
                     navigator.clipboard.writeText(listText).then(() => {
