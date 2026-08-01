@@ -62,7 +62,7 @@
             filter: drop-shadow(0 0 18px rgba(157, 78, 221, 0.5));
         }
 
-        /* --- CONTROL PANEL --- */
+        /* --- CONTROL PANEL & RIG ANALYZER --- */
         .controls {
             max-width: 1100px;
             margin: 20px auto 10px;
@@ -73,9 +73,59 @@
             gap: 15px;
         }
 
-        /* RIG ANALYZER PANEL DISABLED */
         .rig-analyzer-panel {
-            display: none !important;
+            background: rgba(22, 18, 32, 0.95);
+            border: 1px solid var(--accent-purple);
+            box-shadow: 0 0 20px rgba(157, 78, 221, 0.25), inset 0 0 15px rgba(255, 106, 0, 0.05);
+            border-radius: 10px;
+            padding: 20px 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            text-align: center;
+        }
+
+        .rig-title {
+            font-family: 'Teko', sans-serif;
+            font-size: 1.6rem;
+            letter-spacing: 1.2px;
+            color: var(--accent-orange);
+            text-shadow: 0 0 12px rgba(255, 106, 0, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-transform: uppercase;
+        }
+
+        .preset-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .btn-preset {
+            background: rgba(11, 10, 16, 0.8);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            text-transform: uppercase;
+        }
+
+        .btn-preset:hover, .btn-preset.active {
+            color: #fff;
+            border-color: var(--accent-orange);
+            background: linear-gradient(135deg, rgba(157, 78, 221, 0.3) 0%, rgba(255, 106, 0, 0.3) 100%);
+            box-shadow: 0 0 12px rgba(255, 106, 0, 0.35);
         }
 
         /* FILTER & SORT ROW */
@@ -196,6 +246,12 @@
             background: var(--bg-card-hover);
         }
 
+        .game-card.tetris-highlight {
+            transform: translateY(-8px) scale(1.02);
+            border-color: var(--accent-purple-light) !important;
+            box-shadow: 0 0 25px rgba(199, 125, 255, 0.8) !important;
+        }
+
         .card-img-wrapper {
             position: relative;
             width: 100%;
@@ -211,6 +267,7 @@
             border-bottom: 1px solid var(--border-color);
         }
 
+        /* --- STATUS BADGES & PERFORMANCE OVERLAY --- */
         .hud-status-badge {
             position: absolute;
             top: 8px;
@@ -235,6 +292,18 @@
             color: var(--accent-green);
             border: 1px solid var(--accent-green);
             box-shadow: 0 0 10px rgba(0, 230, 118, 0.35);
+        }
+
+        .hud-status-badge.status-warning {
+            color: var(--accent-red);
+            border: 1px solid var(--accent-red);
+            box-shadow: 0 0 10px rgba(255, 51, 102, 0.35);
+        }
+
+        .hud-status-badge.status-vram {
+            color: var(--accent-orange);
+            border: 1px solid var(--accent-orange);
+            box-shadow: 0 0 10px rgba(255, 106, 0, 0.35);
         }
 
         .fps-badge {
@@ -280,6 +349,7 @@
             justify-content: space-between;
         }
 
+        /* Dynamic Setting Tweak Tooltip */
         .setting-tweak-hint {
             font-size: 0.7rem;
             color: var(--accent-yellow);
@@ -344,7 +414,7 @@
             border-color: var(--accent-purple);
         }
 
-        /* FLOATING MODAL */
+        /* --- FLOATING WINDOW SYSTEM REQUIREMENTS --- */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -462,7 +532,7 @@
             text-align: right;
         }
 
-        /* DRAWER & CART WIDGET */
+        /* --- SIDEBAR / DRAWER --- */
         .cart-widget {
             position: fixed;
             bottom: 20px;
@@ -489,6 +559,12 @@
             border-bottom: 1px solid var(--border-color);
             font-size: 0.95rem;
             color: var(--accent-purple-light);
+        }
+
+        .cart-header-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .btn-clear-all {
@@ -528,16 +604,136 @@
             font-size: 0.85rem;
         }
 
+        .cart-item-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .cart-item-title i {
+            color: var(--accent-orange);
+            font-size: 0.8rem;
+        }
+
+        .cart-item-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
         .btn-remove-item {
             background: none;
             border: none;
             color: var(--text-muted);
             cursor: pointer;
             font-size: 0.85rem;
+            transition: color 0.2s ease;
         }
 
         .btn-remove-item:hover {
             color: var(--accent-red);
+        }
+
+        /* --- STORAGE TETRIS & ADVICE SECTION --- */
+        .hdd-storage-section {
+            padding: 12px 15px;
+            background: rgba(0, 0, 0, 0.4);
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .hdd-label-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .target-drive-select {
+            background: rgba(11, 10, 16, 0.8);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            outline: none;
+        }
+
+        /* SEGMENTED TETRIS STORAGE BAR */
+        .tetris-bar-bg {
+            width: 100%;
+            height: 14px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 6px;
+            overflow: hidden;
+            display: flex;
+            position: relative;
+            border: 1px solid var(--border-color);
+        }
+
+        .tetris-block {
+            height: 100%;
+            transition: width 0.3s ease, filter 0.2s ease;
+            position: relative;
+            cursor: pointer;
+            border-right: 1px solid rgba(11, 10, 16, 0.5);
+        }
+
+        .tetris-block:hover {
+            filter: brightness(1.4);
+            z-index: 5;
+        }
+
+        .tetris-overflow {
+            background: var(--accent-red) !important;
+            box-shadow: 0 0 10px var(--accent-red);
+        }
+
+        /* DYNAMIC STORAGE ADVICE */
+        .storage-advice-box {
+            font-size: 0.75rem;
+            color: var(--accent-purple-light);
+            background: rgba(157, 78, 221, 0.1);
+            border: 1px rgba(157, 78, 221, 0.3) solid;
+            padding: 6px 10px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            line-height: 1.2;
+        }
+
+        .storage-advice-box i {
+            color: var(--accent-yellow);
+        }
+
+        .hdd-info-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .hdd-icon {
+            color: var(--accent-orange);
+            font-size: 0.9rem;
+            animation: pulse-glow 2s infinite ease-in-out;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; filter: drop-shadow(0 0 5px var(--accent-orange)); }
+        }
+
+        .hdd-val-highlight {
+            color: var(--accent-orange);
+            font-weight: bold;
+            font-size: 0.85rem;
         }
 
         .cart-footer {
@@ -561,6 +757,7 @@
             justify-content: center;
             gap: 8px;
             text-transform: uppercase;
+            transition: all 0.2s;
         }
 
         .btn-copy-drawer:disabled {
@@ -576,6 +773,7 @@
             padding: 20px 0;
         }
 
+        /* TOAST NOTIFICATION */
         .toast-container {
             position: fixed;
             top: 20px;
@@ -601,6 +799,10 @@
             animation: slideIn 0.3s ease, fadeOut 0.3s 2.2s ease forwards;
         }
 
+        .toast i {
+            color: var(--accent-orange);
+        }
+
         @keyframes slideIn {
             from { transform: translateX(100%); opacity: 0; }
             to { transform: translateX(0); opacity: 1; }
@@ -620,7 +822,7 @@
     </header>
 
     <div class="controls">
-        <!-- RIG ANALYZER PANEL DISABLED ENTIRELY 
+        <!-- RIG ANALYZER PANEL -->
         <div class="rig-analyzer-panel">
             <div class="rig-title">
                 <i class="fa-solid fa-microchip"></i> System Rig Compatibility Profile
@@ -631,7 +833,6 @@
                 <button class="btn-preset" data-ram="32" data-vram="12">Beast Mode (32GB RAM / 12GB VRAM)</button>
             </div>
         </div>
-        -->
 
         <!-- SEARCH, SORT, & FILTER CHIPS -->
         <div class="filter-sort-bar">
@@ -665,242 +866,1111 @@
     <main class="container">
        <div class="game-grid" id="gameGrid">
 
-            <!-- Game Card 1 -->
-            <div class="game-card" data-id="1" data-title="Angry Birds Space" data-genre="Puzzle" data-size="0.14" data-ram="1" data-vram="0.25" data-cpu="Intel Pentium 4 / AMD Athlon 64" data-gpu="OpenGL 1.3 Compatible GPU">
-                <div class="hud-status-badge status-ready" id="hud-1"><i class="fa-solid fa-circle-check"></i> READY TO PLAY</div>
-                <div class="card-img-wrapper">
-                    <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/210550/ss_34242fd983b0af8a3267d11ab154ad78846ba2b0.1920x1080.jpg?t=1545237864" alt="Angry Birds Space" class="card-img" loading="lazy">
-                    <div class="fps-badge" id="fps-1"><i class="fa-solid fa-gauge-high"></i> 60+ FPS</div>
-                </div>
-                <div class="card-content">
-                    <div class="game-title">Angry Birds Space</div>
-                    <div class="game-meta">
-                        <span>Puzzle</span>
-                        <span>140 MB</span>
-                    </div>
-                    <div class="setting-tweak-hint" id="tweak-1"><i class="fa-solid fa-sliders"></i> Ready for launch</div>
-                    <div class="card-actions">
-                        <button class="btn-play" data-action="toggle" data-id="1"><i class="fa-solid fa-plus"></i> Select Game</button>
-                        <button class="btn-reqs" data-action="reqs" data-id="1"><i class="fa-solid fa-sliders"></i> System Reqs</button>
-                    </div>
-                </div>
+    <!-- Game Card 1 -->
+    <div class="game-card" data-id="1" data-title="Angry Birds Space" data-genre="Puzzle" data-size="0.14" data-ram="1" data-vram="0.25" data-cpu="Intel Pentium 4 / AMD Athlon 64" data-gpu="OpenGL 1.3 Compatible GPU">
+        <div class="hud-status-badge status-ready" id="hud-1">&lt;CALCULATING&gt;</div>
+        <div class="card-img-wrapper">
+            <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/210550/ss_34242fd983b0af8a3267d11ab154ad78846ba2b0.1920x1080.jpg?t=1545237864" alt="Angry Birds Space" class="card-img" loading="lazy">
+            <div class="fps-badge" id="fps-1"><i class="fa-solid fa-gauge-high"></i> -- FPS</div>
+        </div>
+        <div class="card-content">
+            <div class="game-title">Angry Birds Space</div>
+            <div class="game-meta">
+                <span>Puzzle</span>
+                <span>140 MB</span>
             </div>
-
-            <!-- Game Card 2 -->
-            <div class="game-card" data-id="2" data-title="Battle Realms Complete" data-genre="RTS" data-size="0.77" data-ram="1" data-vram="0.25" data-cpu="Intel Celeron 400MHz" data-gpu="3D Graphics Card 16MB">
-                <div class="hud-status-badge status-ready" id="hud-2"><i class="fa-solid fa-circle-check"></i> READY TO PLAY</div>
-                <div class="card-img-wrapper">
-                    <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1025600/header.jpg" alt="Battle Realms Complete" class="card-img" loading="lazy">
-                    <div class="fps-badge" id="fps-2"><i class="fa-solid fa-gauge-high"></i> 60+ FPS</div>
-                </div>
-                <div class="card-content">
-                    <div class="game-title">Battle Realms Complete</div>
-                    <div class="game-meta">
-                        <span>RTS</span>
-                        <span>773 MB</span>
-                    </div>
-                    <div class="setting-tweak-hint" id="tweak-2"><i class="fa-solid fa-sliders"></i> Ready for launch</div>
-                    <div class="card-actions">
-                        <button class="btn-play" data-action="toggle" data-id="2"><i class="fa-solid fa-plus"></i> Select Game</button>
-                        <button class="btn-reqs" data-action="reqs" data-id="2"><i class="fa-solid fa-sliders"></i> System Reqs</button>
-                    </div>
-                </div>
+            <div class="setting-tweak-hint" id="tweak-1"><i class="fa-solid fa-sliders"></i> Ready for launch</div>
+            <div class="card-actions">
+                <button class="btn-play" data-action="toggle" data-id="1"><i class="fa-solid fa-plus"></i> Select Game</button>
+                <button class="btn-reqs" data-action="reqs" data-id="1"><i class="fa-solid fa-sliders"></i> System Reqs</button>
             </div>
+        </div>
+    </div>
 
-            <!-- Additional Game Cards Here -->
-       </div>
+    <!-- Game Card 2 -->
+    <div class="game-card" data-id="2" data-title="Battle Realms Complete" data-genre="RTS" data-size="0.77" data-ram="1" data-vram="0.25" data-cpu="Intel Celeron 400MHz" data-gpu="3D Graphics Card 16MB">
+        <div class="hud-status-badge status-ready" id="hud-2">&lt;CALCULATING&gt;</div>
+        <div class="card-img-wrapper">
+            <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1025600/header.jpg" alt="Battle Realms Complete" class="card-img" loading="lazy">
+            <div class="fps-badge" id="fps-2"><i class="fa-solid fa-gauge-high"></i> -- FPS</div>
+        </div>
+        <div class="card-content">
+            <div class="game-title">Battle Realms Complete</div>
+            <div class="game-meta">
+                <span>RTS</span>
+                <span>773 MB</span>
+            </div>
+            <div class="setting-tweak-hint" id="tweak-2"><i class="fa-solid fa-sliders"></i> Ready for launch</div>
+            <div class="card-actions">
+                <button class="btn-play" data-action="toggle" data-id="2"><i class="fa-solid fa-plus"></i> Select Game</button>
+                <button class="btn-reqs" data-action="reqs" data-id="2"><i class="fa-solid fa-sliders"></i> System Reqs</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Card 3 -->
+    <div class="game-card" data-id="3" data-title="Bully" data-genre="Action-Adventure" data-size="4.84" data-ram="2" data-vram="0.5" data-cpu="Intel Pentium 4 3.0GHz / AMD Athlon 3000+" data-gpu="NVIDIA GeForce 6800 / ATI Radeon X1300">
+        <div class="hud-status-badge status-ready" id="hud-3">&lt;CALCULATING&gt;</div>
+        <div class="card-img-wrapper">
+            <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/12200/header.jpg" alt="Bully" class="card-img" loading="lazy">
+            <div class="fps-badge" id="fps-3"><i class="fa-solid fa-gauge-high"></i> -- FPS</div>
+        </div>
+        <div class="card-content">
+            <div class="game-title">Bully</div>
+            <div class="game-meta">
+                <span>Action-Adventure</span>
+                <span>4.84 GB</span>
+            </div>
+            <div class="setting-tweak-hint" id="tweak-3"><i class="fa-solid fa-sliders"></i> Ready for launch</div>
+            <div class="card-actions">
+                <button class="btn-play" data-action="toggle" data-id="3"><i class="fa-solid fa-plus"></i> Select Game</button>
+                <button class="btn-reqs" data-action="reqs" data-id="3"><i class="fa-solid fa-sliders"></i> System Reqs</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Card 4 -->
+    <div class="game-card" data-id="4" data-title="Call of Duty - Black Ops" data-genre="FPS" data-size="11.22" data-ram="2" data-vram="0.25" data-cpu="Intel Core 2 Duo E6600 / AMD Phenom X3 8750" data-gpu="NVIDIA GeForce 8600GT / ATI Radeon X1950Pro">
+        <div class="hud-status-badge status-ready" id="hud-4">&lt;CALCULATING&gt;</div>
+        <div class="card-img-wrapper">
+            <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/42700/header.jpg" alt="Call of Duty - Black Ops" class="card-img" loading="lazy">
+            <div class="fps-badge" id="fps-4"><i class="fa-solid fa-gauge-high"></i> -- FPS</div>
+        </div>
+        <div class="card-content">
+            <div class="game-title">Call of Duty - Black Ops</div>
+            <div class="game-meta">
+                <span>FPS</span>
+                <span>11.22 GB</span>
+            </div>
+            <div class="setting-tweak-hint" id="tweak-4"><i class="fa-solid fa-sliders"></i> Ready for launch</div>
+            <div class="card-actions">
+                <button class="btn-play" data-action="toggle" data-id="4"><i class="fa-solid fa-plus"></i> Select Game</button>
+                <button class="btn-reqs" data-action="reqs" data-id="4"><i class="fa-solid fa-sliders"></i> System Reqs</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Card 5 -->
+    <div class="game-card" data-id="5" data-title="Call of Duty - Modern Warfare 2" data-genre="FPS" data-size="11.91" data-ram="2" data-vram="0.25" data-cpu="Intel Pentium 4 3.2 GHz / AMD Athlon 64 3200+" data-gpu="NVIDIA GeForce 6600GT / ATI Radeon 1600XT">
+        <div class="hud-status-badge status-ready" id="hud-5">&lt;CALCULATING&gt;</div>
+        <div class="card-img-wrapper">
+            <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/10180/header.jpg" alt="Call of Duty - Modern Warfare 2" class="card-img" loading="lazy">
+            <div class="fps-badge" id="fps-5"><i class="fa-solid fa-gauge-high"></i> -- FPS</div>
+        </div>
+        <div class="card-content">
+            <div class="game-title">Call of Duty - Modern Warfare 2</div>
+            <div class="game-meta">
+                <span>FPS</span>
+                <span>11.91 GB</span>
+            </div>
+            <div class="setting-tweak-hint" id="tweak-5"><i class="fa-solid fa-sliders"></i> Ready for launch</div>
+            <div class="card-actions">
+                <button class="btn-play" data-action="toggle" data-id="5"><i class="fa-solid fa-plus"></i> Select Game</button>
+                <button class="btn-reqs" data-action="reqs" data-id="5"><i class="fa-solid fa-sliders"></i> System Reqs</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Card 6 -->
+    <div class="game-card" data-id="6" data-title="Call of Duty - Modern Warfare 3" data-genre="FPS" data-size="17.13" data-ram="2" data-vram="0.5" data-cpu="Intel Core 2 Duo E6600 / AMD Phenom X3 8750" data-gpu="NVIDIA GeForce 8600GT / ATI Radeon X1950">
+        <div class="hud-status-badge status-ready" id="hud-6">&lt;CALCULATING&gt;</div>
+        <div class="card-img-wrapper">
+            <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/115300/header.jpg" alt="Call of Duty - Modern Warfare 3" class="card-img" loading="lazy">
+            <div class="fps-badge" id="fps-6"><i class="fa-solid fa-gauge-high"></i> -- FPS</div>
+        </div>
+        <div class="card-content">
+            <div class="game-title">Call of Duty - Modern Warfare 3</div>
+            <div class="game-meta">
+                <span>FPS</span>
+                <span>17.13 GB</span>
+            </div>
+            <div class="setting-tweak-hint" id="tweak-6"><i class="fa-solid fa-sliders"></i> Ready for launch</div>
+            <div class="card-actions">
+                <button class="btn-play" data-action="toggle" data-id="6"><i class="fa-solid fa-plus"></i> Select Game</button>
+                <button class="btn-reqs" data-action="reqs" data-id="6"><i class="fa-solid fa-sliders"></i> System Reqs</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Card 7 -->
+    <div class="game-card" data-id="7" data-title="Call of Duty 2" data-genre="FPS" data-size="3.49" data-ram="0.5" data-vram="0.064" data-cpu="Intel Pentium IV 1.4 GHz / AMD Athlon XP 1700+" data-gpu="3D Hardware Accelerator Card 64MB">
+        <div class="hud-status-badge status-ready" id="hud-7">&lt;CALCULATING&gt;</div>
+        <div class="card-img-wrapper">
+            <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2630/header.jpg" alt="Call of Duty 2" class="card-img" loading="lazy">
+            <div class="fps-badge" id="fps-7"><i class="fa-solid fa-gauge-high"></i> -- FPS</div>
+        </div>
+        <div class="card-content">
+            <div class="game-title">Call of Duty 2</div>
+            <div class="game-meta">
+                <span>FPS</span>
+                <span>3.49 GB</span>
+            </div>
+            <div class="setting-tweak-hint" id="tweak-7"><i class="fa-solid fa-sliders"></i> Ready for launch</div>
+            <div class="card-actions">
+                <button class="btn-play" data-action="toggle" data-id="7"><i class="fa-solid fa-plus"></i> Select Game</button>
+                <button class="btn-reqs" data-action="reqs" data-id="7"><i class="fa-solid fa-sliders"></i> System Reqs</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Card 8 -->
+    <div class="game-card" data-id="8" data-title="Call of Duty 4 - Modern Warfare" data-genre="FPS" data-size="6.20" data-ram="1" data-vram="0.128" data-cpu="Intel Pentium 4 2.4 GHz / AMD Athlon 64 2800+" data-gpu="NVIDIA GeForce 6600 / ATI Radeon 9800 Pro">
+        <div class="hud-status-badge status-ready" id="hud-8">&lt;CALCULATING&gt;</div>
+        <div class="card-img-wrapper">
+            <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/7940/header.jpg" alt="Call of Duty 4 - Modern Warfare" class="card-img" loading="lazy">
+            <div class="fps-badge" id="fps-8"><i class="fa-solid fa-gauge-high"></i> -- FPS</div>
+        </div>
+        <div class="card-content">
+            <div class="game-title">Call of Duty 4 - Modern Warfare</div>
+            <div class="game-meta">
+                <span>FPS</span>
+                <span>6.20 GB</span>
+            </div>
+            <div class="setting-tweak-hint" id="tweak-8"><i class="fa-solid fa-sliders"></i> Ready for launch</div>
+            <div class="card-actions">
+                <button class="btn-play" data-action="toggle" data-id="8"><i class="fa-solid fa-plus"></i> Select Game</button>
+                <button class="btn-reqs" data-action="reqs" data-id="8"><i class="fa-solid fa-sliders"></i> System Reqs</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Card 9 -->
+    <div class="game-card" data-id="9" data-title="Command & Conquer - Remastered Collection" data-genre="RTS" data-size="25.20" data-ram="8" data-vram="2" data-cpu="Intel Core i3-3240 / AMD FX-4170" data-gpu="GTX 660 / Radeon HD 7850">
+        <div class="hud-status-badge status-ready" id="hud-9">&lt;CALCULATING&gt;</div>
+        <div class="card-img-wrapper">
+            <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1213210/header.jpg" alt="Command & Conquer - Remastered Collection" class="card-img" loading="lazy">
+            <div class="fps-badge" id="fps-9"><i class="fa-solid fa-gauge-high"></i> -- FPS</div>
+        </div>
+        <div class="card-content">
+            <div class="game-title">Command & Conquer - Remastered Collection</div>
+            <div class="game-meta">
+                <span>RTS</span>
+                <span>25.20 GB</span>
+            </div>
+            <div class="setting-tweak-hint" id="tweak-9"><i class="fa-solid fa-sliders"></i> Ready for launch</div>
+            <div class="card-actions">
+                <button class="btn-play" data-action="toggle" data-id="9"><i class="fa-solid fa-plus"></i> Select Game</button>
+                <button class="btn-reqs" data-action="reqs" data-id="9"><i class="fa-solid fa-sliders"></i> System Reqs</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Card 10 -->
+    <div class="game-card" data-id="10" data-title="Command and Conquer - Generals" data-genre="RTS" data-size="2.74" data-ram="0.25" data-vram="0.032" data-cpu="Intel Pentium III 800MHz" data-gpu="Direct3D 32MB Card">
+        <div class="hud-status-badge status-ready" id="hud-10">&lt;CALCULATING&gt;</div>
+        <div class="card-img-wrapper">
+            <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2229870/header.jpg?t=1779987211" alt="Command and Conquer - Generals" class="card-img" loading="lazy">
+            <div class="fps-badge" id="fps-10"><i class="fa-solid fa-gauge-high"></i> -- FPS</div>
+        </div>
+        <div class="card-content">
+            <div class="game-title">Command and Conquer - Generals</div>
+            <div class="game-meta">
+                <span>RTS</span>
+                <span>2.74 GB</span>
+            </div>
+            <div class="setting-tweak-hint" id="tweak-10"><i class="fa-solid fa-sliders"></i> Ready for launch</div>
+            <div class="card-actions">
+                <button class="btn-play" data-action="toggle" data-id="10"><i class="fa-solid fa-plus"></i> Select Game</button>
+                <button class="btn-reqs" data-action="reqs" data-id="10"><i class="fa-solid fa-sliders"></i> System Reqs</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Card 11 -->
+    <div class="game-card" data-id="11" data-title="Counter-Strike Source" data-genre="FPS" data-size="4.58" data-ram="1" data-vram="0.128" data-cpu="Intel Pentium 4 1.7GHz" data-gpu="DirectX 8.1 Level GPU">
+        <div class="hud-status-badge status-ready" id="hud-11">&lt;CALCULATING&gt;</div>
+        <div class="card-img-wrapper">
+            <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/240/header.jpg" alt="Counter-Strike Source" class="card-img" loading="lazy">
+            <div class="fps-badge" id="fps-11"><i class="fa-solid fa-gauge-high"></i> -- FPS</div>
+        </div>
+        <div class="card-content">
+            <div class="game-title">Counter-Strike Source</div>
+            <div class="game-meta">
+                <span>FPS</span>
+                <span>4.58 GB</span>
+            </div>
+            <div class="setting-tweak-hint" id="tweak-11"><i class="fa-solid fa-sliders"></i> Ready for launch</div>
+            <div class="card-actions">
+                <button class="btn-play" data-action="toggle" data-id="11"><i class="fa-solid fa-plus"></i> Select Game</button>
+                <button class="btn-reqs" data-action="reqs" data-id="11"><i class="fa-solid fa-sliders"></i> System Reqs</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Card 12 -->
+    <div class="game-card" data-id="12" data-title="Devil May Cry 3 Special Edition" data-genre="Hack and Slash" data-size="4.55" data-ram="1" data-vram="0.128" data-cpu="Intel Pentium 4 1.0 GHz" data-gpu="DirectX 9.0c Compatible GPU">
+        <div class="hud-status-badge status-ready" id="hud-12">&lt;CALCULATING&gt;</div>
+        <div class="card-img-wrapper">
+            <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/6550/header.jpg" alt="Devil May Cry 3 Special Edition" class="card-img" loading="lazy">
+            <div class="fps-badge" id="fps-12"><i class="fa-solid fa-gauge-high"></i> -- FPS</div>
+        </div>
+        <div class="card-content">
+            <div class="game-title">Devil May Cry 3 Special Edition</div>
+            <div class="game-meta">
+                <span>Hack and Slash</span>
+                <span>4.55 GB</span>
+            </div>
+            <div class="setting-tweak-hint" id="tweak-12"><i class="fa-solid fa-sliders"></i> Ready for launch</div>
+            <div class="card-actions">
+                <button class="btn-play" data-action="toggle" data-id="12"><i class="fa-solid fa-plus"></i> Select Game</button>
+                <button class="btn-reqs" data-action="reqs" data-id="12"><i class="fa-solid fa-sliders"></i> System Reqs</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Card 13 -->
+    <div class="game-card" data-id="13" data-title="Diablo II Complete Edition" data-genre="Action RPG" data-size="1.88" data-ram="0.5" data-vram="0.032" data-cpu="Intel Pentium II 233MHz" data-gpu="Direct3D Compatible GPU">
+        <div class="hud-status-badge status-ready" id="hud-13">&lt;CALCULATING&gt;</div>
+        <div class="card-img-wrapper">
+            <img src="https://images.steamusercontent.com/ugc/938329658121037648/98550801BACE69C3E626A06AEF17131A6E0D35BC/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false" alt="Diablo II Complete Edition" class="card-img" loading="lazy">
+            <div class="fps-badge" id="fps-13"><i class="fa-solid fa-gauge-high"></i> -- FPS</div>
+        </div>
+        <div class="card-content">
+            <div class="game-title">Diablo II Complete Edition</div>
+            <div class="game-meta">
+                <span>Action RPG</span>
+                <span>1.88 GB</span>
+            </div>
+            <div class="setting-tweak-hint" id="tweak-13"><i class="fa-solid fa-sliders"></i> Ready for launch</div>
+            <div class="card-actions">
+                <button class="btn-play" data-action="toggle" data-id="13"><i class="fa-solid fa-plus"></i> Select Game</button>
+                <button class="btn-reqs" data-action="reqs" data-id="13"><i class="fa-solid fa-sliders"></i> System Reqs</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Card 14 -->
+    <div class="game-card" data-id="14" data-title="F.E.A.R. 3" data-genre="Horror FPS" data-size="4.16" data-ram="2" data-vram="0.5" data-cpu="Intel Core 2 Duo 2.4GHz / AMD Athlon X2 4800+" data-gpu="NVIDIA GeForce 8800GT / ATI Radeon HD 3850">
+        <div class="hud-status-badge status-ready" id="hud-14">&lt;CALCULATING&gt;</div>
+        <div class="card-img-wrapper">
+            <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/21100/header.jpg" alt="F.E.A.R. 3" class="card-img" loading="lazy">
+            <div class="fps-badge" id="fps-14"><i class="fa-solid fa-gauge-high"></i> -- FPS</div>
+        </div>
+        <div class="card-content">
+            <div class="game-title">F.E.A.R. 3</div>
+            <div class="game-meta">
+                <span>Horror FPS</span>
+                <span>4.16 GB</span>
+            </div>
+            <div class="setting-tweak-hint" id="tweak-14"><i class="fa-solid fa-sliders"></i> Ready for launch</div>
+            <div class="card-actions">
+                <button class="btn-play" data-action="toggle" data-id="14"><i class="fa-solid fa-plus"></i> Select Game</button>
+                <button class="btn-reqs" data-action="reqs" data-id="14"><i class="fa-solid fa-sliders"></i> System Reqs</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Card 15 -->
+    <div class="game-card" data-id="15" data-title="Final Fantasy III (3D Remake)" data-genre="JRPG" data-size="0.63" data-ram="2" data-vram="0.25" data-cpu="Intel Pentium 4 2.4GHz" data-gpu="3D Graphics Card with DirectX 9.0c">
+        <div class="hud-status-badge status-ready" id="hud-15">&lt;CALCULATING&gt;</div>
+        <div class="card-img-wrapper">
+            <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/239120/header.jpg" alt="Final Fantasy III (3D Remake)" class="card-img" loading="lazy">
+            <div class="fps-badge" id="fps-15"><i class="fa-solid fa-gauge-high"></i> -- FPS</div>
+        </div>
+        <div class="card-content">
+            <div class="game-title">Final Fantasy III (3D Remake)</div>
+            <div class="game-meta">
+                <span>JRPG</span>
+                <span>627 MB</span>
+            </div>
+            <div class="setting-tweak-hint" id="tweak-15"><i class="fa-solid fa-sliders"></i> Ready for launch</div>
+            <div class="card-actions">
+                <button class="btn-play" data-action="toggle" data-id="15"><i class="fa-solid fa-plus"></i> Select Game</button>
+                <button class="btn-reqs" data-action="reqs" data-id="15"><i class="fa-solid fa-sliders"></i> System Reqs</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Card 16 -->
+    <div class="game-card" data-id="16" data-title="GTA - San Andreas" data-genre="Action-Adventure" data-size="4.78" data-ram="0.5" data-vram="0.064" data-cpu="Intel Pentium III / AMD Athlon 1 GHz" data-gpu="GeForce 3 / Radeon 8500 64MB">
+        <div class="hud-status-badge status-ready" id="hud-16">&lt;CALCULATING&gt;</div>
+        <div class="card-img-wrapper">
+            <img src="https://upload.wikimedia.org/wikipedia/en/c/c4/GTASABOX.jpg" alt="GTA - San Andreas" class="card-img" loading="lazy">
+            <div class="fps-badge" id="fps-16"><i class="fa-solid fa-gauge-high"></i> -- FPS</div>
+        </div>
+        <div class="card-content">
+            <div class="game-title">GTA - San Andreas</div>
+            <div class="game-meta">
+                <span>Action-Adventure</span>
+                <span>4.78 GB</span>
+            </div>
+            <div class="setting-tweak-hint" id="tweak-16"><i class="fa-solid fa-sliders"></i> Ready for launch</div>
+            <div class="card-actions">
+                <button class="btn-play" data-action="toggle" data-id="16"><i class="fa-solid fa-plus"></i> Select Game</button>
+                <button class="btn-reqs" data-action="reqs" data-id="16"><i class="fa-solid fa-sliders"></i> System Reqs</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Card 17 -->
+    <div class="game-card" data-id="17" data-title="HELLDIVERS Dive Harder" data-genre="Top-Down Shooter" data-size="6.44" data-ram="4" data-vram="0.5" data-cpu="2.4GHz Dual Core" data-gpu="NVIDIA GeForce 9800 GTX / ATI Radeon HD 2600 XT">
+        <div class="hud-status-badge status-ready" id="hud-17">&lt;CALCULATING&gt;</div>
+        <div class="card-img-wrapper">
+            <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/394510/header.jpg?t=1750950223" alt="HELLDIVERS Dive Harder" class="card-img" loading="lazy">
+            <div class="fps-badge" id="fps-17"><i class="fa-solid fa-gauge-high"></i> -- FPS</div>
+        </div>
+        <div class="card-content">
+            <div class="game-title">HELLDIVERS Dive Harder</div>
+            <div class="game-meta">
+                <span>Top-Down Shooter</span>
+                <span>6.44 GB</span>
+            </div>
+            <div class="setting-tweak-hint" id="tweak-17"><i class="fa-solid fa-sliders"></i> Ready for launch</div>
+            <div class="card-actions">
+                <button class="btn-play" data-action="toggle" data-id="17"><i class="fa-solid fa-plus"></i> Select Game</button>
+                <button class="btn-reqs" data-action="reqs" data-id="17"><i class="fa-solid fa-sliders"></i> System Reqs</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Card 18 -->
+    <div class="game-card" data-id="18" data-title="HITMAN - World of Assassination" data-genre="Stealth / Action" data-size="79.98" data-ram="8" data-vram="2" data-cpu="Intel CPU Core i5-2500K / AMD CPU Phenom II X4 940" data-gpu="NVIDIA GeForce GTX 660 / Radeon HD 7870">
+        <div class="hud-status-badge status-ready" id="hud-18">&lt;CALCULATING&gt;</div>
+        <div class="card-img-wrapper">
+            <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1659040/header.jpg" alt="HITMAN - World of Assassination" class="card-img" loading="lazy">
+            <div class="fps-badge" id="fps-18"><i class="fa-solid fa-gauge-high"></i> -- FPS</div>
+        </div>
+        <div class="card-content">
+            <div class="game-title">HITMAN - World of Assassination</div>
+            <div class="game-meta">
+                <span>Stealth / Action</span>
+                <span>79.98 GB</span>
+            </div>
+            <div class="setting-tweak-hint" id="tweak-18"><i class="fa-solid fa-sliders"></i> Ready for launch</div>
+            <div class="card-actions">
+                <button class="btn-play" data-action="toggle" data-id="18"><i class="fa-solid fa-plus"></i> Select Game</button>
+                <button class="btn-reqs" data-action="reqs" data-id="18"><i class="fa-solid fa-sliders"></i> System Reqs</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Card 19 -->
+    <div class="game-card" data-id="19" data-title="KILL la KILL -IF" data-genre="Fighting" data-size="15.13" data-ram="4" data-vram="1" data-cpu="Intel Core i5-750" data-gpu="GeForce GTS 450">
+        <div class="hud-status-badge status-ready" id="hud-19">&lt;CALCULATING&gt;</div>
+        <div class="card-img-wrapper">
+            <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1010820/header.jpg" alt="KILL la KILL -IF" class="card-img" loading="lazy">
+            <div class="fps-badge" id="fps-19"><i class="fa-solid fa-gauge-high"></i> -- FPS</div>
+        </div>
+        <div class="card-content">
+            <div class="game-title">KILL la KILL -IF</div>
+            <div class="game-meta">
+                <span>Fighting</span>
+                <span>15.13 GB</span>
+            </div>
+            <div class="setting-tweak-hint" id="tweak-19"><i class="fa-solid fa-sliders"></i> Ready for launch</div>
+            <div class="card-actions">
+                <button class="btn-play" data-action="toggle" data-id="19"><i class="fa-solid fa-plus"></i> Select Game</button>
+                <button class="btn-reqs" data-action="reqs" data-id="19"><i class="fa-solid fa-sliders"></i> System Reqs</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Card 20 -->
+    <div class="game-card" data-id="20" data-title="Left 4 Dead 2" data-genre="Co-op FPS" data-size="13.94" data-ram="2" data-vram="0.25" data-cpu="Intel Pentium 4 3.0GHz" data-gpu="Video card 128 MB Shader model 2.0">
+        <div class="hud-status-badge status-ready" id="hud-20">&lt;CALCULATING&gt;</div>
+        <div class="card-img-wrapper">
+            <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/550/header.jpg" alt="Left 4 Dead 2" class="card-img" loading="lazy">
+            <div class="fps-badge" id="fps-20"><i class="fa-solid fa-gauge-high"></i> -- FPS</div>
+        </div>
+        <div class="card-content">
+            <div class="game-title">Left 4 Dead 2</div>
+            <div class="game-meta">
+                <span>Co-op FPS</span>
+                <span>13.94 GB</span>
+            </div>
+            <div class="setting-tweak-hint" id="tweak-20"><i class="fa-solid fa-sliders"></i> Ready for launch</div>
+            <div class="card-actions">
+                <button class="btn-play" data-action="toggle" data-id="20"><i class="fa-solid fa-plus"></i> Select Game</button>
+                <button class="btn-reqs" data-action="reqs" data-id="20"><i class="fa-solid fa-sliders"></i> System Reqs</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Card 21 -->
+    <div class="game-card" data-id="21" data-title="Mafia - The Old Country" data-genre="Action-Adventure" data-size="45.56" data-ram="16" data-vram="6" data-cpu="Intel Core i5-8400 / AMD Ryzen 5 2600" data-gpu="GTX 1060 6GB / RX 580 8GB">
+        <div class="hud-status-badge status-ready" id="hud-21">&lt;CALCULATING&gt;</div>
+        <div class="card-img-wrapper">
+            <img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSKXq4Ua7R8-Cn-hD-cGkoBgHST4KsaP6NnIEvG-b62qOD67zs7" alt="Mafia - The Old Country" class="card-img" loading="lazy">
+            <div class="fps-badge" id="fps-21"><i class="fa-solid fa-gauge-high"></i> -- FPS</div>
+        </div>
+        <div class="card-content">
+            <div class="game-title">Mafia - The Old Country</div>
+            <div class="game-meta">
+                <span>Action-Adventure</span>
+                <span>45.56 GB</span>
+            </div>
+            <div class="setting-tweak-hint" id="tweak-21"><i class="fa-solid fa-sliders"></i> Ready for launch</div>
+            <div class="card-actions">
+                <button class="btn-play" data-action="toggle" data-id="21"><i class="fa-solid fa-plus"></i> Select Game</button>
+                <button class="btn-reqs" data-action="reqs" data-id="21"><i class="fa-solid fa-sliders"></i> System Reqs</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Card 22 -->
+    <div class="game-card" data-id="22" data-title="MARVEL vs CAPCOM Fighting Collection" data-genre="Fighting" data-size="3.37" data-ram="8" data-vram="2" data-cpu="Intel Core i5-4460 / AMD FX-6300" data-gpu="NVIDIA GeForce GTX 760 / AMD Radeon R7 260x">
+        <div class="hud-status-badge status-ready" id="hud-22">&lt;CALCULATING&gt;</div>
+        <div class="card-img-wrapper">
+            <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2634890/header.jpg" alt="MARVEL vs CAPCOM Fighting Collection" class="card-img" loading="lazy">
+            <div class="fps-badge" id="fps-22"><i class="fa-solid fa-gauge-high"></i> -- FPS</div>
+        </div>
+        <div class="card-content">
+            <div class="game-title">MARVEL vs CAPCOM Fighting Collection</div>
+            <div class="game-meta">
+                <span>Fighting</span>
+                <span>3.37 GB</span>
+            </div>
+            <div class="setting-tweak-hint" id="tweak-22"><i class="fa-solid fa-sliders"></i> Ready for launch</div>
+            <div class="card-actions">
+                <button class="btn-play" data-action="toggle" data-id="22"><i class="fa-solid fa-plus"></i> Select Game</button>
+                <button class="btn-reqs" data-action="reqs" data-id="22"><i class="fa-solid fa-sliders"></i> System Reqs</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Card 23 -->
+    <div class="game-card" data-id="23" data-title="Metal Gear Solid V The Phantom Pain" data-genre="Action-Stealth" data-size="23.01" data-ram="4" data-vram="2" data-cpu="Intel Core i5-4460 (3.20 GHz)" data-gpu="NVIDIA GeForce GTX 650 (2GB)">
+        <div class="hud-status-badge status-ready" id="hud-23">&lt;CALCULATING&gt;</div>
+        <div class="card-img-wrapper">
+            <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/287700/header.jpg" alt="Metal Gear Solid V The Phantom Pain" class="card-img" loading="lazy">
+            <div class="fps-badge" id="fps-23"><i class="fa-solid fa-gauge-high"></i> -- FPS</div>
+        </div>
+        <div class="card-content">
+            <div class="game-title">Metal Gear Solid V The Phantom Pain</div>
+            <div class="game-meta">
+                <span>Action-Stealth</span>
+                <span>23.01 GB</span>
+            </div>
+            <div class="setting-tweak-hint" id="tweak-23"><i class="fa-solid fa-sliders"></i> Ready for launch</div>
+            <div class="card-actions">
+                <button class="btn-play" data-action="toggle" data-id="23"><i class="fa-solid fa-plus"></i> Select Game</button>
+                <button class="btn-reqs" data-action="reqs" data-id="23"><i class="fa-solid fa-sliders"></i> System Reqs</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Card 24 -->
+    <div class="game-card" data-id="24" data-title="Naruto Shippuden Ultimate Ninja Storm Revolution" data-genre="Fighting" data-size="7.55" data-ram="2" data-vram="0.5" data-cpu="Intel i3-530 2.93GHz / AMD Phenom II X4 940 3.0GHz" data-gpu="512 MB Video Card Pixel Shader 4.0">
+        <div class="hud-status-badge status-ready" id="hud-24">&lt;CALCULATING&gt;</div>
+        <div class="card-img-wrapper">
+            <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/272510/header.jpg" alt="Naruto Shippuden Ultimate Ninja Storm Revolution" class="card-img" loading="lazy">
+            <div class="fps-badge" id="fps-24"><i class="fa-solid fa-gauge-high"></i> -- FPS</div>
+        </div>
+        <div class="card-content">
+            <div class="game-title">Naruto Shippuden Ultimate Ninja Storm Revolution</div>
+            <div class="game-meta">
+                <span>Fighting</span>
+                <span>7.55 GB</span>
+            </div>
+            <div class="setting-tweak-hint" id="tweak-24"><i class="fa-solid fa-sliders"></i> Ready for launch</div>
+            <div class="card-actions">
+                <button class="btn-play" data-action="toggle" data-id="24"><i class="fa-solid fa-plus"></i> Select Game</button>
+                <button class="btn-reqs" data-action="reqs" data-id="24"><i class="fa-solid fa-sliders"></i> System Reqs</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Card 25 -->
+    <div class="game-card" data-id="25" data-title="NBA 2K26" data-genre="Sports" data-size="73.52" data-ram="16" data-vram="6" data-cpu="Intel Core i5-10600 / AMD Ryzen 5 3600" data-gpu="NVIDIA GeForce RTX 2060 / AMD Radeon RX 5700">
+        <div class="hud-status-badge status-ready" id="hud-25">&lt;CALCULATING&gt;</div>
+        <div class="card-img-wrapper">
+            <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3472040/f7e126add75c3b09779b44cd349be93d31b0a80b/header.jpg?t=1782486648" alt="NBA 2K26" class="card-img" loading="lazy">
+            <div class="fps-badge" id="fps-25"><i class="fa-solid fa-gauge-high"></i> -- FPS</div>
+        </div>
+        <div class="card-content">
+            <div class="game-title">NBA 2K26</div>
+            <div class="game-meta">
+                <span>Sports</span>
+                <span>73.52 GB</span>
+            </div>
+            <div class="setting-tweak-hint" id="tweak-25"><i class="fa-solid fa-sliders"></i> Ready for launch</div>
+            <div class="card-actions">
+                <button class="btn-play" data-action="toggle" data-id="25"><i class="fa-solid fa-plus"></i> Select Game</button>
+                <button class="btn-reqs" data-action="reqs" data-id="25"><i class="fa-solid fa-sliders"></i> System Reqs</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Card 26 -->
+    <div class="game-card" data-id="26" data-title="Need for Speed - Carbon" data-genre="Racing" data-size="5.10" data-ram="1" data-vram="0.128" data-cpu="Intel Pentium 4 2.4GHz" data-gpu="NVIDIA GeForce 6800 / ATI Radeon 9800">
+        <div class="hud-status-badge status-ready" id="hud-26">&lt;CALCULATING&gt;</div>
+        <div class="card-img-wrapper">
+            <img src="https://upload.wikimedia.org/wikipedia/en/a/a4/Need_for_Speed_Carbon_Game_Cover.jpg" alt="Need for Speed - Carbon" class="card-img" loading="lazy">
+            <div class="fps-badge" id="fps-26"><i class="fa-solid fa-gauge-high"></i> -- FPS</div>
+        </div>
+        <div class="card-content">
+            <div class="game-title">Need for Speed - Carbon</div>
+            <div class="game-meta">
+                <span>Racing</span>
+                <span>5.10 GB</span>
+            </div>
+            <div class="setting-tweak-hint" id="tweak-26"><i class="fa-solid fa-sliders"></i> Ready for launch</div>
+            <div class="card-actions">
+                <button class="btn-play" data-action="toggle" data-id="26"><i class="fa-solid fa-plus"></i> Select Game</button>
+                <button class="btn-reqs" data-action="reqs" data-id="26"><i class="fa-solid fa-sliders"></i> System Reqs</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Card 27 -->
+    <div class="game-card" data-id="27" data-title="Need for Speed - Most Wanted" data-genre="Racing" data-size="2.78" data-ram="0.5" data-vram="0.064" data-cpu="Intel Pentium 4 1.4GHz" data-gpu="3D Video Card 32MB">
+        <div class="hud-status-badge status-ready" id="hud-27">&lt;CALCULATING&gt;</div>
+        <div class="card-img-wrapper">
+            <img src="https://m.media-amazon.com/images/M/MV5BYzZlMjBjYjItMzUzOC00YTJlLThiNWQtNjViZjc1MTA2ZGE1XkEyXkFqcGc@._V1_.jpg" alt="Need for Speed - Most Wanted" class="card-img" loading="lazy">
+            <div class="fps-badge" id="fps-27"><i class="fa-solid fa-gauge-high"></i> -- FPS</div>
+        </div>
+        <div class="card-content">
+            <div class="game-title">Need for Speed - Most Wanted</div>
+            <div class="game-meta">
+                <span>Racing</span>
+                <span>2.78 GB</span>
+            </div>
+            <div class="setting-tweak-hint" id="tweak-27"><i class="fa-solid fa-sliders"></i> Ready for launch</div>
+            <div class="card-actions">
+                <button class="btn-play" data-action="toggle" data-id="27"><i class="fa-solid fa-plus"></i> Select Game</button>
+                <button class="btn-reqs" data-action="reqs" data-id="27"><i class="fa-solid fa-sliders"></i> System Reqs</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Card 28 -->
+    <div class="game-card" data-id="28" data-title="Need for Speed - Underground" data-genre="Racing" data-size="0.54" data-ram="0.25" data-vram="0.032" data-cpu="Intel Pentium III 700MHz" data-gpu="DirectX 8.1 Compatible 32MB GPU">
+        <div class="hud-status-badge status-ready" id="hud-28">&lt;CALCULATING&gt;</div>
+        <div class="card-img-wrapper">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTChx8-il5BURZSfWXTAtbq4mETBqfEW-u53DwvaHQ9D_Uana3u" alt="Need for Speed - Underground" class="card-img" loading="lazy">
+            <div class="fps-badge" id="fps-28"><i class="fa-solid fa-gauge-high"></i> -- FPS</div>
+        </div>
+        <div class="card-content">
+            <div class="game-title">Need for Speed - Underground</div>
+            <div class="game-meta">
+                <span>Racing</span>
+                <span>543 MB</span>
+            </div>
+            <div class="setting-tweak-hint" id="tweak-28"><i class="fa-solid fa-sliders"></i> Ready for launch</div>
+            <div class="card-actions">
+                <button class="btn-play" data-action="toggle" data-id="28"><i class="fa-solid fa-plus"></i> Select Game</button>
+                <button class="btn-reqs" data-action="reqs" data-id="28"><i class="fa-solid fa-sliders"></i> System Reqs</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Card 29 -->
+    <div class="game-card" data-id="29" data-title="Need for Speed - Underground 2" data-genre="Racing" data-size="1.67" data-ram="0.25" data-vram="0.032" data-cpu="Intel Pentium III 933MHz" data-gpu="DirectX 9.0c Compatible 32MB GPU">
+        <div class="hud-status-badge status-ready" id="hud-29">&lt;CALCULATING&gt;</div>
+        <div class="card-img-wrapper">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSj_CxcS3N0j57bZloFen-7DeZlkU8X5cykAvawwSBm0nnkyTgt" alt="Need for Speed - Underground 2" class="card-img" loading="lazy">
+            <div class="fps-badge" id="fps-29"><i class="fa-solid fa-gauge-high"></i> -- FPS</div>
+        </div>
+        <div class="card-content">
+            <div class="game-title">Need for Speed - Underground 2</div>
+            <div class="game-meta">
+                <span>Racing</span>
+                <span>1.67 GB</span>
+            </div>
+            <div class="setting-tweak-hint" id="tweak-29"><i class="fa-solid fa-sliders"></i> Ready for launch</div>
+            <div class="card-actions">
+                <button class="btn-play" data-action="toggle" data-id="29"><i class="fa-solid fa-plus"></i> Select Game</button>
+                <button class="btn-reqs" data-action="reqs" data-id="29"><i class="fa-solid fa-sliders"></i> System Reqs</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Card 30 -->
+    <div class="game-card" data-id="30" data-title="One Punch Man - A Hero Nobody Knows" data-genre="Action Fighting" data-size="7.31" data-ram="8" data-vram="2" data-cpu="Intel Core i5-2550K" data-gpu="NVIDIA GeForce GTX 570">
+        <div class="hud-status-badge status-ready" id="hud-30">&lt;CALCULATING&gt;</div>
+        <div class="card-img-wrapper">
+            <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/991560/header.jpg" alt="One Punch Man - A Hero Nobody Knows" class="card-img" loading="lazy">
+            <div class="fps-badge" id="fps-30"><i class="fa-solid fa-gauge-high"></i> -- FPS</div>
+        </div>
+        <div class="card-content">
+            <div class="game-title">One Punch Man - A Hero Nobody Knows</div>
+            <div class="game-meta">
+                <span>Action Fighting</span>
+                <span>7.31 GB</span>
+            </div>
+            <div class="setting-tweak-hint" id="tweak-30"><i class="fa-solid fa-sliders"></i> Ready for launch</div>
+            <div class="card-actions">
+                <button class="btn-play" data-action="toggle" data-id="30"><i class="fa-solid fa-plus"></i> Select Game</button>
+                <button class="btn-reqs" data-action="reqs" data-id="30"><i class="fa-solid fa-sliders"></i> System Reqs</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Card 31 -->
+    <div class="game-card" data-id="31" data-title="Plastic Battlegrounds" data-genre="Action / Shooter" data-size="3.02" data-ram="4" data-vram="1" data-cpu="Intel Core i3-4130" data-gpu="NVIDIA GeForce GTX 660">
+        <div class="hud-status-badge status-ready" id="hud-31">&lt;CALCULATING&gt;</div>
+        <div class="card-img-wrapper">
+            <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3384090/header.jpg?t=1770946272" alt="Plastic Battlegrounds" class="card-img" loading="lazy">
+            <div class="fps-badge" id="fps-31"><i class="fa-solid fa-gauge-high"></i> -- FPS</div>
+        </div>
+        <div class="card-content">
+            <div class="game-title">Plastic Battlegrounds</div>
+            <div class="game-meta">
+                <span>Action / Shooter</span>
+                <span>3.02 GB</span>
+            </div>
+            <div class="setting-tweak-hint" id="tweak-31"><i class="fa-solid fa-sliders"></i> Ready for launch</div>
+            <div class="card-actions">
+                <button class="btn-play" data-action="toggle" data-id="31"><i class="fa-solid fa-plus"></i> Select Game</button>
+                <button class="btn-reqs" data-action="reqs" data-id="31"><i class="fa-solid fa-sliders"></i> System Reqs</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Card 33 -->
+    <div class="game-card" data-id="33" data-title="Red Alert 2" data-genre="RTS" data-size="1.76" data-ram="0.25" data-vram="0.016" data-cpu="Intel Pentium II 266MHz" data-gpu="2MB Video Card">
+        <div class="hud-status-badge status-ready" id="hud-33">&lt;CALCULATING&gt;</div>
+        <div class="card-img-wrapper">
+            <img src="https://assetsio.gnwcdn.com/red-alert-2.png?width=690&quality=85&format=jpg&auto=webp" alt="Red Alert 2" class="card-img" loading="lazy">
+            <div class="fps-badge" id="fps-33"><i class="fa-solid fa-gauge-high"></i> -- FPS</div>
+        </div>
+        <div class="card-content">
+            <div class="game-title">Red Alert 2</div>
+            <div class="game-meta">
+                <span>RTS</span>
+                <span>1.76 GB</span>
+            </div>
+            <div class="setting-tweak-hint" id="tweak-33"><i class="fa-solid fa-sliders"></i> Ready for launch</div>
+            <div class="card-actions">
+                <button class="btn-play" data-action="toggle" data-id="33"><i class="fa-solid fa-plus"></i> Select Game</button>
+                <button class="btn-reqs" data-action="reqs" data-id="33"><i class="fa-solid fa-sliders"></i> System Reqs</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Card 34 -->
+    <div class="game-card" data-id="34" data-title="Session - Skate Sim" data-genre="Sports Simulation" data-size="16.72" data-ram="8" data-vram="2" data-cpu="Intel Core i7-2600 / AMD FX-8350" data-gpu="NVIDIA GeForce GTX 660 / AMD Radeon R9 270">
+        <div class="hud-status-badge status-ready" id="hud-34">&lt;CALCULATING&gt;</div>
+        <div class="card-img-wrapper">
+            <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/861650/header.jpg" alt="Session - Skate Sim" class="card-img" loading="lazy">
+            <div class="fps-badge" id="fps-34"><i class="fa-solid fa-gauge-high"></i> -- FPS</div>
+        </div>
+        <div class="card-content">
+            <div class="game-title">Session - Skate Sim</div>
+            <div class="game-meta">
+                <span>Sports Simulation</span>
+                <span>16.72 GB</span>
+            </div>
+            <div class="setting-tweak-hint" id="tweak-34"><i class="fa-solid fa-sliders"></i> Ready for launch</div>
+            <div class="card-actions">
+                <button class="btn-play" data-action="toggle" data-id="34"><i class="fa-solid fa-plus"></i> Select Game</button>
+                <button class="btn-reqs" data-action="reqs" data-id="34"><i class="fa-solid fa-sliders"></i> System Reqs</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Card 35 -->
+    <div class="game-card" data-id="35" data-title="Sniper - Ghost Warrior Contracts" data-genre="Tactical Shooter" data-size="16.58" data-ram="8" data-vram="2" data-cpu="Intel Core i5 4460 / AMD FX-6350" data-gpu="NVIDIA GeForce GTX 760 / AMD Radeon HD 7870">
+        <div class="hud-status-badge status-ready" id="hud-35">&lt;CALCULATING&gt;</div>
+        <div class="card-img-wrapper">
+            <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/63380/header.jpg?t=1601483610" alt="Sniper - Ghost Warrior Contracts" class="card-img" loading="lazy">
+            <div class="fps-badge" id="fps-35"><i class="fa-solid fa-gauge-high"></i> -- FPS</div>
+        </div>
+        <div class="card-content">
+            <div class="game-title">Sniper - Ghost Warrior Contracts</div>
+            <div class="game-meta">
+                <span>Tactical Shooter</span>
+                <span>16.58 GB</span>
+            </div>
+            <div class="setting-tweak-hint" id="tweak-35"><i class="fa-solid fa-sliders"></i> Ready for launch</div>
+            <div class="card-actions">
+                <button class="btn-play" data-action="toggle" data-id="35"><i class="fa-solid fa-plus"></i> Select Game</button>
+                <button class="btn-reqs" data-action="reqs" data-id="35"><i class="fa-solid fa-sliders"></i> System Reqs</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Card 36 -->
+    <div class="game-card" data-id="36" data-title="Sniper Elite V2" data-genre="Tactical Shooter" data-size="7.85" data-ram="2" data-vram="0.25" data-cpu="Dual-core CPU with SSE3" data-gpu="NVIDIA GeForce 8800 series / ATI Radeon HD 3870">
+        <div class="hud-status-badge status-ready" id="hud-36">&lt;CALCULATING&gt;</div>
+        <div class="card-img-wrapper">
+            <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/6370/header.jpg" alt="Sniper Elite V2" class="card-img" loading="lazy">
+            <div class="fps-badge" id="fps-36"><i class="fa-solid fa-gauge-high"></i> -- FPS</div>
+        </div>
+        <div class="card-content">
+            <div class="game-title">Sniper Elite V2</div>
+            <div class="game-meta">
+                <span>Tactical Shooter</span>
+                <span>7.85 GB</span>
+            </div>
+            <div class="setting-tweak-hint" id="tweak-36"><i class="fa-solid fa-sliders"></i> Ready for launch</div>
+            <div class="card-actions">
+                <button class="btn-play" data-action="toggle" data-id="36"><i class="fa-solid fa-plus"></i> Select Game</button>
+                <button class="btn-reqs" data-action="reqs" data-id="36"><i class="fa-solid fa-sliders"></i> System Reqs</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Card 37 -->
+    <div class="game-card" data-id="37" data-title="Sniper Ghost Warrior" data-genre="Tactical Shooter" data-size="4.60" data-ram="1" data-vram="0.25" data-cpu="3.2 GHz Intel Pentium 4 / Athlon 64 3500+" data-gpu="NVIDIA GeForce 6800 / ATI Radeon X1650">
+        <div class="hud-status-badge status-ready" id="hud-37">&lt;CALCULATING&gt;</div>
+        <div class="card-img-wrapper">
+            <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/34830/header.jpg" alt="Sniper Ghost Warrior" class="card-img" loading="lazy">
+            <div class="fps-badge" id="fps-37"><i class="fa-solid fa-gauge-high"></i> -- FPS</div>
+        </div>
+        <div class="card-content">
+            <div class="game-title">Sniper Ghost Warrior</div>
+            <div class="game-meta">
+                <span>Tactical Shooter</span>
+                <span>4.60 GB</span>
+            </div>
+            <div class="setting-tweak-hint" id="tweak-37"><i class="fa-solid fa-sliders"></i> Ready for launch</div>
+            <div class="card-actions">
+                <button class="btn-play" data-action="toggle" data-id="37"><i class="fa-solid fa-plus"></i> Select Game</button>
+                <button class="btn-reqs" data-action="reqs" data-id="37"><i class="fa-solid fa-sliders"></i> System Reqs</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Card 38 -->
+    <div class="game-card" data-id="38" data-title="Splinter Cell Pandora Tomorrow" data-genre="Stealth" data-size="4.59" data-ram="0.25" data-vram="0.064" data-cpu="Intel Pentium III / AMD Athlon 1.0 GHz" data-gpu="DirectX 8.1 64MB Video Card">
+        <div class="hud-status-badge status-ready" id="hud-38">&lt;CALCULATING&gt;</div>
+        <div class="card-img-wrapper">
+            <img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTRpGTghhuydNOSdaRRcbhg9Go8yDFaZWNPogq_P0Z_9CCfKkZN" alt="Splinter Cell Pandora Tomorrow" class="card-img" loading="lazy">
+            <div class="fps-badge" id="fps-38"><i class="fa-solid fa-gauge-high"></i> -- FPS</div>
+        </div>
+        <div class="card-content">
+            <div class="game-title">Splinter Cell Pandora Tomorrow</div>
+            <div class="game-meta">
+                <span>Stealth</span>
+                <span>4.59 GB</span>
+            </div>
+            <div class="setting-tweak-hint" id="tweak-38"><i class="fa-solid fa-sliders"></i> Ready for launch</div>
+            <div class="card-actions">
+                <button class="btn-play" data-action="toggle" data-id="38"><i class="fa-solid fa-plus"></i> Select Game</button>
+                <button class="btn-reqs" data-action="reqs" data-id="38"><i class="fa-solid fa-sliders"></i> System Reqs</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Card 39 -->
+    <div class="game-card" data-id="39" data-title="StarCraft" data-genre="RTS" data-size="1.21" data-ram="0.5" data-vram="0.032" data-cpu="Pentium 90MHz" data-gpu="DirectX Compatible GPU">
+        <div class="hud-status-badge status-ready" id="hud-39">&lt;CALCULATING&gt;</div>
+        <div class="card-img-wrapper">
+            <img src="https://upload.wikimedia.org/wikipedia/en/8/89/Brood_War_box_art_%28StarCraft%29.jpg" alt="StarCraft" class="card-img" loading="lazy">
+            <div class="fps-badge" id="fps-39"><i class="fa-solid fa-gauge-high"></i> -- FPS</div>
+        </div>
+        <div class="card-content">
+            <div class="game-title">StarCraft Broodwar</div>
+            <div class="game-meta">
+                <span>RTS</span>
+                <span>1.21 GB</span>
+            </div>
+            <div class="setting-tweak-hint" id="tweak-39"><i class="fa-solid fa-sliders"></i> Ready for launch</div>
+            <div class="card-actions">
+                <button class="btn-play" data-action="toggle" data-id="39"><i class="fa-solid fa-plus"></i> Select Game</button>
+                <button class="btn-reqs" data-action="reqs" data-id="39"><i class="fa-solid fa-sliders"></i> System Reqs</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Card 40 -->
+    <div class="game-card" data-id="40" data-title="Street Fighter 3 Mugen" data-genre="Fighting" data-size="0.71" data-ram="1" data-vram="0.128" data-cpu="Intel Dual Core" data-gpu="DirectX 9 Compatible GPU">
+        <div class="hud-status-badge status-ready" id="hud-40">&lt;CALCULATING&gt;</div>
+        <div class="card-img-wrapper">
+            <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/586200/header.jpg?t=1779341474" alt="Street Fighter 3" class="card-img" loading="lazy">
+            <div class="fps-badge" id="fps-40"><i class="fa-solid fa-gauge-high"></i> -- FPS</div>
+        </div>
+        <div class="card-content">
+            <div class="game-title">Street Fighter 3</div>
+            <div class="game-meta">
+                <span>Fighting</span>
+                <span>711 MB</span>
+            </div>
+            <div class="setting-tweak-hint" id="tweak-40"><i class="fa-solid fa-sliders"></i> Ready for launch</div>
+            <div class="card-actions">
+                <button class="btn-play" data-action="toggle" data-id="40"><i class="fa-solid fa-plus"></i> Select Game</button>
+                <button class="btn-reqs" data-action="reqs" data-id="40"><i class="fa-solid fa-sliders"></i> System Reqs</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Card 41 -->
+    <div class="game-card" data-id="41" data-title="Street Fighter X Tekken" data-genre="Fighting" data-size="6.69" data-ram="2" data-vram="0.25" data-cpu="Intel Dual Core 1.8GHz / AMD Athlon II X2" data-gpu="NVIDIA GeForce 6600 / ATI Radeon X1600">
+        <div class="hud-status-badge status-ready" id="hud-41">&lt;CALCULATING&gt;</div>
+        <div class="card-img-wrapper">
+            <img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQY60c6LnbLM-QHxej8nbr7dzjoZQn-ztkSMR4E7c5LboQkzg_d" alt="Street Fighter X Tekken" class="card-img" loading="lazy">
+            <div class="fps-badge" id="fps-41"><i class="fa-solid fa-gauge-high"></i> -- FPS</div>
+        </div>
+        <div class="card-content">
+            <div class="game-title">Street Fighter X Tekken</div>
+            <div class="game-meta">
+                <span>Fighting</span>
+                <span>6.69 GB</span>
+            </div>
+            <div class="setting-tweak-hint" id="tweak-41"><i class="fa-solid fa-sliders"></i> Ready for launch</div>
+            <div class="card-actions">
+                <button class="btn-play" data-action="toggle" data-id="41"><i class="fa-solid fa-plus"></i> Select Game</button>
+                <button class="btn-reqs" data-action="reqs" data-id="41"><i class="fa-solid fa-sliders"></i> System Reqs</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Card 42 -->
+    <div class="game-card" data-id="42" data-title="Tom Clancy's Splinter Cell Blacklist" data-genre="Stealth / Action" data-size="19.55" data-ram="2" data-vram="0.5" data-cpu="Intel Core 2 Duo E6400 / AMD Athlon 64 X2 5600+" data-gpu="NVIDIA GeForce 8800GT / AMD Radeon HD 3870">
+        <div class="hud-status-badge status-ready" id="hud-42">&lt;CALCULATING&gt;</div>
+        <div class="card-img-wrapper">
+            <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/235600/header.jpg" alt="Tom Clancy's Splinter Cell Blacklist" class="card-img" loading="lazy">
+            <div class="fps-badge" id="fps-42"><i class="fa-solid fa-gauge-high"></i> -- FPS</div>
+        </div>
+        <div class="card-content">
+            <div class="game-title">Tom Clancy's Splinter Cell Blacklist</div>
+            <div class="game-meta">
+                <span>Stealth / Action</span>
+                <span>19.55 GB</span>
+            </div>
+            <div class="setting-tweak-hint" id="tweak-42"><i class="fa-solid fa-sliders"></i> Ready for launch</div>
+            <div class="card-actions">
+                <button class="btn-play" data-action="toggle" data-id="42"><i class="fa-solid fa-plus"></i> Select Game</button>
+                <button class="btn-reqs" data-action="reqs" data-id="42"><i class="fa-solid fa-sliders"></i> System Reqs</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Card 43 -->
+    <div class="game-card" data-id="43" data-title="Tom Clancys Splinter Cell Conviction" data-genre="Stealth / Action" data-size="6.91" data-ram="2" data-vram="0.5" data-cpu="1.8 GHz Intel Core 2 Duo / 2.4 GHz AMD Athlon X2 64" data-gpu="NVIDIA GeForce 7800 / ATI Radeon X1800">
+        <div class="hud-status-badge status-ready" id="hud-43">&lt;CALCULATING&gt;</div>
+        <div class="card-img-wrapper">
+            <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/33220/header.jpg" alt="Tom Clancys Splinter Cell Conviction" class="card-img" loading="lazy">
+            <div class="fps-badge" id="fps-43"><i class="fa-solid fa-gauge-high"></i> -- FPS</div>
+        </div>
+        <div class="card-content">
+            <div class="game-title">Tom Clancys Splinter Cell Conviction</div>
+            <div class="game-meta">
+                <span>Stealth / Action</span>
+                <span>6.91 GB</span>
+            </div>
+            <div class="setting-tweak-hint" id="tweak-43"><i class="fa-solid fa-sliders"></i> Ready for launch</div>
+            <div class="card-actions">
+                <button class="btn-play" data-action="toggle" data-id="43"><i class="fa-solid fa-plus"></i> Select Game</button>
+                <button class="btn-reqs" data-action="reqs" data-id="43"><i class="fa-solid fa-sliders"></i> System Reqs</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Card 44 -->
+    <div class="game-card" data-id="44" data-title="Tomb Raider - Legend" data-genre="Action-Adventure" data-size="7.17" data-ram="0.5" data-vram="0.128" data-cpu="Pentium 4 2.0GHz / Athlon XP Equivalent" data-gpu="NVIDIA GeForce FX 5700 / ATI Radeon 9600">
+        <div class="hud-status-badge status-ready" id="hud-44">&lt;CALCULATING&gt;</div>
+        <div class="card-img-wrapper">
+            <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/7000/header.jpg" alt="Tomb Raider - Legend" class="card-img" loading="lazy">
+            <div class="fps-badge" id="fps-44"><i class="fa-solid fa-gauge-high"></i> -- FPS</div>
+        </div>
+        <div class="card-content">
+            <div class="game-title">Tomb Raider - Legend</div>
+            <div class="game-meta">
+                <span>Action-Adventure</span>
+                <span>7.17 GB</span>
+            </div>
+            <div class="setting-tweak-hint" id="tweak-44"><i class="fa-solid fa-sliders"></i> Ready for launch</div>
+            <div class="card-actions">
+                <button class="btn-play" data-action="toggle" data-id="44"><i class="fa-solid fa-plus"></i> Select Game</button>
+                <button class="btn-reqs" data-action="reqs" data-id="44"><i class="fa-solid fa-sliders"></i> System Reqs</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Card 45 -->
+    <div class="game-card" data-id="45" data-title="Tomb Raider Anniversary" data-genre="Action-Adventure" data-size="3.89" data-ram="0.5" data-vram="0.064" data-cpu="Pentium 4 1.4GHz / Athlon XP Equivalent" data-gpu="NVIDIA GeForce 3 / ATI Radeon 8500">
+        <div class="hud-status-badge status-ready" id="hud-45">&lt;CALCULATING&gt;</div>
+        <div class="card-img-wrapper">
+            <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/8000/header.jpg" alt="Tomb Raider Anniversary" class="card-img" loading="lazy">
+            <div class="fps-badge" id="fps-45"><i class="fa-solid fa-gauge-high"></i> -- FPS</div>
+        </div>
+        <div class="card-content">
+            <div class="game-title">Tomb Raider Anniversary</div>
+            <div class="game-meta">
+                <span>Action-Adventure</span>
+                <span>3.89 GB</span>
+            </div>
+            <div class="setting-tweak-hint" id="tweak-45"><i class="fa-solid fa-sliders"></i> Ready for launch</div>
+            <div class="card-actions">
+                <button class="btn-play" data-action="toggle" data-id="45"><i class="fa-solid fa-plus"></i> Select Game</button>
+                <button class="btn-reqs" data-action="reqs" data-id="45"><i class="fa-solid fa-sliders"></i> System Reqs</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Card 46 -->
+    <div class="game-card" data-id="46" data-title="Tomb Raider IV-VI Remastered" data-genre="Action-Adventure" data-size="11.04" data-ram="8" data-vram="2" data-cpu="Intel Core i3-3240 / AMD FX-4100" data-gpu="NVIDIA GeForce GT 730 / AMD Radeon R7 240">
+        <div class="hud-status-badge status-ready" id="hud-46">&lt;CALCULATING&gt;</div>
+        <div class="card-img-wrapper">
+            <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2525380/header.jpg" alt="Tomb Raider IV-VI Remastered" class="card-img" loading="lazy">
+            <div class="fps-badge" id="fps-46"><i class="fa-solid fa-gauge-high"></i> -- FPS</div>
+        </div>
+        <div class="card-content">
+            <div class="game-title">Tomb Raider IV-VI Remastered</div>
+            <div class="game-meta">
+                <span>Action-Adventure</span>
+                <span>11.04 GB</span>
+            </div>
+            <div class="setting-tweak-hint" id="tweak-46"><i class="fa-solid fa-sliders"></i> Ready for launch</div>
+            <div class="card-actions">
+                <button class="btn-play" data-action="toggle" data-id="46"><i class="fa-solid fa-plus"></i> Select Game</button>
+                <button class="btn-reqs" data-action="reqs" data-id="46"><i class="fa-solid fa-sliders"></i> System Reqs</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Card 47 -->
+    <div class="game-card" data-id="47" data-title="Total War Shogun" data-genre="Grand Strategy" data-size="1.70" data-ram="0.5" data-vram="0.032" data-cpu="Intel Pentium II 233MHz" data-gpu="DirectX 7.0 Compatible GPU">
+        <div class="hud-status-badge status-ready" id="hud-47">&lt;CALCULATING&gt;</div>
+        <div class="card-img-wrapper">
+            <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/345240/header.jpg" alt="Total War Shogun" class="card-img" loading="lazy">
+            <div class="fps-badge" id="fps-47"><i class="fa-solid fa-gauge-high"></i> -- FPS</div>
+        </div>
+        <div class="card-content">
+            <div class="game-title">Total War Shogun</div>
+            <div class="game-meta">
+                <span>Grand Strategy</span>
+                <span>1.70 GB</span>
+            </div>
+            <div class="setting-tweak-hint" id="tweak-47"><i class="fa-solid fa-sliders"></i> Ready for launch</div>
+            <div class="card-actions">
+                <button class="btn-play" data-action="toggle" data-id="47"><i class="fa-solid fa-plus"></i> Select Game</button>
+                <button class="btn-reqs" data-action="reqs" data-id="47"><i class="fa-solid fa-sliders"></i> System Reqs</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Card 48 -->
+    <div class="game-card" data-id="48" data-title="ULTIMATE MARVEL VS. CAPCOM 3" data-genre="Fighting" data-size="3.54" data-ram="2" data-vram="0.5" data-cpu="Intel Core 2 Duo 2.4 GHz" data-gpu="NVIDIA GeForce 8800 GTS / ATI Radeon HD 3850">
+        <div class="hud-status-badge status-ready" id="hud-48">&lt;CALCULATING&gt;</div>
+        <div class="card-img-wrapper">
+            <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/357190/header.jpg" alt="ULTIMATE MARVEL VS. CAPCOM 3" class="card-img" loading="lazy">
+            <div class="fps-badge" id="fps-48"><i class="fa-solid fa-gauge-high"></i> -- FPS</div>
+        </div>
+        <div class="card-content">
+            <div class="game-title">ULTIMATE MARVEL VS. CAPCOM 3</div>
+            <div class="game-meta">
+                <span>Fighting</span>
+                <span>3.54 GB</span>
+            </div>
+            <div class="setting-tweak-hint" id="tweak-48"><i class="fa-solid fa-sliders"></i> Ready for launch</div>
+            <div class="card-actions">
+                <button class="btn-play" data-action="toggle" data-id="48"><i class="fa-solid fa-plus"></i> Select Game</button>
+                <button class="btn-reqs" data-action="reqs" data-id="48"><i class="fa-solid fa-sliders"></i> System Reqs</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Card 49 -->
+    <div class="game-card" data-id="49" data-title="Warcraft III: The Frozen Throne" data-genre="RTS" data-size="1.98" data-ram="0.5" data-vram="0.032" data-cpu="400 MHz Pentium II" data-gpu="8 MB 3D Video Card">
+        <div class="hud-status-badge status-ready" id="hud-49">&lt;CALCULATING&gt;</div>
+        <div class="card-img-wrapper">
+            <img src="https://images.steamusercontent.com/ugc/2295211542986042862/D5A84CF40395D046C1A845C9A2214BF5BC5CA158/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false" alt="Warcraft III: The Frozen Throne" class="card-img" loading="lazy">
+            <div class="fps-badge" id="fps-49"><i class="fa-solid fa-gauge-high"></i> -- FPS</div>
+        </div>
+        <div class="card-content">
+            <div class="game-title">Warcraft III: The Frozen Throne</div>
+            <div class="game-meta">
+                <span>RTS</span>
+                <span>1.98 GB</span>
+            </div>
+            <div class="setting-tweak-hint" id="tweak-49"><i class="fa-solid fa-sliders"></i> Ready for launch</div>
+            <div class="card-actions">
+                <button class="btn-play" data-action="toggle" data-id="49"><i class="fa-solid fa-plus"></i> Select Game</button>
+                <button class="btn-reqs" data-action="reqs" data-id="49"><i class="fa-solid fa-sliders"></i> System Reqs</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Card 50 -->
+    <div class="game-card" data-id="50" data-title="Watch Dogs 2" data-genre="Action-Adventure" data-size="47.35" data-ram="6" data-vram="2" data-cpu="Intel Core i5 2400s / AMD FX 6120" data-gpu="NVIDIA GeForce GTX 660 / AMD Radeon HD 7870">
+        <div class="hud-status-badge status-ready" id="hud-50">&lt;CALCULATING&gt;</div>
+        <div class="card-img-wrapper">
+            <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/447040/header.jpg" alt="Watch Dogs 2" class="card-img" loading="lazy">
+            <div class="fps-badge" id="fps-50"><i class="fa-solid fa-gauge-high"></i> -- FPS</div>
+        </div>
+        <div class="card-content">
+            <div class="game-title">Watch Dogs 2</div>
+            <div class="game-meta">
+                <span>Action-Adventure</span>
+                <span>47.35 GB</span>
+            </div>
+            <div class="setting-tweak-hint" id="tweak-50"><i class="fa-solid fa-sliders"></i> Ready for launch</div>
+            <div class="card-actions">
+                <button class="btn-play" data-action="toggle" data-id="50"><i class="fa-solid fa-plus"></i> Select Game</button>
+                <button class="btn-reqs" data-action="reqs" data-id="50"><i class="fa-solid fa-sliders"></i> System Reqs</button>
+            </div>
+        </div>
+    </div>
+
+    </div>
     </main>
 
-    <!-- SYSTEM REQUIREMENTS MODAL -->
+    <!-- FLOATING SYSTEM REQUIREMENTS MODAL -->
     <div class="modal-overlay" id="modalOverlay"></div>
     <div class="modal-container" id="reqsModal">
         <div class="modal-header">
-            <div class="modal-title" id="modalGameTitle"><i class="fa-solid fa-microchip"></i> System Requirements</div>
+            <div class="modal-title" id="modalGameTitle">
+                <i class="fa-solid fa-microchip"></i> System Requirements
+            </div>
             <button class="btn-close-modal" id="btnCloseModal"><i class="fa-solid fa-xmark"></i></button>
         </div>
         <div class="reqs-grid">
             <div class="req-card-row">
-                <div class="req-card-label"><i class="fa-solid fa-microchip"></i> Processor</div>
-                <div class="req-card-value" id="reqCpu">--</div>
+                <span class="req-card-label"><i class="fa-solid fa-microchip"></i> CPU</span>
+                <span class="req-card-value" id="modalCpu">--</span>
             </div>
             <div class="req-card-row">
-                <div class="req-card-label"><i class="fa-solid fa-memory"></i> RAM</div>
-                <div class="req-card-value" id="reqRam">--</div>
+                <span class="req-card-label"><i class="fa-solid fa-tv"></i> GPU</span>
+                <span class="req-card-value" id="modalGpu">--</span>
             </div>
             <div class="req-card-row">
-                <div class="req-card-label"><i class="fa-solid fa-display"></i> Graphics</div>
-                <div class="req-card-value" id="reqGpu">--</div>
+                <span class="req-card-label"><i class="fa-solid fa-memory"></i> RAM Req</span>
+                <span class="req-card-value" id="modalRam">-- GB</span>
             </div>
             <div class="req-card-row">
-                <div class="req-card-label"><i class="fa-solid fa-hard-drive"></i> Storage</div>
-                <div class="req-card-value" id="reqSize">--</div>
+                <span class="req-card-label"><i class="fa-solid fa-hard-drive"></i> VRAM Req</span>
+                <span class="req-card-value" id="modalVram">-- GB</span>
             </div>
         </div>
     </div>
 
-    <!-- CART / DRAWER WIDGET -->
-    <div class="cart-widget">
+    <!-- CART / SELECTION & STORAGE TETRIS WIDGET -->
+    <div class="cart-widget" id="cartWidget">
         <div class="cart-header">
-            <span>Selected Games (<span id="cartCount">0</span>)</span>
-            <button class="btn-clear-all" id="btnClearCart">Clear All</button>
+            <span><i class="fa-solid fa-gamepad"></i> Selected Games (<span id="cartCount">0</span>)</span>
+            <div class="cart-header-actions">
+                <button class="btn-clear-all" id="btnClearCart">Clear All</button>
+            </div>
         </div>
-        <ul class="cart-items" id="cartItems">
-            <li class="empty-msg">No games selected yet.</li>
+
+        <ul class="cart-items" id="cartItemsList">
+            <li class="empty-msg" id="emptyMsg">No games selected yet</li>
         </ul>
+
+        <div class="hdd-storage-section">
+            <div class="hdd-label-row">
+                <div class="hdd-info-group">
+                    <i class="fa-solid fa-hard-drive hdd-icon"></i>
+                    <span>Target Drive:</span>
+                    <select class="target-drive-select" id="driveSelect">
+                        <option value="64">64 GB Flash Drive</option>
+                        <option value="128" selected>128 GB Flash Drive</option>
+                        <option value="256">256 GB SSD</option>
+                        <option value="512">512 GB SSD</option>
+                        <option value="1000">1 TB HDD</option>
+                    </select>
+                </div>
+                <div>
+                    Used: <span class="hdd-val-highlight" id="totalSizeGB">0.00</span> / <span id="driveCapacityGB">128</span> GB
+                </div>
+            </div>
+
+            <div class="tetris-bar-bg" id="tetrisBar"></div>
+
+            <div class="storage-advice-box" id="storageAdvice">
+                <i class="fa-solid fa-lightbulb"></i> <span id="adviceText">Select games to analyze drive space allocation.</span>
+            </div>
+        </div>
+
         <div class="cart-footer">
-            <button class="btn-copy-drawer" id="btnCopyCart" disabled><i class="fa-solid fa-copy"></i> Copy Selection List</button>
+            <button class="btn-copy-drawer" id="btnCopyList" disabled>
+                <i class="fa-solid fa-copy"></i> Copy Selection List
+            </button>
         </div>
     </div>
 
-    <script>
-        const selectedGames = new Map();
-
-        // DOM elements
-        const searchInput = document.getElementById('searchInput');
-        const sortSelect = document.getElementById('sortSelect');
-        const genreChips = document.getElementById('genreChips');
-        const gameCards = document.querySelectorAll('.game-card');
-        const cartItems = document.getElementById('cartItems');
-        const cartCount = document.getElementById('cartCount');
-        const btnClearCart = document.getElementById('btnClearCart');
-        const btnCopyCart = document.getElementById('btnCopyCart');
-        const toastContainer = document.getElementById('toastContainer');
-
-        // Requirements Modal
-        const modalOverlay = document.getElementById('modalOverlay');
-        const reqsModal = document.getElementById('reqsModal');
-        const btnCloseModal = document.getElementById('btnCloseModal');
-
-        // Toast Notification Helper
-        function showToast(message) {
-            const toast = document.createElement('div');
-            toast.className = 'toast';
-            toast.innerHTML = `<i class="fa-solid fa-circle-check"></i> ${message}`;
-            toastContainer.appendChild(toast);
-            setTimeout(() => toast.remove(), 2500);
-        }
-
-        // Toggle Game Selection
-        document.addEventListener('click', (e) => {
-            const btnPlay = e.target.closest('.btn-play');
-            if (btnPlay) {
-                const id = btnPlay.getAttribute('data-id');
-                const card = document.querySelector(`.game-card[data-id="${id}"]`);
-                const title = card.getAttribute('data-title');
-                const size = card.getAttribute('data-size');
-
-                if (selectedGames.has(id)) {
-                    selectedGames.delete(id);
-                    card.classList.remove('selected');
-                    btnPlay.innerHTML = `<i class="fa-solid fa-plus"></i> Select Game`;
-                    showToast(`Removed ${title}`);
-                } else {
-                    selectedGames.set(id, { title, size });
-                    card.classList.add('selected');
-                    btnPlay.innerHTML = `<i class="fa-solid fa-check"></i> Selected`;
-                    showToast(`Added ${title}`);
-                }
-                updateCart();
-            }
-
-            const btnReqs = e.target.closest('.btn-reqs');
-            if (btnReqs) {
-                const id = btnReqs.getAttribute('data-id');
-                const card = document.querySelector(`.game-card[data-id="${id}"]`);
-                
-                document.getElementById('modalGameTitle').innerText = card.getAttribute('data-title');
-                document.getElementById('reqCpu').innerText = card.getAttribute('data-cpu');
-                document.getElementById('reqRam').innerText = card.getAttribute('data-ram') + ' GB';
-                document.getElementById('reqGpu').innerText = card.getAttribute('data-gpu');
-                document.getElementById('reqSize').innerText = card.getAttribute('data-size') + ' GB';
-
-                modalOverlay.classList.add('active');
-                reqsModal.classList.add('active');
-            }
-        });
-
-        // Close Modal
-        btnCloseModal.addEventListener('click', closeModal);
-        modalOverlay.addEventListener('click', closeModal);
-        function closeModal() {
-            modalOverlay.classList.remove('active');
-            reqsModal.classList.remove('active');
-        }
-
-        // Update Cart Drawer View
-        function updateCart() {
-            cartCount.innerText = selectedGames.size;
-            cartItems.innerHTML = '';
-
-            if (selectedGames.size === 0) {
-                cartItems.innerHTML = `<li class="empty-msg">No games selected yet.</li>`;
-                btnCopyCart.disabled = true;
-                return;
-            }
-
-            btnCopyCart.disabled = false;
-            selectedGames.forEach((game, id) => {
-                const li = document.createElement('li');
-                li.className = 'cart-item';
-                li.innerHTML = `
-                    <span>${game.title} (${game.size} GB)</span>
-                    <button class="btn-remove-item" onclick="removeGame('${id}')"><i class="fa-solid fa-trash"></i></button>
-                `;
-                cartItems.appendChild(li);
-            });
-        }
-
-        window.removeGame = function(id) {
-            const card = document.querySelector(`.game-card[data-id="${id}"]`);
-            if (card) {
-                card.classList.remove('selected');
-                const btn = card.querySelector('.btn-play');
-                if (btn) btn.innerHTML = `<i class="fa-solid fa-plus"></i> Select Game`;
-            }
-            selectedGames.delete(id);
-            updateCart();
-        };
-
-        btnClearCart.addEventListener('click', () => {
-            selectedGames.forEach((_, id) => removeGame(id));
-        });
-
-        btnCopyCart.addEventListener('click', () => {
-            let listText = "Selected Games List:\n";
-            selectedGames.forEach((game) => {
-                listText += `- ${game.title} (${game.size} GB)\n`;
-            });
-            navigator.clipboard.writeText(listText);
-            showToast("Selection list copied to clipboard!");
-        });
-
-        // Search & Filter
-        searchInput.addEventListener('input', filterGames);
-        genreChips.addEventListener('click', (e) => {
-            if (e.target.classList.contains('chip')) {
-                document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
-                e.target.classList.add('active');
-                filterGames();
-            }
-        });
-
-        function filterGames() {
-            const searchVal = searchInput.value.toLowerCase();
-            const activeGenre = document.querySelector('.chip.active').getAttribute('data-genre');
-
-            gameCards.forEach(card => {
-                const title = card.getAttribute('data-title').toLowerCase();
-                const genre = card.getAttribute('data-genre');
-                const matchesSearch = title.includes(searchVal);
-                const matchesGenre = activeGenre === 'all' || genre === activeGenre;
-
-                if (matchesSearch && matchesGenre) {
-                    card.style.display = 'flex';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-        }
-    </script>
 </body>
 </html>
